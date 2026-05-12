@@ -19,11 +19,10 @@ td ti kst --symbol AAPL --interval 1day
 
 ## Output formats
 
-`td` renders responses based on `--output` and TTY detection:
+`td` renders responses based on `--output`:
 
-- `--output json` (or piped / `CI=true` / `--quiet`): pretty-printed JSON.
+- `--output json` (default): pretty-printed JSON.
 - `--output csv`: streams the API's CSV response verbatim. Sets `format=csv` upstream.
-- `--output table` (default on a TTY): pretty-printed JSON for now; richer table rendering is a future enhancement.
 
 ## Authentication
 

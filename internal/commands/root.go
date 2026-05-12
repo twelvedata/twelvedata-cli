@@ -10,15 +10,15 @@ import (
 var rootCmd = &cobra.Command{
 	Use:           "td",
 	Short:         "Twelve Data CLI",
-	Long:          "Twelve Data CLI — REST client for Twelve Data's market data API. Designed for AI agents and humans alike.\n\nGlobal flags --output and --quiet control output rendering. On a TTY the default is a human-friendly format; in pipes and CI the default is JSON.",
+	Long:          "Twelve Data CLI — REST client for Twelve Data's market data API. Designed for AI agents and humans alike.\n\nResponses render as pretty-printed JSON by default; --output csv switches to the streaming CSV path for endpoints that support it.",
 	SilenceUsage:  true,
 	SilenceErrors: true,
 }
 
 func init() {
 	rootCmd.PersistentFlags().String("api-key", "", "Twelve Data API key (overrides TWELVEDATA_API_KEY)")
-	rootCmd.PersistentFlags().StringP("output", "o", "", "Output format: json, csv, table (default: table on TTY, json on pipe/CI)")
-	rootCmd.PersistentFlags().BoolP("quiet", "q", false, "Suppress decorations; implies --output=json")
+	rootCmd.PersistentFlags().StringP("output", "o", "", "Output format: json, csv (default: json)")
+	rootCmd.PersistentFlags().BoolP("quiet", "q", false, "Force JSON error envelopes on stderr even on a TTY")
 }
 
 // Execute runs the root command and returns a process exit code suitable for

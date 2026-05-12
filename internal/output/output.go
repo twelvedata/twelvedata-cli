@@ -14,33 +14,24 @@ import (
 type Format string
 
 const (
-	FormatTable Format = "table"
-	FormatJSON  Format = "json"
-	FormatCSV   Format = "csv"
+	FormatJSON Format = "json"
+	FormatCSV  Format = "csv"
 )
 
-// ResolveFormat picks an output format using this precedence:
-//
-//	--output flag > --quiet (forces json) > non-TTY/CI (json) > TTY default (table).
+// ResolveFormat picks an output format. JSON is the default; --output csv opts
+// into the streaming CSV path.
 func ResolveFormat(cmd *cobra.Command) (Format, error) {
 	out, _ := cmd.Flags().GetString("output")
-	if out != "" {
-		f := Format(out)
-		switch f {
-		case FormatJSON, FormatCSV, FormatTable:
-			return f, nil
-		default:
-			return "", fmt.Errorf("invalid --output %q (want json, csv, or table)", out)
-		}
-	}
-	quiet, _ := cmd.Flags().GetBool("quiet")
-	if quiet {
+	if out == "" {
 		return FormatJSON, nil
 	}
-	if !isTerminal(os.Stdout) || isCI() {
-		return FormatJSON, nil
+	f := Format(out)
+	switch f {
+	case FormatJSON, FormatCSV:
+		return f, nil
+	default:
+		return "", fmt.Errorf("invalid --output %q (want json or csv)", out)
 	}
-	return FormatTable, nil
 }
 
 // Render writes resp in the resolved format. For --output csv the typed resp is
