@@ -8,8 +8,8 @@ type FileBackend struct{}
 
 func NewFileBackend() *FileBackend { return &FileBackend{} }
 
-func (FileBackend) Name() string   { return "plaintext file" }
-func (FileBackend) IsSecure() bool { return false }
+func (FileBackend) Name() string      { return "plaintext file" }
+func (FileBackend) IsSecure() bool    { return false }
 func (FileBackend) IsAvailable() bool { return true }
 
 func (FileBackend) Get(account string) (string, error) {

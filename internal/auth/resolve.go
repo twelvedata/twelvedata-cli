@@ -10,12 +10,12 @@ import (
 type Source string
 
 const (
-	SourceFlag    Source = "flag"
-	SourceEnv     Source = "env"
-	SourceConfig  Source = "config"
-	SourceSecure  Source = "secure_storage"
-	envAPIKey            = "TWELVEDATA_API_KEY"
-	envProfile           = "TWELVEDATA_PROFILE"
+	SourceFlag   Source = "flag"
+	SourceEnv    Source = "env"
+	SourceConfig Source = "config"
+	SourceSecure Source = "secure_storage"
+	envAPIKey           = "TWELVEDATA_API_KEY"
+	envProfile          = "TWELVEDATA_PROFILE"
 )
 
 // ResolvedKey is the result of the resolution chain. Profile is empty when

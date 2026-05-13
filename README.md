@@ -26,10 +26,40 @@ td ti kst --symbol AAPL --interval 1day
 
 ## Authentication
 
-`td` reads the API key from these sources in order:
+`td` resolves the API key from these sources, in order:
 
 1. `--api-key <key>` flag
 2. `TWELVEDATA_API_KEY` environment variable
+3. Active profile in `credentials.json` (see `td whoami`)
+
+### Profiles
+
+`td` supports named profiles so you can keep separate keys for prototyping, production, or different team accounts.
+
+```sh
+td login --key <your-api-key>          # store in default profile
+td login --profile staging --key <key> # store in named profile
+td auth list                           # list profiles
+td auth switch staging                 # change active profile
+td whoami                              # show active profile + masked key
+```
+
+Other auth commands: `td logout [--profile <name>]`, `td auth rename <old> <new>`, `td auth remove <name>`. The `--profile` flag (or `TWELVEDATA_PROFILE` env var) overrides the active profile for one invocation.
+
+### Storage
+
+Keys are saved to your OS keyring when available (macOS Keychain, Windows Credential Manager, Linux Secret Service). When no keyring is available, the key falls back to a `0600` file at `$XDG_CONFIG_HOME/twelvedata/credentials.json` (or `~/.config/twelvedata/credentials.json` / `%APPDATA%\twelvedata\credentials.json` on Windows).
+
+Override storage with `TWELVEDATA_CREDENTIAL_STORE=file` to force plaintext.
+
+### Environment variables
+
+| Var | Purpose |
+| --- | --- |
+| `TWELVEDATA_API_KEY` | API key (highest precedence after `--api-key`) |
+| `TWELVEDATA_PROFILE` | Profile name override |
+| `TWELVEDATA_CREDENTIAL_STORE` | `secure_storage` (default) or `file` |
+| `TWELVEDATA_CONFIG_DIR` | Override the credentials directory (mostly for tests) |
 
 ## Agent discovery
 
