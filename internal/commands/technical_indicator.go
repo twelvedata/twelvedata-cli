@@ -1359,6 +1359,11 @@ var GetTimeSeriesBBandsCmd = &cobra.Command{
 			req = req.TimePeriod(v)
 		}
 
+		if cmd.Flags().Changed("sd") {
+			v, _ := cmd.Flags().GetFloat64("sd")
+			req = req.Sd(v)
+		}
+
 		if cmd.Flags().Changed("ma-type") {
 			req = req.MaType(twelvedata.MaTypeEnum(cmd.Flags().Lookup("ma-type").Value.String()))
 		}
@@ -5787,6 +5792,16 @@ var GetTimeSeriesMamaCmd = &cobra.Command{
 			req = req.SeriesType(twelvedata.SeriesTypeEnum(cmd.Flags().Lookup("series-type").Value.String()))
 		}
 
+		if cmd.Flags().Changed("fast-limit") {
+			v, _ := cmd.Flags().GetFloat64("fast-limit")
+			req = req.FastLimit(v)
+		}
+
+		if cmd.Flags().Changed("slow-limit") {
+			v, _ := cmd.Flags().GetFloat64("slow-limit")
+			req = req.SlowLimit(v)
+		}
+
 		if cmd.Flags().Changed("include-ohlc") {
 			v, _ := cmd.Flags().GetBool("include-ohlc")
 			req = req.IncludeOhlc(v)
@@ -7818,6 +7833,11 @@ var GetTimeSeriesPercentBCmd = &cobra.Command{
 			req = req.TimePeriod(v)
 		}
 
+		if cmd.Flags().Changed("sd") {
+			v, _ := cmd.Flags().GetFloat64("sd")
+			req = req.Sd(v)
+		}
+
 		if cmd.Flags().Changed("ma-type") {
 			req = req.MaType(twelvedata.MaTypeEnum(cmd.Flags().Lookup("ma-type").Value.String()))
 		}
@@ -9071,6 +9091,16 @@ var GetTimeSeriesSarCmd = &cobra.Command{
 			req = req.Adjust(twelvedata.AdjustEnum(cmd.Flags().Lookup("adjust").Value.String()))
 		}
 
+		if cmd.Flags().Changed("acceleration") {
+			v, _ := cmd.Flags().GetFloat64("acceleration")
+			req = req.Acceleration(v)
+		}
+
+		if cmd.Flags().Changed("maximum") {
+			v, _ := cmd.Flags().GetFloat64("maximum")
+			req = req.Maximum(v)
+		}
+
 		if cmd.Flags().Changed("include-ohlc") {
 			v, _ := cmd.Flags().GetBool("include-ohlc")
 			req = req.IncludeOhlc(v)
@@ -9175,6 +9205,46 @@ var GetTimeSeriesSarExtCmd = &cobra.Command{
 
 		if cmd.Flags().Changed("adjust") {
 			req = req.Adjust(twelvedata.AdjustEnum(cmd.Flags().Lookup("adjust").Value.String()))
+		}
+
+		if cmd.Flags().Changed("start-value") {
+			v, _ := cmd.Flags().GetFloat64("start-value")
+			req = req.StartValue(v)
+		}
+
+		if cmd.Flags().Changed("offset-on-reverse") {
+			v, _ := cmd.Flags().GetFloat64("offset-on-reverse")
+			req = req.OffsetOnReverse(v)
+		}
+
+		if cmd.Flags().Changed("acceleration-limit-long") {
+			v, _ := cmd.Flags().GetFloat64("acceleration-limit-long")
+			req = req.AccelerationLimitLong(v)
+		}
+
+		if cmd.Flags().Changed("acceleration-long") {
+			v, _ := cmd.Flags().GetFloat64("acceleration-long")
+			req = req.AccelerationLong(v)
+		}
+
+		if cmd.Flags().Changed("acceleration-max-long") {
+			v, _ := cmd.Flags().GetFloat64("acceleration-max-long")
+			req = req.AccelerationMaxLong(v)
+		}
+
+		if cmd.Flags().Changed("acceleration-limit-short") {
+			v, _ := cmd.Flags().GetFloat64("acceleration-limit-short")
+			req = req.AccelerationLimitShort(v)
+		}
+
+		if cmd.Flags().Changed("acceleration-short") {
+			v, _ := cmd.Flags().GetFloat64("acceleration-short")
+			req = req.AccelerationShort(v)
+		}
+
+		if cmd.Flags().Changed("acceleration-max-short") {
+			v, _ := cmd.Flags().GetFloat64("acceleration-max-short")
+			req = req.AccelerationMaxShort(v)
 		}
 
 		if cmd.Flags().Changed("include-ohlc") {
@@ -9515,6 +9585,11 @@ var GetTimeSeriesStdDevCmd = &cobra.Command{
 		if cmd.Flags().Changed("time-period") {
 			v, _ := cmd.Flags().GetInt64("time-period")
 			req = req.TimePeriod(v)
+		}
+
+		if cmd.Flags().Changed("sd") {
+			v, _ := cmd.Flags().GetFloat64("sd")
+			req = req.Sd(v)
 		}
 
 		if cmd.Flags().Changed("include-ohlc") {
@@ -10480,6 +10555,11 @@ var GetTimeSeriesT3maCmd = &cobra.Command{
 			req = req.TimePeriod(v)
 		}
 
+		if cmd.Flags().Changed("v-factor") {
+			v, _ := cmd.Flags().GetFloat64("v-factor")
+			req = req.VFactor(v)
+		}
+
 		if cmd.Flags().Changed("include-ohlc") {
 			v, _ := cmd.Flags().GetBool("include-ohlc")
 			req = req.IncludeOhlc(v)
@@ -11384,6 +11464,11 @@ var GetTimeSeriesVwapCmd = &cobra.Command{
 			req = req.SdTimePeriod(v)
 		}
 
+		if cmd.Flags().Changed("sd") {
+			v, _ := cmd.Flags().GetFloat64("sd")
+			req = req.Sd(v)
+		}
+
 		if cmd.Flags().Changed("include-ohlc") {
 			v, _ := cmd.Flags().GetBool("include-ohlc")
 			req = req.IncludeOhlc(v)
@@ -11772,6 +11857,8 @@ func init() {
 
 	GetTimeSeriesAdCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesAdCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesAdCmd)
 
 	flagx.Register(GetTimeSeriesAdOscCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -11817,6 +11904,8 @@ func init() {
 	GetTimeSeriesAdOscCmd.Flags().Int64("slow-period", 0, "Number of periods for slow moving average. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesAdOscCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesAdOscCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesAdOscCmd)
 
@@ -11864,6 +11953,8 @@ func init() {
 
 	GetTimeSeriesAddCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesAddCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesAddCmd)
 
 	flagx.Register(GetTimeSeriesAdxCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -11908,6 +11999,8 @@ func init() {
 
 	GetTimeSeriesAdxCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesAdxCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesAdxCmd)
 
 	flagx.Register(GetTimeSeriesAdxrCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -11951,6 +12044,8 @@ func init() {
 	GetTimeSeriesAdxrCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesAdxrCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesAdxrCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesAdxrCmd)
 
@@ -12002,6 +12097,8 @@ func init() {
 
 	GetTimeSeriesApoCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesApoCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesApoCmd)
 
 	flagx.Register(GetTimeSeriesAroonCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -12045,6 +12142,8 @@ func init() {
 	GetTimeSeriesAroonCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesAroonCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesAroonCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesAroonCmd)
 
@@ -12090,6 +12189,8 @@ func init() {
 
 	GetTimeSeriesAroonOscCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesAroonOscCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesAroonOscCmd)
 
 	flagx.Register(GetTimeSeriesAtrCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -12133,6 +12234,8 @@ func init() {
 	GetTimeSeriesAtrCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesAtrCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesAtrCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesAtrCmd)
 
@@ -12180,6 +12283,8 @@ func init() {
 
 	GetTimeSeriesAvgCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesAvgCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesAvgCmd)
 
 	flagx.Register(GetTimeSeriesAvgPriceCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -12221,6 +12326,8 @@ func init() {
 	flagx.Register(GetTimeSeriesAvgPriceCmd, "adjust", twelvedata.AllowedAdjustEnumEnumValues, "Adjusting mode for prices")
 
 	GetTimeSeriesAvgPriceCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesAvgPriceCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesAvgPriceCmd)
 
@@ -12266,9 +12373,13 @@ func init() {
 
 	GetTimeSeriesBBandsCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
+	GetTimeSeriesBBandsCmd.Flags().Float64("sd", 0, "Number of standard deviations. Must be at least `1`")
+
 	flagx.Register(GetTimeSeriesBBandsCmd, "ma-type", twelvedata.AllowedMaTypeEnumEnumValues, "The type of moving average used")
 
 	GetTimeSeriesBBandsCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesBBandsCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesBBandsCmd)
 
@@ -12318,6 +12429,8 @@ func init() {
 
 	GetTimeSeriesBetaCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesBetaCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesBetaCmd)
 
 	flagx.Register(GetTimeSeriesBopCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -12359,6 +12472,8 @@ func init() {
 	flagx.Register(GetTimeSeriesBopCmd, "adjust", twelvedata.AllowedAdjustEnumEnumValues, "Adjusting mode for prices")
 
 	GetTimeSeriesBopCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesBopCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesBopCmd)
 
@@ -12404,6 +12519,8 @@ func init() {
 
 	GetTimeSeriesCciCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesCciCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesCciCmd)
 
 	flagx.Register(GetTimeSeriesCeilCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -12447,6 +12564,8 @@ func init() {
 	flagx.Register(GetTimeSeriesCeilCmd, "series-type", twelvedata.AllowedSeriesTypeEnumEnumValues, "Price type on which technical indicator is calculated")
 
 	GetTimeSeriesCeilCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesCeilCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesCeilCmd)
 
@@ -12493,6 +12612,8 @@ func init() {
 	GetTimeSeriesCmoCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesCmoCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesCmoCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesCmoCmd)
 
@@ -12544,6 +12665,8 @@ func init() {
 
 	GetTimeSeriesCoppockCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesCoppockCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesCoppockCmd)
 
 	flagx.Register(GetTimeSeriesCorrelCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -12591,6 +12714,8 @@ func init() {
 	GetTimeSeriesCorrelCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesCorrelCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesCorrelCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesCorrelCmd)
 
@@ -12642,6 +12767,8 @@ func init() {
 
 	GetTimeSeriesCrsiCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesCrsiCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesCrsiCmd)
 
 	flagx.Register(GetTimeSeriesDemaCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -12688,6 +12815,8 @@ func init() {
 
 	GetTimeSeriesDemaCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesDemaCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesDemaCmd)
 
 	flagx.Register(GetTimeSeriesDivCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -12733,6 +12862,8 @@ func init() {
 	flagx.Register(GetTimeSeriesDivCmd, "series-type-2", twelvedata.AllowedSeriesTypeEnumEnumValues, "Price type used as the second part of technical indicator")
 
 	GetTimeSeriesDivCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesDivCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesDivCmd)
 
@@ -12782,6 +12913,8 @@ func init() {
 
 	GetTimeSeriesDpoCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesDpoCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesDpoCmd)
 
 	flagx.Register(GetTimeSeriesDxCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -12825,6 +12958,8 @@ func init() {
 	GetTimeSeriesDxCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesDxCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesDxCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesDxCmd)
 
@@ -12872,6 +13007,8 @@ func init() {
 
 	GetTimeSeriesEmaCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesEmaCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesEmaCmd)
 
 	flagx.Register(GetTimeSeriesExpCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -12915,6 +13052,8 @@ func init() {
 	flagx.Register(GetTimeSeriesExpCmd, "series-type", twelvedata.AllowedSeriesTypeEnumEnumValues, "Price type on which technical indicator is calculated")
 
 	GetTimeSeriesExpCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesExpCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesExpCmd)
 
@@ -12960,6 +13099,8 @@ func init() {
 
 	GetTimeSeriesFloorCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesFloorCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesFloorCmd)
 
 	flagx.Register(GetTimeSeriesHeikinashiCandlesCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -13002,6 +13143,8 @@ func init() {
 
 	GetTimeSeriesHeikinashiCandlesCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesHeikinashiCandlesCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesHeikinashiCandlesCmd)
 
 	flagx.Register(GetTimeSeriesHlc3Cmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -13043,6 +13186,8 @@ func init() {
 	flagx.Register(GetTimeSeriesHlc3Cmd, "adjust", twelvedata.AllowedAdjustEnumEnumValues, "Adjusting mode for prices")
 
 	GetTimeSeriesHlc3Cmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesHlc3Cmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesHlc3Cmd)
 
@@ -13088,6 +13233,8 @@ func init() {
 
 	GetTimeSeriesHtDcPeriodCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesHtDcPeriodCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesHtDcPeriodCmd)
 
 	flagx.Register(GetTimeSeriesHtDcPhaseCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -13131,6 +13278,8 @@ func init() {
 	flagx.Register(GetTimeSeriesHtDcPhaseCmd, "series-type", twelvedata.AllowedSeriesTypeEnumEnumValues, "Price type on which technical indicator is calculated")
 
 	GetTimeSeriesHtDcPhaseCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesHtDcPhaseCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesHtDcPhaseCmd)
 
@@ -13176,6 +13325,8 @@ func init() {
 
 	GetTimeSeriesHtPhasorCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesHtPhasorCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesHtPhasorCmd)
 
 	flagx.Register(GetTimeSeriesHtSineCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -13219,6 +13370,8 @@ func init() {
 	flagx.Register(GetTimeSeriesHtSineCmd, "series-type", twelvedata.AllowedSeriesTypeEnumEnumValues, "Price type on which technical indicator is calculated")
 
 	GetTimeSeriesHtSineCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesHtSineCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesHtSineCmd)
 
@@ -13264,6 +13417,8 @@ func init() {
 
 	GetTimeSeriesHtTrendModeCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesHtTrendModeCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesHtTrendModeCmd)
 
 	flagx.Register(GetTimeSeriesHtTrendlineCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -13307,6 +13462,8 @@ func init() {
 	flagx.Register(GetTimeSeriesHtTrendlineCmd, "series-type", twelvedata.AllowedSeriesTypeEnumEnumValues, "Price type on which technical indicator is calculated")
 
 	GetTimeSeriesHtTrendlineCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesHtTrendlineCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesHtTrendlineCmd)
 
@@ -13360,6 +13517,8 @@ func init() {
 
 	GetTimeSeriesIchimokuCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesIchimokuCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesIchimokuCmd)
 
 	flagx.Register(GetTimeSeriesKamaCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -13405,6 +13564,8 @@ func init() {
 	GetTimeSeriesKamaCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesKamaCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesKamaCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesKamaCmd)
 
@@ -13457,6 +13618,8 @@ func init() {
 	flagx.Register(GetTimeSeriesKeltnerCmd, "ma-type", twelvedata.AllowedMaTypeEnumEnumValues, "The type of moving average used")
 
 	GetTimeSeriesKeltnerCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesKeltnerCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesKeltnerCmd)
 
@@ -13518,6 +13681,8 @@ func init() {
 
 	GetTimeSeriesKstCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesKstCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesKstCmd)
 
 	flagx.Register(GetTimeSeriesLinearRegCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -13563,6 +13728,8 @@ func init() {
 	GetTimeSeriesLinearRegCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesLinearRegCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesLinearRegCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesLinearRegCmd)
 
@@ -13610,6 +13777,8 @@ func init() {
 
 	GetTimeSeriesLinearRegAngleCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesLinearRegAngleCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesLinearRegAngleCmd)
 
 	flagx.Register(GetTimeSeriesLinearRegInterceptCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -13655,6 +13824,8 @@ func init() {
 	GetTimeSeriesLinearRegInterceptCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesLinearRegInterceptCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesLinearRegInterceptCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesLinearRegInterceptCmd)
 
@@ -13702,6 +13873,8 @@ func init() {
 
 	GetTimeSeriesLinearRegSlopeCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesLinearRegSlopeCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesLinearRegSlopeCmd)
 
 	flagx.Register(GetTimeSeriesLnCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -13746,6 +13919,8 @@ func init() {
 
 	GetTimeSeriesLnCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesLnCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesLnCmd)
 
 	flagx.Register(GetTimeSeriesLog10Cmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -13789,6 +13964,8 @@ func init() {
 	flagx.Register(GetTimeSeriesLog10Cmd, "series-type", twelvedata.AllowedSeriesTypeEnumEnumValues, "Price type on which technical indicator is calculated")
 
 	GetTimeSeriesLog10Cmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesLog10Cmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesLog10Cmd)
 
@@ -13837,6 +14014,8 @@ func init() {
 	flagx.Register(GetTimeSeriesMaCmd, "ma-type", twelvedata.AllowedMaTypeEnumEnumValues, "The type of moving average used")
 
 	GetTimeSeriesMaCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesMaCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesMaCmd)
 
@@ -13887,6 +14066,8 @@ func init() {
 	GetTimeSeriesMacdCmd.Flags().Int64("signal-period", 0, "The time period used for generating the signal line.")
 
 	GetTimeSeriesMacdCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesMacdCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesMacdCmd)
 
@@ -13944,6 +14125,8 @@ func init() {
 
 	GetTimeSeriesMacdExtCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesMacdExtCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesMacdExtCmd)
 
 	flagx.Register(GetTimeSeriesMacdSlopeCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -13996,6 +14179,8 @@ func init() {
 
 	GetTimeSeriesMacdSlopeCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesMacdSlopeCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesMacdSlopeCmd)
 
 	flagx.Register(GetTimeSeriesMamaCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -14038,7 +14223,13 @@ func init() {
 
 	flagx.Register(GetTimeSeriesMamaCmd, "series-type", twelvedata.AllowedSeriesTypeEnumEnumValues, "Price type on which technical indicator is calculated")
 
+	GetTimeSeriesMamaCmd.Flags().Float64("fast-limit", 0, "The limit for the fast moving average.")
+
+	GetTimeSeriesMamaCmd.Flags().Float64("slow-limit", 0, "The limit for the slow moving average.")
+
 	GetTimeSeriesMamaCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesMamaCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesMamaCmd)
 
@@ -14086,6 +14277,8 @@ func init() {
 
 	GetTimeSeriesMaxCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesMaxCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesMaxCmd)
 
 	flagx.Register(GetTimeSeriesMaxIndexCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -14132,6 +14325,8 @@ func init() {
 
 	GetTimeSeriesMaxIndexCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesMaxIndexCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesMaxIndexCmd)
 
 	flagx.Register(GetTimeSeriesMcGinleyDynamicCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -14176,6 +14371,8 @@ func init() {
 
 	GetTimeSeriesMcGinleyDynamicCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesMcGinleyDynamicCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesMcGinleyDynamicCmd)
 
 	flagx.Register(GetTimeSeriesMedPriceCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -14217,6 +14414,8 @@ func init() {
 	flagx.Register(GetTimeSeriesMedPriceCmd, "adjust", twelvedata.AllowedAdjustEnumEnumValues, "Adjusting mode for prices")
 
 	GetTimeSeriesMedPriceCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesMedPriceCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesMedPriceCmd)
 
@@ -14261,6 +14460,8 @@ func init() {
 	GetTimeSeriesMfiCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesMfiCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesMfiCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesMfiCmd)
 
@@ -14308,6 +14509,8 @@ func init() {
 
 	GetTimeSeriesMidPointCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesMidPointCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesMidPointCmd)
 
 	flagx.Register(GetTimeSeriesMidPriceCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -14351,6 +14554,8 @@ func init() {
 	GetTimeSeriesMidPriceCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesMidPriceCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesMidPriceCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesMidPriceCmd)
 
@@ -14398,6 +14603,8 @@ func init() {
 
 	GetTimeSeriesMinCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesMinCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesMinCmd)
 
 	flagx.Register(GetTimeSeriesMinIndexCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -14443,6 +14650,8 @@ func init() {
 	GetTimeSeriesMinIndexCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesMinIndexCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesMinIndexCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesMinIndexCmd)
 
@@ -14490,6 +14699,8 @@ func init() {
 
 	GetTimeSeriesMinMaxCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesMinMaxCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesMinMaxCmd)
 
 	flagx.Register(GetTimeSeriesMinMaxIndexCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -14536,6 +14747,8 @@ func init() {
 
 	GetTimeSeriesMinMaxIndexCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesMinMaxIndexCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesMinMaxIndexCmd)
 
 	flagx.Register(GetTimeSeriesMinusDICmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -14580,6 +14793,8 @@ func init() {
 
 	GetTimeSeriesMinusDICmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesMinusDICmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesMinusDICmd)
 
 	flagx.Register(GetTimeSeriesMinusDMCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -14623,6 +14838,8 @@ func init() {
 	GetTimeSeriesMinusDMCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesMinusDMCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesMinusDMCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesMinusDMCmd)
 
@@ -14670,6 +14887,8 @@ func init() {
 
 	GetTimeSeriesMomCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesMomCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesMomCmd)
 
 	flagx.Register(GetTimeSeriesMultCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -14716,6 +14935,8 @@ func init() {
 
 	GetTimeSeriesMultCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesMultCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesMultCmd)
 
 	flagx.Register(GetTimeSeriesNatrCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -14759,6 +14980,8 @@ func init() {
 	GetTimeSeriesNatrCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesNatrCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesNatrCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesNatrCmd)
 
@@ -14804,6 +15027,8 @@ func init() {
 
 	GetTimeSeriesObvCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesObvCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesObvCmd)
 
 	flagx.Register(GetTimeSeriesPercentBCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -14848,9 +15073,13 @@ func init() {
 
 	GetTimeSeriesPercentBCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
+	GetTimeSeriesPercentBCmd.Flags().Float64("sd", 0, "The standard deviation applied in the calculation. Must be at least `1`")
+
 	flagx.Register(GetTimeSeriesPercentBCmd, "ma-type", twelvedata.AllowedMaTypeEnumEnumValues, "The type of moving average used")
 
 	GetTimeSeriesPercentBCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesPercentBCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesPercentBCmd)
 
@@ -14896,6 +15125,8 @@ func init() {
 
 	GetTimeSeriesPivotPointsHLCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesPivotPointsHLCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesPivotPointsHLCmd)
 
 	flagx.Register(GetTimeSeriesPlusDICmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -14940,6 +15171,8 @@ func init() {
 
 	GetTimeSeriesPlusDICmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesPlusDICmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesPlusDICmd)
 
 	flagx.Register(GetTimeSeriesPlusDMCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -14983,6 +15216,8 @@ func init() {
 	GetTimeSeriesPlusDMCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesPlusDMCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesPlusDMCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesPlusDMCmd)
 
@@ -15034,6 +15269,8 @@ func init() {
 
 	GetTimeSeriesPpoCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesPpoCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesPpoCmd)
 
 	flagx.Register(GetTimeSeriesRocCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -15079,6 +15316,8 @@ func init() {
 	GetTimeSeriesRocCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesRocCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesRocCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesRocCmd)
 
@@ -15126,6 +15365,8 @@ func init() {
 
 	GetTimeSeriesRocpCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesRocpCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesRocpCmd)
 
 	flagx.Register(GetTimeSeriesRocrCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -15171,6 +15412,8 @@ func init() {
 	GetTimeSeriesRocrCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesRocrCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesRocrCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesRocrCmd)
 
@@ -15218,6 +15461,8 @@ func init() {
 
 	GetTimeSeriesRocr100Cmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesRocr100Cmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesRocr100Cmd)
 
 	flagx.Register(GetTimeSeriesRsiCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -15264,6 +15509,8 @@ func init() {
 
 	GetTimeSeriesRsiCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesRsiCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesRsiCmd)
 
 	flagx.Register(GetTimeSeriesRvolCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -15308,6 +15555,8 @@ func init() {
 
 	GetTimeSeriesRvolCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesRvolCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesRvolCmd)
 
 	flagx.Register(GetTimeSeriesSarCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -15348,7 +15597,13 @@ func init() {
 
 	flagx.Register(GetTimeSeriesSarCmd, "adjust", twelvedata.AllowedAdjustEnumEnumValues, "Adjusting mode for prices")
 
+	GetTimeSeriesSarCmd.Flags().Float64("acceleration", 0, "The rate of change in the indicator's values.")
+
+	GetTimeSeriesSarCmd.Flags().Float64("maximum", 0, "The maximum value considered for the indicator calculation.")
+
 	GetTimeSeriesSarCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesSarCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesSarCmd)
 
@@ -15390,7 +15645,25 @@ func init() {
 
 	flagx.Register(GetTimeSeriesSarExtCmd, "adjust", twelvedata.AllowedAdjustEnumEnumValues, "Adjusting mode for prices")
 
+	GetTimeSeriesSarExtCmd.Flags().Float64("start-value", 0, "The initial value for the indicator calculation.")
+
+	GetTimeSeriesSarExtCmd.Flags().Float64("offset-on-reverse", 0, "The adjustment applied when the indicator's direction changes.")
+
+	GetTimeSeriesSarExtCmd.Flags().Float64("acceleration-limit-long", 0, "The maximum acceleration value for long positions.")
+
+	GetTimeSeriesSarExtCmd.Flags().Float64("acceleration-long", 0, "The acceleration value for long positions.")
+
+	GetTimeSeriesSarExtCmd.Flags().Float64("acceleration-max-long", 0, "The highest allowed acceleration for long positions.")
+
+	GetTimeSeriesSarExtCmd.Flags().Float64("acceleration-limit-short", 0, "The maximum acceleration value for short positions.")
+
+	GetTimeSeriesSarExtCmd.Flags().Float64("acceleration-short", 0, "The acceleration value for short positions.")
+
+	GetTimeSeriesSarExtCmd.Flags().Float64("acceleration-max-short", 0, "The highest allowed acceleration for short positions.")
+
 	GetTimeSeriesSarExtCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesSarExtCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesSarExtCmd)
 
@@ -15438,6 +15711,8 @@ func init() {
 
 	GetTimeSeriesSmaCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesSmaCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesSmaCmd)
 
 	flagx.Register(GetTimeSeriesSqrtCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -15481,6 +15756,8 @@ func init() {
 	flagx.Register(GetTimeSeriesSqrtCmd, "series-type", twelvedata.AllowedSeriesTypeEnumEnumValues, "Price type on which technical indicator is calculated")
 
 	GetTimeSeriesSqrtCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesSqrtCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesSqrtCmd)
 
@@ -15526,7 +15803,11 @@ func init() {
 
 	GetTimeSeriesStdDevCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
+	GetTimeSeriesStdDevCmd.Flags().Float64("sd", 0, "The standard deviation applied in the calculation.")
+
 	GetTimeSeriesStdDevCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesStdDevCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesStdDevCmd)
 
@@ -15580,6 +15861,8 @@ func init() {
 
 	GetTimeSeriesStochCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesStochCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesStochCmd)
 
 	flagx.Register(GetTimeSeriesStochFCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -15627,6 +15910,8 @@ func init() {
 	flagx.Register(GetTimeSeriesStochFCmd, "fast-dma-type", twelvedata.AllowedMaTypeEnumEnumValues, "The type of fast Displaced Moving Average used.")
 
 	GetTimeSeriesStochFCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesStochFCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesStochFCmd)
 
@@ -15684,6 +15969,8 @@ func init() {
 
 	GetTimeSeriesStochRsiCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesStochRsiCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesStochRsiCmd)
 
 	flagx.Register(GetTimeSeriesSubCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -15729,6 +16016,8 @@ func init() {
 	flagx.Register(GetTimeSeriesSubCmd, "series-type-2", twelvedata.AllowedSeriesTypeEnumEnumValues, "Price type used as the second part of technical indicator")
 
 	GetTimeSeriesSubCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesSubCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesSubCmd)
 
@@ -15776,6 +16065,8 @@ func init() {
 
 	GetTimeSeriesSumCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesSumCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesSumCmd)
 
 	flagx.Register(GetTimeSeriesSuperTrendCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -15821,6 +16112,8 @@ func init() {
 	GetTimeSeriesSuperTrendCmd.Flags().Int64("multiplier", 0, "The factor used to adjust the indicator's sensitivity.")
 
 	GetTimeSeriesSuperTrendCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesSuperTrendCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesSuperTrendCmd)
 
@@ -15868,6 +16161,8 @@ func init() {
 
 	GetTimeSeriesSuperTrendHeikinAshiCandlesCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesSuperTrendHeikinAshiCandlesCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesSuperTrendHeikinAshiCandlesCmd)
 
 	flagx.Register(GetTimeSeriesT3maCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -15912,7 +16207,11 @@ func init() {
 
 	GetTimeSeriesT3maCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
+	GetTimeSeriesT3maCmd.Flags().Float64("v-factor", 0, "The factor used to adjust the indicator's volatility. Takes values in the range from `0` to `1`")
+
 	GetTimeSeriesT3maCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesT3maCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesT3maCmd)
 
@@ -15955,6 +16254,8 @@ func init() {
 	flagx.Register(GetTimeSeriesTRangeCmd, "adjust", twelvedata.AllowedAdjustEnumEnumValues, "Adjusting mode for prices")
 
 	GetTimeSeriesTRangeCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesTRangeCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesTRangeCmd)
 
@@ -16002,6 +16303,8 @@ func init() {
 
 	GetTimeSeriesTemaCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesTemaCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesTemaCmd)
 
 	flagx.Register(GetTimeSeriesTrimaCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -16047,6 +16350,8 @@ func init() {
 	GetTimeSeriesTrimaCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesTrimaCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesTrimaCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesTrimaCmd)
 
@@ -16094,6 +16399,8 @@ func init() {
 
 	GetTimeSeriesTsfCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesTsfCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesTsfCmd)
 
 	flagx.Register(GetTimeSeriesTypPriceCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -16135,6 +16442,8 @@ func init() {
 	flagx.Register(GetTimeSeriesTypPriceCmd, "adjust", twelvedata.AllowedAdjustEnumEnumValues, "Adjusting mode for prices")
 
 	GetTimeSeriesTypPriceCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesTypPriceCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesTypPriceCmd)
 
@@ -16184,6 +16493,8 @@ func init() {
 
 	GetTimeSeriesUltOscCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesUltOscCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesUltOscCmd)
 
 	flagx.Register(GetTimeSeriesVarCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -16230,6 +16541,8 @@ func init() {
 
 	GetTimeSeriesVarCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
 
+	GetTimeSeriesVarCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
+
 	tiCmd.AddCommand(GetTimeSeriesVarCmd)
 
 	flagx.Register(GetTimeSeriesVwapCmd, "interval", twelvedata.AllowedIntervalEnumEnumValues, "Interval between two consecutive points in time series")
@@ -16272,7 +16585,11 @@ func init() {
 
 	GetTimeSeriesVwapCmd.Flags().Int64("sd-time-period", 0, "The time period for the standard deviation calculation. Must be greater than `0`. Recommended value is `9`. This parameter is only used together with `sd`.")
 
+	GetTimeSeriesVwapCmd.Flags().Float64("sd", 0, "The standard deviation applied in the calculation. Must be greater than `0`. Recommended value is `2`. This parameter is only used together with `sd_time_period`.")
+
 	GetTimeSeriesVwapCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesVwapCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesVwapCmd)
 
@@ -16315,6 +16632,8 @@ func init() {
 	flagx.Register(GetTimeSeriesWclPriceCmd, "adjust", twelvedata.AllowedAdjustEnumEnumValues, "Adjusting mode for prices")
 
 	GetTimeSeriesWclPriceCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesWclPriceCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesWclPriceCmd)
 
@@ -16359,6 +16678,8 @@ func init() {
 	GetTimeSeriesWillRCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesWillRCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesWillRCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesWillRCmd)
 
@@ -16405,6 +16726,8 @@ func init() {
 	GetTimeSeriesWmaCmd.Flags().Int64("time-period", 0, "Number of periods to average over. Takes values in the range from `1` to `800`")
 
 	GetTimeSeriesWmaCmd.Flags().Bool("include-ohlc", false, "Specify if OHLC values should be added in the output")
+
+	GetTimeSeriesWmaCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	tiCmd.AddCommand(GetTimeSeriesWmaCmd)
 }

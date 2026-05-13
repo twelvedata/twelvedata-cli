@@ -428,6 +428,8 @@ func init() {
 
 	GetAnalystRatingsLightCmd.Flags().String("country", "", "Filter by country name or alpha code, e.g., `United States` or `US`")
 
+	GetAnalystRatingsLightCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetAnalystRatingsLightCmd)
 
 	GetAnalystRatingsUsEquitiesCmd.Flags().String("symbol", "", "Filter by symbol")
@@ -444,6 +446,8 @@ func init() {
 
 	GetAnalystRatingsUsEquitiesCmd.Flags().Int64("outputsize", 0, "Number of records in response")
 
+	GetAnalystRatingsUsEquitiesCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetAnalystRatingsUsEquitiesCmd)
 
 	GetEarningsEstimateCmd.Flags().String("symbol", "", "Filter by symbol")
@@ -457,6 +461,8 @@ func init() {
 	GetEarningsEstimateCmd.Flags().String("country", "", "The country where the instrument is traded, e.g., `United States` or `US`")
 
 	GetEarningsEstimateCmd.Flags().String("exchange", "", "Exchange where instrument is traded")
+
+	GetEarningsEstimateCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetEarningsEstimateCmd)
 
@@ -472,6 +478,8 @@ func init() {
 
 	GetEpsRevisionsCmd.Flags().String("exchange", "", "Filter by exchange name")
 
+	GetEpsRevisionsCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetEpsRevisionsCmd)
 
 	GetEpsTrendCmd.Flags().String("symbol", "", "Filter by symbol")
@@ -485,6 +493,8 @@ func init() {
 	GetEpsTrendCmd.Flags().String("country", "", "Filter by country name or alpha code, e.g., `United States` or `US`")
 
 	GetEpsTrendCmd.Flags().String("exchange", "", "Filter by exchange name")
+
+	GetEpsTrendCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetEpsTrendCmd)
 
@@ -500,6 +510,8 @@ func init() {
 
 	GetGrowthEstimatesCmd.Flags().String("exchange", "", "Exchange where instrument is traded")
 
+	GetGrowthEstimatesCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetGrowthEstimatesCmd)
 
 	GetPriceTargetCmd.Flags().String("symbol", "", "Filter by symbol")
@@ -514,6 +526,8 @@ func init() {
 
 	GetPriceTargetCmd.Flags().String("exchange", "", "Filter by exchange name")
 
+	GetPriceTargetCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetPriceTargetCmd)
 
 	GetRecommendationsCmd.Flags().String("symbol", "", "Filter by symbol")
@@ -527,6 +541,8 @@ func init() {
 	GetRecommendationsCmd.Flags().String("country", "", "The country where the instrument is traded, e.g., `United States` or `US`")
 
 	GetRecommendationsCmd.Flags().String("exchange", "", "The exchange name where the instrument is traded, e.g., `Nasdaq`, `NSE`.")
+
+	GetRecommendationsCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetRecommendationsCmd)
 
@@ -543,6 +559,8 @@ func init() {
 	GetRevenueEstimateCmd.Flags().String("exchange", "", "Filter by exchange name")
 
 	GetRevenueEstimateCmd.Flags().Int64("dp", 0, "Number of decimal places for floating values. Should be in range [0,11] inclusive")
+
+	GetRevenueEstimateCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetRevenueEstimateCmd)
 }

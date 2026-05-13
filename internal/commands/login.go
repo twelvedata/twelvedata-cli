@@ -50,7 +50,7 @@ listings, or CI logs.`,
 			v, err := auth.PromptAPIKey()
 			if err != nil {
 				if errors.Is(err, auth.ErrNotInteractive) {
-					return errors.New(`required flag "key" or "key-stdin" not set: not running in an interactive terminal`)
+					return errors.New(`required option "key" or "key-stdin" not set: not running in an interactive terminal`)
 				}
 				return err
 			}

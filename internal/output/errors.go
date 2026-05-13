@@ -66,18 +66,22 @@ func WriteError(cmd *cobra.Command, err error) int {
 	}
 
 	code, exit := classify(err)
+	msg := err.Error()
+	if code == "usage_error" {
+		msg = cobraWording.Replace(msg)
+	}
 
 	w := cmd.ErrOrStderr()
 	if jsonMode(cmd) {
-		writeJSONError(w, code, err)
+		writeJSONError(w, code, msg, err)
 	} else {
-		fmt.Fprintf(w, "Error: %s\n", err.Error())
+		fmt.Fprintf(w, "Error: %s\n", msg)
 	}
 	return exit
 }
 
-func writeJSONError(w io.Writer, code string, err error) {
-	body := envelopeBody{Code: code, Message: err.Error()}
+func writeJSONError(w io.Writer, code, msg string, err error) {
+	body := envelopeBody{Code: code, Message: msg}
 	var apiErr twelvedata.TwelvedataApiError
 	if errors.As(err, &apiErr) {
 		body.Status = apiErr.GetStatusCode()
@@ -87,6 +91,21 @@ func writeJSONError(w io.Writer, code string, err error) {
 	enc.SetIndent("", "  ")
 	_ = enc.Encode(envelope{Error: body})
 }
+
+// cobraWording rewrites Cobra/pflag's "flag" vocabulary to match the CLI's
+// user-facing "option" wording. Applied only to usage errors so it never
+// touches API-error messages.
+var cobraWording = strings.NewReplacer(
+	"at least one of the flags", "at least one of the options",
+	"if any flags in the group", "if any options in the group",
+	"unknown shorthand flag", "unknown shorthand option",
+	"unknown flag", "unknown option",
+	"flag needs an argument", "option needs an argument",
+	"required flag(s)", "required option(s)",
+	"required flag", "required option",
+	"flag(s)", "option(s)",
+	"\" flag:", "\" option:",
+)
 
 // classify maps an error to a stable code string and exit code. The string code
 // is what agents branch on; the exit code is what shells branch on.
@@ -133,6 +152,8 @@ func isUsageError(err error) bool {
 		"required flag",
 		"invalid argument",
 		"flag needs an argument",
+		"at least one of the flags",
+		"if any flags in the group",
 		"accepts ", // "accepts N arg(s), received M"
 	} {
 		if strings.HasPrefix(msg, p) {

@@ -448,6 +448,8 @@ func init() {
 
 	GetEodCmd.Flags().Int64("dp", 0, "Specifies the number of decimal places for floating values Should be in range [0,11] inclusive")
 
+	GetEodCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetEodCmd)
 
 	GetPriceCmd.Flags().String("symbol", "", "Symbol ticker of the instrument")
@@ -469,6 +471,8 @@ func init() {
 	GetPriceCmd.Flags().Bool("prepost", false, "Parameter is optional. Only for Pro or Venture, and above plans. Available at the `1min`, `5min`, `15min`, and `30min` intervals for US equities. Open, high, low, close values are supplied without volume.")
 
 	GetPriceCmd.Flags().Int64("dp", 0, "Specifies the number of decimal places for floating values. Should be in range [0,11] inclusive")
+
+	GetPriceCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetPriceCmd)
 
@@ -501,6 +505,8 @@ func init() {
 	GetQuoteCmd.Flags().Int64("dp", 0, "Specifies the number of decimal places for floating values Should be in range [0,11] inclusive")
 
 	GetQuoteCmd.Flags().String("timezone", "", "Timezone at which output datetime will be displayed. Supports: 1. Exchange for local exchange time 2. UTC for datetime at universal UTC standard 3. Timezone name according to the IANA Time Zone Database. E.g. America/New_York, Asia/Singapore. Full list of timezones can be found here. Interval Limitation: The timezone parameter is only applicable for intraday intervals (less than 1 day). For intervals of 1day, 1week, or 1month, the timezone parameter is ignored, and data is strictly returned in the Exchange local time. Take note that the IANA Timezone name is case-sensitive")
+
+	GetQuoteCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetQuoteCmd)
 
@@ -541,6 +547,8 @@ func init() {
 	GetTimeSeriesCmd.Flags().Bool("previous-close", false, "A boolean parameter to include the previous closing price in the time_series data. If true, adds previous bar close price value to the current object")
 
 	flagx.Register(GetTimeSeriesCmd, "adjust", twelvedata.AllowedAdjustEnumEnumValues, "Adjusting mode for prices")
+
+	GetTimeSeriesCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	rootCmd.AddCommand(GetTimeSeriesCmd)
 

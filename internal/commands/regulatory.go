@@ -326,6 +326,8 @@ func init() {
 
 	GetDirectHoldersCmd.Flags().String("country", "", "Country where instrument is traded, e.g., `United States` or `US`")
 
+	GetDirectHoldersCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetDirectHoldersCmd)
 
 	GetEdgarFilingsArchiveCmd.Flags().String("symbol", "", "The ticker symbol of an instrument for which data is requested")
@@ -352,6 +354,8 @@ func init() {
 
 	GetEdgarFilingsArchiveCmd.Flags().Int64("page-size", 0, "Number of records in response")
 
+	GetEdgarFilingsArchiveCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetEdgarFilingsArchiveCmd)
 
 	GetFundHoldersCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
@@ -367,6 +371,8 @@ func init() {
 	GetFundHoldersCmd.Flags().String("mic-code", "", "Market Identifier Code (MIC) under ISO 10383 standard")
 
 	GetFundHoldersCmd.Flags().String("country", "", "Country where instrument is traded, e.g., `United States` or `US`")
+
+	GetFundHoldersCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetFundHoldersCmd)
 
@@ -384,6 +390,8 @@ func init() {
 
 	GetInsiderTransactionsCmd.Flags().String("country", "", "Country where instrument is traded, e.g., United States or US.")
 
+	GetInsiderTransactionsCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetInsiderTransactionsCmd)
 
 	GetInstitutionalHoldersCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
@@ -400,6 +408,8 @@ func init() {
 
 	GetInstitutionalHoldersCmd.Flags().String("country", "", "Country where instrument is traded, e.g., `United States` or `US`")
 
+	GetInstitutionalHoldersCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetInstitutionalHoldersCmd)
 
 	GetTaxInfoCmd.Flags().String("symbol", "", "The ticker symbol of an instrument for which data is requested, e.g., `SKYQ`, `AIRE`, `ALM:BME`, `HSI:HKEX`.")
@@ -413,6 +423,8 @@ func init() {
 	GetTaxInfoCmd.Flags().String("exchange", "", "The exchange name where the instrument is traded, e.g., `Nasdaq`, `Euronext`")
 
 	GetTaxInfoCmd.Flags().String("mic-code", "", "The Market Identifier Code (MIC) of the exchange where the instrument is traded, e.g., `XNAS`, `XLON`")
+
+	GetTaxInfoCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	rootCmd.AddCommand(GetTaxInfoCmd)
 }

@@ -1113,6 +1113,8 @@ func init() {
 
 	GetBalanceSheetCmd.Flags().Int64("outputsize", 0, "Number of records in response")
 
+	GetBalanceSheetCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetBalanceSheetCmd)
 
 	GetBalanceSheetConsolidatedCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
@@ -1136,6 +1138,8 @@ func init() {
 	GetBalanceSheetConsolidatedCmd.Flags().String("end-date", "", "End date for filtering items by fiscal date. Returns income statements with fiscal dates on or before this date. Format `2006-01-02`")
 
 	GetBalanceSheetConsolidatedCmd.Flags().Int64("outputsize", 0, "Number of records in response")
+
+	GetBalanceSheetConsolidatedCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetBalanceSheetConsolidatedCmd)
 
@@ -1161,6 +1165,8 @@ func init() {
 
 	GetCashFlowCmd.Flags().Int64("outputsize", 0, "Number of records in response")
 
+	GetCashFlowCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetCashFlowCmd)
 
 	GetCashFlowConsolidatedCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
@@ -1185,6 +1191,8 @@ func init() {
 
 	GetCashFlowConsolidatedCmd.Flags().Int64("outputsize", 0, "Number of records in response")
 
+	GetCashFlowConsolidatedCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetCashFlowConsolidatedCmd)
 
 	GetDividendsCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
@@ -1208,6 +1216,8 @@ func init() {
 	GetDividendsCmd.Flags().String("end-date", "", "End date for the dividend data query. Only dividends with dates on or after this date will be returned. Format `2006-01-02`. If provided together with `range` parameter, `range` will take precedence.")
 
 	GetDividendsCmd.Flags().Bool("adjust", false, "Specifies if there should be an adjustment")
+
+	GetDividendsCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetDividendsCmd)
 
@@ -1261,6 +1271,8 @@ func init() {
 
 	GetEarningsCmd.Flags().Int64("dp", 0, "The number of decimal places in the response data. Should be in range [0,11] inclusive")
 
+	GetEarningsCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetEarningsCmd)
 
 	GetEarningsCalendarCmd.Flags().String("exchange", "", "Exchange where instrument is traded")
@@ -1299,6 +1311,8 @@ func init() {
 
 	GetIncomeStatementCmd.Flags().Int64("outputsize", 0, "Number of records in response")
 
+	GetIncomeStatementCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetIncomeStatementCmd)
 
 	GetIncomeStatementConsolidatedCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
@@ -1322,6 +1336,8 @@ func init() {
 	GetIncomeStatementConsolidatedCmd.Flags().String("end-date", "", "End date for filtering income statements by fiscal date. Returns income statements with fiscal dates on or before this date. Format `2006-01-02`")
 
 	GetIncomeStatementConsolidatedCmd.Flags().Int64("outputsize", 0, "Number of records in response")
+
+	GetIncomeStatementConsolidatedCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetIncomeStatementConsolidatedCmd)
 
@@ -1350,6 +1366,8 @@ func init() {
 	GetKeyExecutivesCmd.Flags().String("mic-code", "", "Market Identifier Code (MIC) under ISO 10383 standard")
 
 	GetKeyExecutivesCmd.Flags().String("country", "", "Country where instrument is traded, e.g., `United States` or `US`")
+
+	GetKeyExecutivesCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetKeyExecutivesCmd)
 
@@ -1385,6 +1403,8 @@ func init() {
 
 	GetMarketCapCmd.Flags().Int64("outputsize", 0, "Number of records in response")
 
+	GetMarketCapCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetMarketCapCmd)
 
 	GetProfileCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
@@ -1400,6 +1420,8 @@ func init() {
 	GetProfileCmd.Flags().String("mic-code", "", "Market Identifier Code (MIC) under ISO 10383 standard")
 
 	GetProfileCmd.Flags().String("country", "", "Country where instrument is traded, e.g., `United States` or `US`")
+
+	GetProfileCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetProfileCmd)
 
@@ -1422,6 +1444,8 @@ func init() {
 	GetSplitsCmd.Flags().String("start-date", "", "The starting date for data selection. Format `2006-01-02`")
 
 	GetSplitsCmd.Flags().String("end-date", "", "The ending date for data selection. Format `2006-01-02`")
+
+	GetSplitsCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetSplitsCmd)
 
@@ -1463,6 +1487,8 @@ func init() {
 
 	GetStatisticsCmd.Flags().String("country", "", "Country where instrument is traded, e.g., `United States` or `US`")
 
+	GetStatisticsCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetStatisticsCmd)
 
 	PressReleasesListParametersCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
@@ -1486,6 +1512,8 @@ func init() {
 	PressReleasesListParametersCmd.Flags().String("language", "", "Comma-separated list of languages to filter press releases by language.")
 
 	PressReleasesListParametersCmd.Flags().Int64("outputsize", 0, "Number of latest press releases returned. Only used if no data range is specified. Maximum value is `10`. type: number")
+
+	PressReleasesListParametersCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(PressReleasesListParametersCmd)
 }

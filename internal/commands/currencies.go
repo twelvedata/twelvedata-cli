@@ -38,6 +38,11 @@ var GetCurrencyConversionCmd = &cobra.Command{
 			req = req.Symbol(v)
 		}
 
+		if cmd.Flags().Changed("amount") {
+			v, _ := cmd.Flags().GetFloat64("amount")
+			req = req.Amount(v)
+		}
+
 		if v, _ := cmd.Flags().GetString("date"); v != "" {
 			req = req.Date(v)
 		}
@@ -101,6 +106,8 @@ var GetExchangeRateCmd = &cobra.Command{
 func init() {
 
 	GetCurrencyConversionCmd.Flags().String("symbol", "", "The currency pair you want to request can be either forex or cryptocurrency. Slash(`/`) delimiter is used. E.g. `EUR/USD` or `BTC/ETH` will be correct")
+
+	GetCurrencyConversionCmd.Flags().Float64("amount", 0, "Amount of base currency to be converted into quote currency. Supports values in the range from `0` and above")
 
 	GetCurrencyConversionCmd.Flags().String("date", "", "If not null, will use exchange rate from a specific date or time. Format `2006-01-02` or `2006-01-02T15:04:05`. Is set in the local exchange time zone, use timezone parameter to specify a specific time zone")
 

@@ -529,6 +529,8 @@ func init() {
 
 	GetMutualFundsWorldCmd.Flags().Int64("dp", 0, "Number of decimal places for floating values. Accepts value in range [0,11]")
 
+	GetMutualFundsWorldCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetMutualFundsWorldCmd)
 
 	GetMutualFundsWorldCompositionCmd.Flags().String("symbol", "", "Symbol ticker of mutual fund")
@@ -542,6 +544,8 @@ func init() {
 	GetMutualFundsWorldCompositionCmd.Flags().String("country", "", "Filter by country name or alpha code, e.g., `United States` or `US`")
 
 	GetMutualFundsWorldCompositionCmd.Flags().Int64("dp", 0, "Number of decimal places for floating values. Accepts value in range [0,11]")
+
+	GetMutualFundsWorldCompositionCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetMutualFundsWorldCompositionCmd)
 
@@ -557,6 +561,8 @@ func init() {
 
 	GetMutualFundsWorldPerformanceCmd.Flags().Int64("dp", 0, "Number of decimal places for floating values. Accepts value in range [0,11]")
 
+	GetMutualFundsWorldPerformanceCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetMutualFundsWorldPerformanceCmd)
 
 	GetMutualFundsWorldPurchaseInfoCmd.Flags().String("symbol", "", "Symbol ticker of mutual fund")
@@ -570,6 +576,8 @@ func init() {
 	GetMutualFundsWorldPurchaseInfoCmd.Flags().String("country", "", "Filter by country name or alpha code, e.g., `United States` or `US`")
 
 	GetMutualFundsWorldPurchaseInfoCmd.Flags().Int64("dp", 0, "Number of decimal places for floating values. Accepts value in range [0,11]")
+
+	GetMutualFundsWorldPurchaseInfoCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetMutualFundsWorldPurchaseInfoCmd)
 
@@ -585,6 +593,8 @@ func init() {
 
 	GetMutualFundsWorldRatingsCmd.Flags().Int64("dp", 0, "Number of decimal places for floating values. Accepts value in range [0,11]")
 
+	GetMutualFundsWorldRatingsCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetMutualFundsWorldRatingsCmd)
 
 	GetMutualFundsWorldRiskCmd.Flags().String("symbol", "", "Symbol ticker of mutual fund")
@@ -598,6 +608,8 @@ func init() {
 	GetMutualFundsWorldRiskCmd.Flags().String("country", "", "Filter by country name or alpha code, e.g., `United States` or `US`")
 
 	GetMutualFundsWorldRiskCmd.Flags().Int64("dp", 0, "Number of decimal places for floating values. Accepts value in range [0,11]")
+
+	GetMutualFundsWorldRiskCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetMutualFundsWorldRiskCmd)
 
@@ -613,6 +625,8 @@ func init() {
 
 	GetMutualFundsWorldSummaryCmd.Flags().Int64("dp", 0, "Number of decimal places for floating values. Accepts value in range [0,11]")
 
+	GetMutualFundsWorldSummaryCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetMutualFundsWorldSummaryCmd)
 
 	GetMutualFundsWorldSustainabilityCmd.Flags().String("symbol", "", "Symbol ticker of mutual fund")
@@ -626,6 +640,8 @@ func init() {
 	GetMutualFundsWorldSustainabilityCmd.Flags().String("country", "", "Filter by country name or alpha code, e.g., `United States` or `US`")
 
 	GetMutualFundsWorldSustainabilityCmd.Flags().Int64("dp", 0, "Number of decimal places for floating values. Accepts value in range [0,11]")
+
+	GetMutualFundsWorldSustainabilityCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetMutualFundsWorldSustainabilityCmd)
 }

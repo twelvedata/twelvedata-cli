@@ -389,6 +389,8 @@ func init() {
 
 	GetETFsWorldCmd.Flags().Int64("dp", 0, "Number of decimal places for floating values. Accepts value in range [0,11]")
 
+	GetETFsWorldCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetETFsWorldCmd)
 
 	GetETFsWorldCompositionCmd.Flags().String("symbol", "", "Symbol ticker of etf")
@@ -402,6 +404,8 @@ func init() {
 	GetETFsWorldCompositionCmd.Flags().String("country", "", "Filter by country name or alpha code, e.g., `United States` or `US`")
 
 	GetETFsWorldCompositionCmd.Flags().Int64("dp", 0, "Number of decimal places for floating values. Accepts value in range [0,11]")
+
+	GetETFsWorldCompositionCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetETFsWorldCompositionCmd)
 
@@ -417,6 +421,8 @@ func init() {
 
 	GetETFsWorldPerformanceCmd.Flags().Int64("dp", 0, "Number of decimal places for floating values. Accepts value in range [0,11]")
 
+	GetETFsWorldPerformanceCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetETFsWorldPerformanceCmd)
 
 	GetETFsWorldRiskCmd.Flags().String("symbol", "", "Symbol ticker of etf")
@@ -431,6 +437,8 @@ func init() {
 
 	GetETFsWorldRiskCmd.Flags().Int64("dp", 0, "Number of decimal places for floating values. Accepts value in range [0,11]")
 
+	GetETFsWorldRiskCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
+
 	rootCmd.AddCommand(GetETFsWorldRiskCmd)
 
 	GetETFsWorldSummaryCmd.Flags().String("symbol", "", "Symbol ticker of etf")
@@ -444,6 +452,8 @@ func init() {
 	GetETFsWorldSummaryCmd.Flags().String("country", "", "Filter by country name or alpha code, e.g., `United States` or `US`")
 
 	GetETFsWorldSummaryCmd.Flags().Int64("dp", 0, "Number of decimal places for floating values. Accepts value in range [0,11]")
+
+	GetETFsWorldSummaryCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetETFsWorldSummaryCmd)
 }
