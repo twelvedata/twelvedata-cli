@@ -19,6 +19,7 @@ func init() {
 	rootCmd.PersistentFlags().String("api-key", "", "Twelve Data API key (overrides TWELVEDATA_API_KEY)")
 	rootCmd.PersistentFlags().StringP("output", "o", "", "Output format: json, csv (default: json)")
 	rootCmd.PersistentFlags().BoolP("quiet", "q", false, "Force JSON error envelopes on stderr even on a TTY")
+	rootCmd.PersistentFlags().StringP("profile", "p", "", "Profile to use (overrides TWELVEDATA_PROFILE)")
 }
 
 // Execute runs the root command and returns a process exit code suitable for

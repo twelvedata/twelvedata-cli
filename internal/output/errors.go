@@ -10,6 +10,8 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/twelvedata/twelvedata-go/twelvedata"
+
+	"github.com/twelvedata/twelvedata-cli/internal/auth"
 )
 
 // Exit codes communicated to agents and shells.
@@ -101,6 +103,9 @@ func classify(err error) (string, int) {
 	}
 	if isUsageError(err) {
 		return "usage_error", ExitUsage
+	}
+	if errors.Is(err, auth.ErrNoAPIKey) {
+		return "not_authenticated", ExitUnauthorized
 	}
 	if strings.Contains(err.Error(), "TWELVEDATA_API_KEY environment variable is not set") {
 		return "missing_api_key", ExitUnauthorized
