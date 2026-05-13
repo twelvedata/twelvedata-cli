@@ -19,7 +19,7 @@ func New(cmd *cobra.Command) (*twelvedata.APIClient, error) {
 	if err != nil {
 		return nil, err
 	}
-	cfg, err := twelvedata.NewConfig(resolved.Key)
+	cfg, err := twelvedata.NewConfigWithSource("cli", resolved.Key)
 	if err != nil {
 		return nil, err
 	}
