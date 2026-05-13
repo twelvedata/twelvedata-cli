@@ -37,6 +37,15 @@ const (
 	ExitInternalServer = 8
 )
 
+// NotImplementedParam is returned by a generated command when the API spec
+// declares a parameter whose type the api.mustache template doesn't handle yet
+// (e.g. number/array/file). The classifier maps it to a generic error so the
+// user sees a clear "not implemented" message instead of the parameter silently
+// being dropped from the request.
+func NotImplementedParam(flag, dataType string) error {
+	return fmt.Errorf("CLI parameter --%s (type %s) is not implemented", flag, dataType)
+}
+
 // envelope is the machine-readable error shape written to stderr in JSON mode.
 type envelope struct {
 	Error envelopeBody `json:"error"`

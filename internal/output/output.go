@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"mime"
 	"net/http"
 	"os"
 
@@ -30,14 +31,15 @@ func ResolveFormat(cmd *cobra.Command) (Format, error) {
 	case FormatJSON, FormatCSV:
 		return f, nil
 	default:
-		return "", fmt.Errorf("invalid --output %q (want json or csv)", out)
+		return "", fmt.Errorf("invalid argument %q for --output (want json or csv)", out)
 	}
 }
 
 // Render writes resp in the resolved format. For --output csv the typed resp is
 // ignored and httpResp.Body (the raw CSV bytes returned by the API) is streamed
 // instead — the SDK rewinds the body but cannot decode CSV, so it returns a
-// benign decode error in that mode which we silently absorb here.
+// benign decode error on 2xx which we absorb here; non-2xx errors are returned
+// so the classifier maps them to the documented exit code.
 func Render(cmd *cobra.Command, resp any, httpResp *http.Response, callErr error) error {
 	f, err := ResolveFormat(cmd)
 	if err != nil {
@@ -49,6 +51,13 @@ func Render(cmd *cobra.Command, resp any, httpResp *http.Response, callErr error
 			return callErr
 		}
 		defer httpResp.Body.Close()
+		if httpResp.StatusCode >= 300 {
+			return callErr
+		}
+		mediaType, _, _ := mime.ParseMediaType(httpResp.Header.Get("Content-Type"))
+		if mediaType != "text/csv" {
+			return fmt.Errorf("--output csv is not supported by this endpoint (server returned %q)", mediaType)
+		}
 		_, copyErr := io.Copy(cmd.OutOrStdout(), httpResp.Body)
 		return copyErr
 	}

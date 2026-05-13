@@ -209,7 +209,8 @@ var authRemoveCmd = &cobra.Command{
 				return err
 			}
 			if !ok {
-				return errors.New("remove cancelled")
+				fmt.Fprintln(cmd.OutOrStdout(), "Cancelled.")
+				return nil
 			}
 		}
 		if err := auth.RemoveProfile(name); err != nil {

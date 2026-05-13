@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -17,22 +18,39 @@ var loginCmd = &cobra.Command{
 	Long: `Store a Twelve Data API key in the active credential backend (OS keyring when
 available, plaintext credentials.json otherwise) under the chosen profile.
 
-In non-interactive shells --key is required. On a TTY, the key is prompted for
-in masked form when --key is omitted.`,
-	Example: `  td login --key abc123
-  td login --profile staging --key abc123
-  td login                          # prompts on a TTY`,
+On a TTY, the key is prompted for in masked form. In non-interactive shells
+either --key-stdin (read the key from stdin) or --key <value> is required;
+prefer --key-stdin so the secret never appears in shell history, process
+listings, or CI logs.`,
+	Example: `  td login                                          # prompts on a TTY
+  printf '%s' "$TWELVEDATA_API_KEY" | td login --key-stdin
+  td login --profile staging --key-stdin <<<"$KEY"
+  td login --key abc123                             # discouraged: leaks to shell history`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		key, _ := cmd.Flags().GetString("key")
 		key = strings.TrimSpace(key)
+		keyStdin, _ := cmd.Flags().GetBool("key-stdin")
 		profileFlag, _ := cmd.Flags().GetString("profile")
 		profileFlag = strings.TrimSpace(profileFlag)
 
+		if keyStdin && key != "" {
+			return errors.New("--key and --key-stdin are mutually exclusive")
+		}
+		if keyStdin {
+			b, err := io.ReadAll(cmd.InOrStdin())
+			if err != nil {
+				return fmt.Errorf("failed to read key from stdin: %w", err)
+			}
+			key = strings.TrimSpace(string(b))
+			if key == "" {
+				return errors.New("--key-stdin: empty input")
+			}
+		}
 		if key == "" {
 			v, err := auth.PromptAPIKey()
 			if err != nil {
 				if errors.Is(err, auth.ErrNotInteractive) {
-					return cmd.Help() //nolint:errcheck
+					return errors.New(`required flag "key" or "key-stdin" not set: not running in an interactive terminal`)
 				}
 				return err
 			}
@@ -108,7 +126,8 @@ func chooseLoginProfile() (string, error) {
 }
 
 func init() {
-	loginCmd.Flags().String("key", "", "API key to store (required in non-interactive mode)")
+	loginCmd.Flags().String("key", "", "API key as a literal value (leaks to shell history/process listings — prefer --key-stdin)")
+	loginCmd.Flags().Bool("key-stdin", false, "Read the API key from stdin (preferred for CI/scripts)")
 	rootCmd.AddCommand(loginCmd)
 }
 

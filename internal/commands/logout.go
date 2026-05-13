@@ -2,7 +2,6 @@ package commands
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 
 	"github.com/spf13/cobra"
@@ -33,7 +32,8 @@ deleted (after a confirmation prompt on a TTY).`,
 				return err
 			}
 			if !ok {
-				return errors.New("logout cancelled")
+				fmt.Fprintln(cmd.OutOrStdout(), "Cancelled.")
+				return nil
 			}
 		}
 		if err := auth.RemoveAll(); err != nil {

@@ -13,6 +13,10 @@ var rootCmd = &cobra.Command{
 	Long:          "Twelve Data CLI — REST client for Twelve Data's market data API. Designed for AI agents and humans alike.\n\nResponses render as pretty-printed JSON by default; --output csv switches to the streaming CSV path for endpoints that support it.",
 	SilenceUsage:  true,
 	SilenceErrors: true,
+	PersistentPreRunE: func(cmd *cobra.Command, _ []string) error {
+		_, err := output.ResolveFormat(cmd)
+		return err
+	},
 }
 
 func init() {

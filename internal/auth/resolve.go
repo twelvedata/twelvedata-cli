@@ -73,10 +73,12 @@ func ResolveAPIKey(flagValue, profileFlag string) (*ResolvedKey, error) {
 		if err != nil {
 			return nil, err
 		}
-		if key == "" {
-			return nil, ErrNoAPIKey
+		if key != "" {
+			return &ResolvedKey{Key: key, Source: SourceSecure, Profile: profile}, nil
 		}
-		return &ResolvedKey{Key: key, Source: SourceSecure, Profile: profile}, nil
+		// Keyring had nothing — fall through to the file entry, which may have
+		// been populated when TWELVEDATA_CREDENTIAL_STORE=file forced the file
+		// backend while another profile was using secure storage.
 	}
 	if entry.APIKey == "" {
 		return nil, ErrNoAPIKey

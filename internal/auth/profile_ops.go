@@ -20,9 +20,16 @@ func StoreAPIKey(profile, apiKey string) (configPath string, backend CredentialB
 	if creds == nil {
 		creds = &CredentialsFile{ActiveProfile: profile, Profiles: map[string]Profile{}}
 	}
+	var rollback func()
 	if backend.IsSecure() {
+		priorKey, _ := backend.Get(profile)
 		if err := backend.Set(profile, apiKey); err != nil {
 			return "", backend, err
+		}
+		if priorKey == "" {
+			rollback = func() { _, _ = backend.Delete(profile) }
+		} else {
+			rollback = func() { _ = backend.Set(profile, priorKey) }
 		}
 		creds.Storage = StorageSecure
 		creds.Profiles[profile] = Profile{}
@@ -36,6 +43,9 @@ func StoreAPIKey(profile, apiKey string) (configPath string, backend CredentialB
 	}
 	path, err := WriteCredentials(creds)
 	if err != nil {
+		if rollback != nil {
+			rollback()
+		}
 		return "", backend, err
 	}
 	return path, backend, nil
@@ -56,11 +66,12 @@ func RemoveProfile(profile string) error {
 		return errProfileNotFound(profile, creds)
 	}
 	if creds.Storage == StorageSecure {
-		backend := GetBackend()
-		if backend.IsSecure() {
-			if _, err := backend.Delete(profile); err != nil {
-				return fmt.Errorf("failed to remove credential from %s: %w", backend.Name(), err)
-			}
+		kr := NewKeyringBackend()
+		if !kr.IsAvailable() {
+			return fmt.Errorf("profile %q is stored in %s but it is unavailable; cannot remove credential", profile, kr.Name())
+		}
+		if _, err := kr.Delete(profile); err != nil {
+			return fmt.Errorf("failed to remove credential from %s: %w", kr.Name(), err)
 		}
 	}
 	delete(creds.Profiles, profile)
@@ -97,35 +108,36 @@ func RemoveAll() error {
 		return nil
 	}
 	if creds.Storage == StorageSecure {
-		backend := GetBackend()
-		if backend.IsSecure() {
-			var failed []string
+		kr := NewKeyringBackend()
+		if !kr.IsAvailable() {
+			return fmt.Errorf("credentials are stored in %s but it is unavailable; cannot remove credentials", kr.Name())
+		}
+		var failed []string
+		for name := range creds.Profiles {
+			if _, err := kr.Delete(name); err != nil {
+				failed = append(failed, name)
+			}
+		}
+		if len(failed) > 0 {
 			for name := range creds.Profiles {
-				if _, err := backend.Delete(name); err != nil {
-					failed = append(failed, name)
+				if !contains(failed, name) {
+					delete(creds.Profiles, name)
 				}
 			}
-			if len(failed) > 0 {
-				for name := range creds.Profiles {
-					if !contains(failed, name) {
-						delete(creds.Profiles, name)
+			if creds.ActiveProfile != "" {
+				if _, ok := creds.Profiles[creds.ActiveProfile]; !ok {
+					creds.ActiveProfile = ""
+					for n := range creds.Profiles {
+						creds.ActiveProfile = n
+						break
+					}
+					if creds.ActiveProfile == "" {
+						creds.ActiveProfile = defaultProfile
 					}
 				}
-				if creds.ActiveProfile != "" {
-					if _, ok := creds.Profiles[creds.ActiveProfile]; !ok {
-						creds.ActiveProfile = ""
-						for n := range creds.Profiles {
-							creds.ActiveProfile = n
-							break
-						}
-						if creds.ActiveProfile == "" {
-							creds.ActiveProfile = defaultProfile
-						}
-					}
-				}
-				_, _ = WriteCredentials(creds)
-				return fmt.Errorf("failed to remove credentials for: %v. Retry to clean them up", failed)
 			}
+			_, _ = WriteCredentials(creds)
+			return fmt.Errorf("failed to remove credentials for: %v. Retry to clean them up", failed)
 		}
 	}
 	return DeleteCredentialsFile()
@@ -155,24 +167,32 @@ func RenameProfile(oldName, newName string) error {
 	if _, exists := creds.Profiles[newName]; exists {
 		return fmt.Errorf("profile %q already exists", newName)
 	}
+	var (
+		kr              *KeyringBackend
+		migratedKey     string
+		keyringMigrated bool
+	)
 	if creds.Storage == StorageSecure {
-		backend := GetBackend()
-		if backend.IsSecure() {
-			key, err := backend.Get(oldName)
-			if err != nil {
-				return fmt.Errorf("failed to read credential from %s: %w", backend.Name(), err)
+		kr = NewKeyringBackend()
+		if !kr.IsAvailable() {
+			return fmt.Errorf("profile %q is stored in %s but it is unavailable; cannot rename credential", oldName, kr.Name())
+		}
+		key, err := kr.Get(oldName)
+		if err != nil {
+			return fmt.Errorf("failed to read credential from %s: %w", kr.Name(), err)
+		}
+		if key != "" {
+			if err := kr.Set(newName, key); err != nil {
+				return fmt.Errorf("failed to write credential to %s: %w", kr.Name(), err)
 			}
-			if key != "" {
-				if err := backend.Set(newName, key); err != nil {
-					return fmt.Errorf("failed to write credential to %s: %w", backend.Name(), err)
+			if _, err := kr.Delete(oldName); err != nil {
+				if _, rbErr := kr.Delete(newName); rbErr != nil {
+					return fmt.Errorf("failed to remove old credential %q from %s; rollback of new credential also failed", oldName, kr.Name())
 				}
-				if _, err := backend.Delete(oldName); err != nil {
-					if _, rbErr := backend.Delete(newName); rbErr != nil {
-						return fmt.Errorf("failed to remove old credential %q from %s; rollback of new credential also failed", oldName, backend.Name())
-					}
-					return fmt.Errorf("failed to remove old credential %q from %s; rename rolled back", oldName, backend.Name())
-				}
+				return fmt.Errorf("failed to remove old credential %q from %s; rename rolled back", oldName, kr.Name())
 			}
+			keyringMigrated = true
+			migratedKey = key
 		}
 	}
 	creds.Profiles[newName] = entry
@@ -180,8 +200,16 @@ func RenameProfile(oldName, newName string) error {
 	if creds.ActiveProfile == oldName {
 		creds.ActiveProfile = newName
 	}
-	_, err = WriteCredentials(creds)
-	return err
+	if _, err := WriteCredentials(creds); err != nil {
+		if keyringMigrated {
+			if rbErr := kr.Set(oldName, migratedKey); rbErr != nil {
+				return fmt.Errorf("failed to write credentials.json (%w); keyring rollback also failed — credential now lives under %q only", err, newName)
+			}
+			_, _ = kr.Delete(newName)
+		}
+		return err
+	}
+	return nil
 }
 
 func contains(s []string, v string) bool {

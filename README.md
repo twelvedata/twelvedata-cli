@@ -32,17 +32,22 @@ td ti kst --symbol AAPL --interval 1day
 2. `TWELVEDATA_API_KEY` environment variable
 3. Active profile in `credentials.json` (see `td whoami`)
 
+> **Avoid putting secrets on the command line.** `--api-key` and `td login --key` accept the key as a literal argument, which leaks it to shell history, `ps` output, and CI logs. For day-to-day use prefer `TWELVEDATA_API_KEY`, a saved profile, or `td login --key-stdin` for piped input.
+
 ### Profiles
 
 `td` supports named profiles so you can keep separate keys for prototyping, production, or different team accounts.
 
 ```sh
-td login --key <your-api-key>          # store in default profile
-td login --profile staging --key <key> # store in named profile
-td auth list                           # list profiles
-td auth switch staging                 # change active profile
-td whoami                              # show active profile + masked key
+td login                                          # prompts on a TTY (masked input)
+printf '%s' "$TWELVEDATA_API_KEY" | td login --key-stdin
+td login --profile staging --key-stdin <<<"$KEY"  # CI/scripts
+td auth list                                      # list profiles
+td auth switch staging                            # change active profile
+td whoami                                         # show active profile + masked key
 ```
+
+`td login --key <value>` still works for ad-hoc use but is discouraged for the leakage reasons above.
 
 Other auth commands: `td logout [--profile <name>]`, `td auth rename <old> <new>`, `td auth remove <name>`. The `--profile` flag (or `TWELVEDATA_PROFILE` env var) overrides the active profile for one invocation.
 
@@ -63,7 +68,7 @@ Override storage with `TWELVEDATA_CREDENTIAL_STORE=file` to force plaintext.
 
 ## Agent discovery
 
-`td schema --json` dumps the entire command tree — names, flags, types, enum value sets, descriptions — so an LLM can introspect what commands and arguments are available without scraping `--help` text.
+`td schema` dumps the entire command tree as JSON — names, flags, types, enum value sets, descriptions — so an LLM can introspect what commands and arguments are available without scraping `--help` text.
 
 ## Local development
 

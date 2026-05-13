@@ -50,10 +50,13 @@ func ValidateProfileName(name string) error {
 	return nil
 }
 
-// ReadCredentials loads credentials.json. Returns (nil, nil) if the file is
-// missing or unparseable — callers treat that as "no profiles configured".
+// ReadCredentials loads credentials.json. Returns (nil, nil) only when the file
+// is missing — callers treat that as "no profiles configured". A parse error is
+// returned so callers refuse to overwrite a corrupt file and prompt the user to
+// inspect or remove it manually.
 func ReadCredentials() (*CredentialsFile, error) {
-	data, err := os.ReadFile(CredentialsPath())
+	path := CredentialsPath()
+	data, err := os.ReadFile(path)
 	if err != nil {
 		if os.IsNotExist(err) {
 			return nil, nil
@@ -62,7 +65,7 @@ func ReadCredentials() (*CredentialsFile, error) {
 	}
 	var creds CredentialsFile
 	if err := json.Unmarshal(data, &creds); err != nil {
-		return nil, nil
+		return nil, fmt.Errorf("failed to parse %s: %w; inspect or remove the file and retry", path, err)
 	}
 	if creds.Profiles == nil {
 		return nil, nil
