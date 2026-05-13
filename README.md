@@ -1,6 +1,8 @@
 # Twelve Data CLI
 
-`twelvedata-cli` is the official command-line client for the [Twelve Data API](https://twelvedata.com/), built for AI agents and humans alike. Every endpoint exposed by the [`twelvedata-go`](https://github.com/twelvedata/twelvedata-go) SDK is reachable as a Cobra subcommand, with predictable flags, structured output, and stable exit codes.
+`twelvedata-cli` is the official command-line client for the [Twelve Data API](https://twelvedata.com/), built for AI agents and humans alike.
+
+Every API endpoint is reachable as a Cobra subcommand, with predictable flags, structured output, and stable exit codes.
 
 ## Install
 
@@ -11,22 +13,24 @@ go install github.com/twelvedata/twelvedata-cli/cmd/td@v1.0.0
 ## Quick start
 
 ```sh
-export TWELVEDATA_API_KEY=...
+td login                          # save your API key (prompts on a TTY)
 td quote --symbol AAPL
 td time-series --symbol AAPL --interval 1day --outputsize 5
-td ti kst --symbol AAPL --interval 1day
+td ti rsi --symbol AAPL --interval 1day
 ```
+
+For scripts and CI, skip `td login` and provide the key inline — either set `TWELVEDATA_API_KEY=...` in the environment or pass `--api-key <key>` on each invocation. See [Authentication](#authentication).
 
 ## Output formats
 
-`td` renders responses based on `--output`:
+CLI renders responses based on `--output`:
 
 - `--output json` (default): pretty-printed JSON.
 - `--output csv`: streams the API's CSV response verbatim. Sets `format=csv` upstream.
 
 ## Authentication
 
-`td` resolves the API key from these sources, in order:
+CLI resolves the API key from these sources, in order:
 
 1. `--api-key <key>` flag
 2. `TWELVEDATA_API_KEY` environment variable
@@ -36,24 +40,41 @@ td ti kst --symbol AAPL --interval 1day
 
 ### Profiles
 
-`td` supports named profiles so you can keep separate keys for prototyping, production, or different team accounts.
+CLI supports named profiles so you can keep separate keys for prototyping, production, or different team accounts.
 
 ```sh
 td login                                          # prompts on a TTY (masked input)
 printf '%s' "$TWELVEDATA_API_KEY" | td login --key-stdin
 td login --profile staging --key-stdin <<<"$KEY"  # CI/scripts
-td auth list                                      # list profiles
+td auth list                                      # list profiles (also: bare `td auth`)
 td auth switch staging                            # change active profile
 td whoami                                         # show active profile + masked key
 ```
 
 `td login --key <value>` still works for ad-hoc use but is discouraged for the leakage reasons above.
 
-Other auth commands: `td logout [--profile <name>]`, `td auth rename <old> <new>`, `td auth remove <name>`. The `--profile` flag (or `TWELVEDATA_PROFILE` env var) overrides the active profile for one invocation.
+Other auth commands:
+
+- `td logout [--profile <name>]`
+- `td auth rename <old> <new>`
+- `td auth remove <name>`
+
+The `-p` / `--profile` flag (or `TWELVEDATA_PROFILE` env var) overrides the active profile for one invocation.
+
+On a TTY, `td auth switch`, `td auth rename`, and `td auth remove` prompt for any missing argument with a selector, and `td logout` (without `--profile`) and `td auth remove` ask for confirmation before deleting. In non-interactive shells every argument is required and confirmations are skipped.
 
 ### Storage
 
-Keys are saved to your OS keyring when available (macOS Keychain, Windows Credential Manager, Linux Secret Service). When no keyring is available, the key falls back to a `0600` file at `$XDG_CONFIG_HOME/twelvedata/credentials.json` (or `~/.config/twelvedata/credentials.json` / `%APPDATA%\twelvedata\credentials.json` on Windows).
+By default, keys are saved to your OS keyring:
+
+- **macOS** — Keychain
+- **Windows** — Credential Manager
+- **Linux** — Secret Service
+
+When no keyring is available, the key falls back to a `0600` file:
+
+- **macOS / Linux** — `$XDG_CONFIG_HOME/twelvedata/credentials.json` (or `~/.config/twelvedata/credentials.json`)
+- **Windows** — `%APPDATA%\twelvedata\credentials.json`
 
 Override storage with `TWELVEDATA_CREDENTIAL_STORE=file` to force plaintext.
 
