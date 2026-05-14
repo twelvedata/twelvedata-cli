@@ -123,9 +123,10 @@ var GetCountriesCmd = &cobra.Command{
 }
 
 var GetCrossListingsCmd = &cobra.Command{
-	Use:   "cross-listings",
-	Short: "Cross listings",
-	Long:  "The cross_listings endpoint provides a daily updated list of cross-listed symbols for a specified financial instrument. Cross-listed symbols represent the same security available on multiple exchanges. This endpoint is useful for identifying all the exchanges where a particular security is traded, allowing users to access comprehensive trading information across different markets.",
+	Use:     "cross-listings",
+	Short:   "Cross listings",
+	Long:    "The cross_listings endpoint provides a daily updated list of cross-listed symbols for a specified financial instrument. Cross-listed symbols represent the same security available on multiple exchanges. This endpoint is useful for identifying all the exchanges where a particular security is traded, allowing users to access comprehensive trading information across different markets.",
+	Example: "td cross-listings --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -220,9 +221,10 @@ var GetCryptocurrencyExchangesCmd = &cobra.Command{
 }
 
 var GetEarliestTimestampCmd = &cobra.Command{
-	Use:   "earliest-timestamp",
-	Short: "Earliest timestamp",
-	Long:  "The earliest_timestamp endpoint provides the earliest available date and time for a specified financial instrument at a given data interval. This endpoint is useful for determining the starting point of historical data availability for various assets, such as stocks or currencies, allowing users to understand the time range covered by the data.",
+	Use:     "earliest-timestamp",
+	Short:   "Earliest timestamp",
+	Long:    "The earliest_timestamp endpoint provides the earliest available date and time for a specified financial instrument at a given data interval. This endpoint is useful for determining the starting point of historical data availability for various assets, such as stocks or currencies, allowing users to understand the time range covered by the data.",
+	Example: "td earliest-timestamp --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -654,9 +656,10 @@ var GetStocksCmd = &cobra.Command{
 }
 
 var GetSymbolSearchCmd = &cobra.Command{
-	Use:   "symbol-search",
-	Short: "Symbol search",
-	Long:  "The symbol search endpoint allows users to find financial instruments by name or symbol. It returns a list of matching symbols, ordered by relevance, with the most relevant instrument first. This is useful for quickly locating specific stocks, ETFs, or other financial instruments when only partial information is available.",
+	Use:     "symbol-search",
+	Short:   "Symbol search",
+	Long:    "The symbol search endpoint allows users to find financial instruments by name or symbol. It returns a list of matching symbols, ordered by relevance, with the most relevant instrument first. This is useful for quickly locating specific stocks, ETFs, or other financial instruments when only partial information is available.",
+	Example: "td symbol-search --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {

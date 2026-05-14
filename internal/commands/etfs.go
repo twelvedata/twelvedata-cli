@@ -138,9 +138,10 @@ var GetETFsTypeCmd = &cobra.Command{
 }
 
 var GetETFsWorldCmd = &cobra.Command{
-	Use:   "etfs-world",
-	Short: "ETF full data",
-	Long:  "The ETF full data endpoint provides detailed information about global Exchange-Traded Funds. It returns comprehensive data, including a summary, performance metrics, risk assessment, and composition details. This endpoint is ideal for users seeking an in-depth analysis of worldwide ETFs, enabling them to access key financial metrics and portfolio breakdowns.",
+	Use:     "etfs-world",
+	Short:   "ETF full data",
+	Long:    "The ETF full data endpoint provides detailed information about global Exchange-Traded Funds. It returns comprehensive data, including a summary, performance metrics, risk assessment, and composition details. This endpoint is ideal for users seeking an in-depth analysis of worldwide ETFs, enabling them to access key financial metrics and portfolio breakdowns.",
+	Example: "td etfs-world --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -182,9 +183,10 @@ var GetETFsWorldCmd = &cobra.Command{
 }
 
 var GetETFsWorldCompositionCmd = &cobra.Command{
-	Use:   "etfs-world-composition",
-	Short: "Composition",
-	Long:  "The ETFs composition endpoint provides detailed information about the composition of global Exchange-Traded Funds. It returns data on the sectors included in the ETF, specific holding details, and the weighted exposure of each component. This endpoint is useful for users who need to understand the specific makeup and sector distribution of an ETF portfolio.",
+	Use:     "etfs-world-composition",
+	Short:   "Composition",
+	Long:    "The ETFs composition endpoint provides detailed information about the composition of global Exchange-Traded Funds. It returns data on the sectors included in the ETF, specific holding details, and the weighted exposure of each component. This endpoint is useful for users who need to understand the specific makeup and sector distribution of an ETF portfolio.",
+	Example: "td etfs-world-composition --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -226,9 +228,10 @@ var GetETFsWorldCompositionCmd = &cobra.Command{
 }
 
 var GetETFsWorldPerformanceCmd = &cobra.Command{
-	Use:   "etfs-world-performance",
-	Short: "Performance",
-	Long:  "The ETFs performance endpoint provides comprehensive performance data for exchange-traded funds globally. It returns detailed metrics such as trailing returns and annual returns, enabling users to evaluate the historical performance of various ETFs. This endpoint is ideal for users looking to compare ETF performance over different time periods and assess their investment potential.",
+	Use:     "etfs-world-performance",
+	Short:   "Performance",
+	Long:    "The ETFs performance endpoint provides comprehensive performance data for exchange-traded funds globally. It returns detailed metrics such as trailing returns and annual returns, enabling users to evaluate the historical performance of various ETFs. This endpoint is ideal for users looking to compare ETF performance over different time periods and assess their investment potential.",
+	Example: "td etfs-world-performance --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -270,9 +273,10 @@ var GetETFsWorldPerformanceCmd = &cobra.Command{
 }
 
 var GetETFsWorldRiskCmd = &cobra.Command{
-	Use:   "etfs-world-risk",
-	Short: "Risk",
-	Long:  "The ETFs risk endpoint provides essential risk metrics for global Exchange Traded Funds. It returns data such as volatility, beta, and other risk-related indicators, enabling users to assess the potential risk associated with investing in various ETFs worldwide.",
+	Use:     "etfs-world-risk",
+	Short:   "Risk",
+	Long:    "The ETFs risk endpoint provides essential risk metrics for global Exchange Traded Funds. It returns data such as volatility, beta, and other risk-related indicators, enabling users to assess the potential risk associated with investing in various ETFs worldwide.",
+	Example: "td etfs-world-risk --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -314,9 +318,10 @@ var GetETFsWorldRiskCmd = &cobra.Command{
 }
 
 var GetETFsWorldSummaryCmd = &cobra.Command{
-	Use:   "etfs-world-summary",
-	Short: "Summary",
-	Long:  "The ETFs summary endpoint provides a concise overview of global Exchange-Traded Funds. It returns key data points such as ETF names, symbols, and current market values, enabling users to quickly assess the performance and status of various international ETFs. This summary is ideal for users who need a snapshot of the global ETF landscape without delving into detailed analysis.",
+	Use:     "etfs-world-summary",
+	Short:   "Summary",
+	Long:    "The ETFs summary endpoint provides a concise overview of global Exchange-Traded Funds. It returns key data points such as ETF names, symbols, and current market values, enabling users to quickly assess the performance and status of various international ETFs. This summary is ideal for users who need a snapshot of the global ETF landscape without delving into detailed analysis.",
+	Example: "td etfs-world-summary --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {

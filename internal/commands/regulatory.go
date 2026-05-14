@@ -23,9 +23,10 @@ var (
 )
 
 var GetDirectHoldersCmd = &cobra.Command{
-	Use:   "direct-holders",
-	Short: "Direct holders",
-	Long:  "The direct holders endpoint provides detailed information about the number of shares directly held by individuals or entities as recorded in a company's official share registry. This data is essential for understanding the distribution of stock ownership within a company, helping users identify major shareholders and assess shareholder concentration.",
+	Use:     "direct-holders",
+	Short:   "Direct holders",
+	Long:    "The direct holders endpoint provides detailed information about the number of shares directly held by individuals or entities as recorded in a company's official share registry. This data is essential for understanding the distribution of stock ownership within a company, helping users identify major shareholders and assess shareholder concentration.",
+	Example: "td direct-holders --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -70,9 +71,10 @@ var GetDirectHoldersCmd = &cobra.Command{
 }
 
 var GetEdgarFilingsArchiveCmd = &cobra.Command{
-	Use:   "edgar-filings-archive",
-	Short: "EDGAR fillings",
-	Long:  "The EDGAR fillings endpoint provides access to a comprehensive collection of financial documents submitted to the SEC, including real-time and historical forms, filings, and exhibits. Users can retrieve detailed information about company disclosures, financial statements, and regulatory submissions, enabling them to access essential compliance and financial data directly from the SEC's EDGAR system.",
+	Use:     "edgar-filings-archive",
+	Short:   "EDGAR fillings",
+	Long:    "The EDGAR fillings endpoint provides access to a comprehensive collection of financial documents submitted to the SEC, including real-time and historical forms, filings, and exhibits. Users can retrieve detailed information about company disclosures, financial statements, and regulatory submissions, enabling them to access essential compliance and financial data directly from the SEC's EDGAR system.",
+	Example: "td edgar-filings-archive --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -139,9 +141,10 @@ var GetEdgarFilingsArchiveCmd = &cobra.Command{
 }
 
 var GetFundHoldersCmd = &cobra.Command{
-	Use:   "fund-holders",
-	Short: "Fund holders",
-	Long:  "The fund holders endpoint provides detailed information about the proportion of a company's stock that is owned by mutual fund holders. It returns data on the number of shares held, the percentage of total shares outstanding, and the names of the mutual funds involved. This endpoint is useful for users looking to understand mutual fund investment in a specific company.",
+	Use:     "fund-holders",
+	Short:   "Fund holders",
+	Long:    "The fund holders endpoint provides detailed information about the proportion of a company's stock that is owned by mutual fund holders. It returns data on the number of shares held, the percentage of total shares outstanding, and the names of the mutual funds involved. This endpoint is useful for users looking to understand mutual fund investment in a specific company.",
+	Example: "td fund-holders --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -186,9 +189,10 @@ var GetFundHoldersCmd = &cobra.Command{
 }
 
 var GetInsiderTransactionsCmd = &cobra.Command{
-	Use:   "insider-transactions",
-	Short: "Insider transaction",
-	Long:  "The insider transaction endpoint provides detailed data on trades executed by company insiders, such as executives and directors. It returns information including the insider's name, their role, the transaction type, the number of shares, the transaction date, and the price per share. This endpoint is useful for tracking insider activity and understanding potential insider sentiment towards a company's stock.",
+	Use:     "insider-transactions",
+	Short:   "Insider transaction",
+	Long:    "The insider transaction endpoint provides detailed data on trades executed by company insiders, such as executives and directors. It returns information including the insider's name, their role, the transaction type, the number of shares, the transaction date, and the price per share. This endpoint is useful for tracking insider activity and understanding potential insider sentiment towards a company's stock.",
+	Example: "td insider-transactions --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -233,9 +237,10 @@ var GetInsiderTransactionsCmd = &cobra.Command{
 }
 
 var GetInstitutionalHoldersCmd = &cobra.Command{
-	Use:   "institutional-holders",
-	Short: "Institutional holders",
-	Long:  "The institutional holders endpoint provides detailed information on the percentage and amount of a company's stock owned by institutional investors, such as pension funds, insurance companies, and investment firms. This data is essential for understanding the influence and involvement of large entities in a company's ownership structure.",
+	Use:     "institutional-holders",
+	Short:   "Institutional holders",
+	Long:    "The institutional holders endpoint provides detailed information on the percentage and amount of a company's stock owned by institutional investors, such as pension funds, insurance companies, and investment firms. This data is essential for understanding the influence and involvement of large entities in a company's ownership structure.",
+	Example: "td institutional-holders --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -280,9 +285,10 @@ var GetInstitutionalHoldersCmd = &cobra.Command{
 }
 
 var GetTaxInfoCmd = &cobra.Command{
-	Use:   "tax-info",
-	Short: "Tax information",
-	Long:  "The tax information endpoint provides detailed tax-related data for a specified financial instrument, including applicable tax rates and relevant tax codes. This information is essential for users needing to understand the tax implications associated with trading or investing in specific instruments.",
+	Use:     "tax-info",
+	Short:   "Tax information",
+	Long:    "The tax information endpoint provides detailed tax-related data for a specified financial instrument, including applicable tax rates and relevant tax codes. This information is essential for users needing to understand the tax implications associated with trading or investing in specific instruments.",
+	Example: "td tax-info --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {

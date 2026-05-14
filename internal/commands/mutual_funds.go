@@ -148,9 +148,10 @@ var GetMutualFundsTypeCmd = &cobra.Command{
 }
 
 var GetMutualFundsWorldCmd = &cobra.Command{
-	Use:   "mutual-funds-world",
-	Short: "MF full data",
-	Long:  "The mutual full data endpoint provides detailed information about global mutual funds. It returns a comprehensive dataset that includes a summary of the fund, its performance metrics, risk assessment, ratings, asset composition, purchase details, and sustainability factors. This endpoint is essential for users seeking in-depth insights into mutual funds on a global scale, allowing them to evaluate various aspects such as investment performance, risk levels, and environmental impact.",
+	Use:     "mutual-funds-world",
+	Short:   "MF full data",
+	Long:    "The mutual full data endpoint provides detailed information about global mutual funds. It returns a comprehensive dataset that includes a summary of the fund, its performance metrics, risk assessment, ratings, asset composition, purchase details, and sustainability factors. This endpoint is essential for users seeking in-depth insights into mutual funds on a global scale, allowing them to evaluate various aspects such as investment performance, risk levels, and environmental impact.",
+	Example: "td mutual-funds-world --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -192,9 +193,10 @@ var GetMutualFundsWorldCmd = &cobra.Command{
 }
 
 var GetMutualFundsWorldCompositionCmd = &cobra.Command{
-	Use:   "mutual-funds-world-composition",
-	Short: "Composition",
-	Long:  "The mutual funds compositions endpoint provides detailed information about the portfolio composition of a specified mutual fund. It returns data on sector allocations, individual holdings, and their respective weighted exposures. This endpoint is useful for users seeking to understand the investment distribution and risk profile of a mutual fund.",
+	Use:     "mutual-funds-world-composition",
+	Short:   "Composition",
+	Long:    "The mutual funds compositions endpoint provides detailed information about the portfolio composition of a specified mutual fund. It returns data on sector allocations, individual holdings, and their respective weighted exposures. This endpoint is useful for users seeking to understand the investment distribution and risk profile of a mutual fund.",
+	Example: "td mutual-funds-world-composition --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -236,9 +238,10 @@ var GetMutualFundsWorldCompositionCmd = &cobra.Command{
 }
 
 var GetMutualFundsWorldPerformanceCmd = &cobra.Command{
-	Use:   "mutual-funds-world-performance",
-	Short: "Performance",
-	Long:  "The mutual funds performances endpoint provides comprehensive performance data for mutual funds globally. It returns metrics such as trailing returns, annual returns, quarterly returns, and load-adjusted returns.",
+	Use:     "mutual-funds-world-performance",
+	Short:   "Performance",
+	Long:    "The mutual funds performances endpoint provides comprehensive performance data for mutual funds globally. It returns metrics such as trailing returns, annual returns, quarterly returns, and load-adjusted returns.",
+	Example: "td mutual-funds-world-performance --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -280,9 +283,10 @@ var GetMutualFundsWorldPerformanceCmd = &cobra.Command{
 }
 
 var GetMutualFundsWorldPurchaseInfoCmd = &cobra.Command{
-	Use:   "mutual-funds-world-purchase-info",
-	Short: "Purchase info",
-	Long:  "The mutual funds purchase information endpoint provides detailed purchasing details for global mutual funds. It returns data on minimum investment requirements, current pricing, and a list of brokerages where the mutual fund can be purchased. This endpoint is useful for users looking to understand the entry requirements and options available for investing in specific mutual funds.",
+	Use:     "mutual-funds-world-purchase-info",
+	Short:   "Purchase info",
+	Long:    "The mutual funds purchase information endpoint provides detailed purchasing details for global mutual funds. It returns data on minimum investment requirements, current pricing, and a list of brokerages where the mutual fund can be purchased. This endpoint is useful for users looking to understand the entry requirements and options available for investing in specific mutual funds.",
+	Example: "td mutual-funds-world-purchase-info --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -324,9 +328,10 @@ var GetMutualFundsWorldPurchaseInfoCmd = &cobra.Command{
 }
 
 var GetMutualFundsWorldRatingsCmd = &cobra.Command{
-	Use:   "mutual-funds-world-ratings",
-	Short: "Ratings",
-	Long:  "The mutual funds ratings endpoint provides detailed ratings for mutual funds across global markets. It returns data on the performance and quality of mutual funds, including ratings calculated in-house by Twelve Data and from various financial institutions.",
+	Use:     "mutual-funds-world-ratings",
+	Short:   "Ratings",
+	Long:    "The mutual funds ratings endpoint provides detailed ratings for mutual funds across global markets. It returns data on the performance and quality of mutual funds, including ratings calculated in-house by Twelve Data and from various financial institutions.",
+	Example: "td mutual-funds-world-ratings --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -368,9 +373,10 @@ var GetMutualFundsWorldRatingsCmd = &cobra.Command{
 }
 
 var GetMutualFundsWorldRiskCmd = &cobra.Command{
-	Use:   "mutual-funds-world-risk",
-	Short: "Risk",
-	Long:  "The mutual funds risk endpoint provides detailed risk metrics for global mutual funds. It returns data such as standard deviation, beta, and Sharpe ratio, which help assess the volatility and risk profile of mutual funds across different markets.",
+	Use:     "mutual-funds-world-risk",
+	Short:   "Risk",
+	Long:    "The mutual funds risk endpoint provides detailed risk metrics for global mutual funds. It returns data such as standard deviation, beta, and Sharpe ratio, which help assess the volatility and risk profile of mutual funds across different markets.",
+	Example: "td mutual-funds-world-risk --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -412,9 +418,10 @@ var GetMutualFundsWorldRiskCmd = &cobra.Command{
 }
 
 var GetMutualFundsWorldSummaryCmd = &cobra.Command{
-	Use:   "mutual-funds-world-summary",
-	Short: "Summary",
-	Long:  "The mutual funds summary endpoint provides a concise overview of global mutual funds, including key details such as fund name, symbol, asset class, and region. This endpoint is useful for quickly obtaining essential information about various mutual funds worldwide, aiding in the comparison and selection of funds for investment portfolios.",
+	Use:     "mutual-funds-world-summary",
+	Short:   "Summary",
+	Long:    "The mutual funds summary endpoint provides a concise overview of global mutual funds, including key details such as fund name, symbol, asset class, and region. This endpoint is useful for quickly obtaining essential information about various mutual funds worldwide, aiding in the comparison and selection of funds for investment portfolios.",
+	Example: "td mutual-funds-world-summary --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -456,9 +463,10 @@ var GetMutualFundsWorldSummaryCmd = &cobra.Command{
 }
 
 var GetMutualFundsWorldSustainabilityCmd = &cobra.Command{
-	Use:   "mutual-funds-world-sustainability",
-	Short: "Sustainability",
-	Long:  "The mutual funds sustainability endpoint provides detailed information on the sustainability and Environmental, Social, and Governance (ESG) ratings of global mutual funds. It returns data such as ESG scores, sustainability metrics, and fund identifiers.",
+	Use:     "mutual-funds-world-sustainability",
+	Short:   "Sustainability",
+	Long:    "The mutual funds sustainability endpoint provides detailed information on the sustainability and Environmental, Social, and Governance (ESG) ratings of global mutual funds. It returns data such as ESG scores, sustainability metrics, and fund identifiers.",
+	Example: "td mutual-funds-world-sustainability --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {

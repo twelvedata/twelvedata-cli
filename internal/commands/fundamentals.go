@@ -23,9 +23,10 @@ var (
 )
 
 var GetBalanceSheetCmd = &cobra.Command{
-	Use:   "balance-sheet",
-	Short: "Balance sheet",
-	Long:  "The balance sheet endpoint provides a detailed financial statement for a company, outlining its assets, liabilities, and shareholders' equity. This endpoint returns structured data that includes current and non-current assets, total liabilities, and equity figures, enabling users to assess a company's financial health and stability.",
+	Use:     "balance-sheet",
+	Short:   "Balance sheet",
+	Long:    "The balance sheet endpoint provides a detailed financial statement for a company, outlining its assets, liabilities, and shareholders' equity. This endpoint returns structured data that includes current and non-current assets, total liabilities, and equity figures, enabling users to assess a company's financial health and stability.",
+	Example: "td balance-sheet --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -87,9 +88,10 @@ var GetBalanceSheetCmd = &cobra.Command{
 }
 
 var GetBalanceSheetConsolidatedCmd = &cobra.Command{
-	Use:   "balance-sheet-consolidated",
-	Short: "Balance sheet consolidated",
-	Long:  "The balance sheet consolidated endpoint provides a detailed overview of a company's raw balance sheet, including a comprehensive summary of its assets, liabilities, and shareholders' equity. This endpoint is useful for retrieving financial data that reflects the overall financial position of a company, allowing users to access critical information about its financial health and structure.",
+	Use:     "balance-sheet-consolidated",
+	Short:   "Balance sheet consolidated",
+	Long:    "The balance sheet consolidated endpoint provides a detailed overview of a company's raw balance sheet, including a comprehensive summary of its assets, liabilities, and shareholders' equity. This endpoint is useful for retrieving financial data that reflects the overall financial position of a company, allowing users to access critical information about its financial health and structure.",
+	Example: "td balance-sheet-consolidated --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -151,9 +153,10 @@ var GetBalanceSheetConsolidatedCmd = &cobra.Command{
 }
 
 var GetCashFlowCmd = &cobra.Command{
-	Use:   "cash-flow",
-	Short: "Cash flow",
-	Long:  "The cash flow endpoint provides detailed information on a company's cash flow activities, including the net cash and cash equivalents moving in and out of the business. This data includes operating, investing, and financing cash flows, offering a comprehensive view of the company's liquidity and financial health.",
+	Use:     "cash-flow",
+	Short:   "Cash flow",
+	Long:    "The cash flow endpoint provides detailed information on a company's cash flow activities, including the net cash and cash equivalents moving in and out of the business. This data includes operating, investing, and financing cash flows, offering a comprehensive view of the company's liquidity and financial health.",
+	Example: "td cash-flow --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -215,9 +218,10 @@ var GetCashFlowCmd = &cobra.Command{
 }
 
 var GetCashFlowConsolidatedCmd = &cobra.Command{
-	Use:   "cash-flow-consolidated",
-	Short: "Cash flow consolidated",
-	Long:  "The cash flow consolidated endpoint provides raw data on a company's consolidated cash flow, including the net cash and cash equivalents moving in and out of the business. It returns information on operating, investing, and financing activities, helping users track liquidity and financial health over a specified period.",
+	Use:     "cash-flow-consolidated",
+	Short:   "Cash flow consolidated",
+	Long:    "The cash flow consolidated endpoint provides raw data on a company's consolidated cash flow, including the net cash and cash equivalents moving in and out of the business. It returns information on operating, investing, and financing activities, helping users track liquidity and financial health over a specified period.",
+	Example: "td cash-flow-consolidated --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -279,9 +283,10 @@ var GetCashFlowConsolidatedCmd = &cobra.Command{
 }
 
 var GetDividendsCmd = &cobra.Command{
-	Use:   "dividends",
-	Short: "Dividends",
-	Long:  "The dividends endpoint provides historical dividend data for a specified stock, in many cases covering over a decade. It returns information on dividend payouts, including the ex-date, amount, and frequency. This endpoint is ideal for users tracking dividend histories or evaluating the income potential of stocks.",
+	Use:     "dividends",
+	Short:   "Dividends",
+	Long:    "The dividends endpoint provides historical dividend data for a specified stock, in many cases covering over a decade. It returns information on dividend payouts, including the ex-date, amount, and frequency. This endpoint is ideal for users tracking dividend histories or evaluating the income potential of stocks.",
+	Example: "td dividends --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -408,9 +413,10 @@ var GetDividendsCalendarCmd = &cobra.Command{
 }
 
 var GetEarningsCmd = &cobra.Command{
-	Use:   "earnings",
-	Short: "Earnings",
-	Long:  "The earnings endpoint provides comprehensive earnings data for a specified company, including both the estimated and actual Earnings Per Share (EPS) figures. This endpoint delivers historical earnings information, allowing users to track a company's financial performance over time.",
+	Use:     "earnings",
+	Short:   "Earnings",
+	Long:    "The earnings endpoint provides comprehensive earnings data for a specified company, including both the estimated and actual Earnings Per Share (EPS) figures. This endpoint delivers historical earnings information, allowing users to track a company's financial performance over time.",
+	Example: "td earnings --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -533,9 +539,10 @@ var GetEarningsCalendarCmd = &cobra.Command{
 }
 
 var GetIncomeStatementCmd = &cobra.Command{
-	Use:   "income-statement",
-	Short: "Income statement",
-	Long:  "The income statement endpoint provides detailed financial data on a company's income statement, including revenues, expenses, and net income for specified periods, either annually or quarterly. This endpoint is essential for retrieving comprehensive financial performance metrics of a company, allowing users to access historical and current financial results.",
+	Use:     "income-statement",
+	Short:   "Income statement",
+	Long:    "The income statement endpoint provides detailed financial data on a company's income statement, including revenues, expenses, and net income for specified periods, either annually or quarterly. This endpoint is essential for retrieving comprehensive financial performance metrics of a company, allowing users to access historical and current financial results.",
+	Example: "td income-statement --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -597,9 +604,10 @@ var GetIncomeStatementCmd = &cobra.Command{
 }
 
 var GetIncomeStatementConsolidatedCmd = &cobra.Command{
-	Use:   "income-statement-consolidated",
-	Short: "Income statement consolidated",
-	Long:  "The income statement consolidated endpoint provides a company's raw income statement, detailing revenue, expenses, and net income for specified periods, either annually or quarterly. This data is essential for evaluating a company's financial performance over time, allowing users to access comprehensive financial results in a structured format.",
+	Use:     "income-statement-consolidated",
+	Short:   "Income statement consolidated",
+	Long:    "The income statement consolidated endpoint provides a company's raw income statement, detailing revenue, expenses, and net income for specified periods, either annually or quarterly. This data is essential for evaluating a company's financial performance over time, allowing users to access comprehensive financial results in a structured format.",
+	Example: "td income-statement-consolidated --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -700,9 +708,10 @@ var GetIpoCalendarCmd = &cobra.Command{
 }
 
 var GetKeyExecutivesCmd = &cobra.Command{
-	Use:   "key-executives",
-	Short: "Key executives",
-	Long:  "The key executives endpoint provides detailed information about a company's key executives identified by a specific stock symbol. It returns data such as names, titles, and roles of the executives, which can be useful for understanding the leadership structure of the company.",
+	Use:     "key-executives",
+	Short:   "Key executives",
+	Long:    "The key executives endpoint provides detailed information about a company's key executives identified by a specific stock symbol. It returns data such as names, titles, and roles of the executives, which can be useful for understanding the leadership structure of the company.",
+	Example: "td key-executives --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -747,9 +756,10 @@ var GetKeyExecutivesCmd = &cobra.Command{
 }
 
 var GetLogoCmd = &cobra.Command{
-	Use:   "logo",
-	Short: "Logo",
-	Long:  "The logo endpoint provides the official logo image for a specified company, cryptocurrency, or forex pair. This endpoint is useful for integrating visual branding elements into financial applications, websites, or reports, ensuring that users can easily identify and associate the correct logo with the respective financial asset.",
+	Use:     "logo",
+	Short:   "Logo",
+	Long:    "The logo endpoint provides the official logo image for a specified company, cryptocurrency, or forex pair. This endpoint is useful for integrating visual branding elements into financial applications, websites, or reports, ensuring that users can easily identify and associate the correct logo with the respective financial asset.",
+	Example: "td logo --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -782,9 +792,10 @@ var GetLogoCmd = &cobra.Command{
 }
 
 var GetMarketCapCmd = &cobra.Command{
-	Use:   "market-cap",
-	Short: "Market capitalization",
-	Long:  "The Market Capitalization History endpoint provides historical data on a company's market capitalization over a specified time period. It returns a time series of market cap values, allowing users to track changes in a company's market value.",
+	Use:     "market-cap",
+	Short:   "Market capitalization",
+	Long:    "The Market Capitalization History endpoint provides historical data on a company's market capitalization over a specified time period. It returns a time series of market cap values, allowing users to track changes in a company's market value.",
+	Example: "td market-cap --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -847,9 +858,10 @@ var GetMarketCapCmd = &cobra.Command{
 }
 
 var GetProfileCmd = &cobra.Command{
-	Use:   "profile",
-	Short: "Profile",
-	Long:  "The profile endpoint provides detailed company information, including the company's name, industry, sector, CEO, headquarters location, and market capitalization. This data is useful for obtaining a comprehensive overview of a company's business and financial standing.",
+	Use:     "profile",
+	Short:   "Profile",
+	Long:    "The profile endpoint provides detailed company information, including the company's name, industry, sector, CEO, headquarters location, and market capitalization. This data is useful for obtaining a comprehensive overview of a company's business and financial standing.",
+	Example: "td profile --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -894,9 +906,10 @@ var GetProfileCmd = &cobra.Command{
 }
 
 var GetSplitsCmd = &cobra.Command{
-	Use:   "splits",
-	Short: "Splits",
-	Long:  "The splits endpoint provides historical data on stock split events for a specified company. It returns details including the date of each split and the corresponding split factor.",
+	Use:     "splits",
+	Short:   "Splits",
+	Long:    "The splits endpoint provides historical data on stock split events for a specified company. It returns details including the date of each split and the corresponding split factor.",
+	Example: "td splits --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -1017,9 +1030,10 @@ var GetSplitsCalendarCmd = &cobra.Command{
 }
 
 var GetStatisticsCmd = &cobra.Command{
-	Use:   "statistics",
-	Short: "Statistics",
-	Long:  "The statistics endpoint provides a comprehensive snapshot of a company's key financial statistics, including valuation metrics, revenue figures, profit margins, and other essential financial data. This endpoint is ideal for users seeking detailed insights into a company's financial health and performance metrics.",
+	Use:     "statistics",
+	Short:   "Statistics",
+	Long:    "The statistics endpoint provides a comprehensive snapshot of a company's key financial statistics, including valuation metrics, revenue figures, profit margins, and other essential financial data. This endpoint is ideal for users seeking detailed insights into a company's financial health and performance metrics.",
+	Example: "td statistics --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -1064,9 +1078,10 @@ var GetStatisticsCmd = &cobra.Command{
 }
 
 var PressReleasesListParametersCmd = &cobra.Command{
-	Use:   "press-releases",
-	Short: "Press releases",
-	Long:  "The press releases endpoint offers structured, real-time access to official company press releases and corporate announcements from public entities across global markets.",
+	Use:     "press-releases",
+	Short:   "Press releases",
+	Long:    "The press releases endpoint offers structured, real-time access to official company press releases and corporate announcements from public entities across global markets.",
+	Example: "td press-releases --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {

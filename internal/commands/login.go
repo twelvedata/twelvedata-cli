@@ -129,4 +129,3 @@ func init() {
 	loginCmd.Flags().Bool("key-stdin", false, "Read the API key from stdin (preferred for CI/scripts)")
 	rootCmd.AddCommand(loginCmd)
 }
-

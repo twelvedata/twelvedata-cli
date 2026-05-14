@@ -23,9 +23,10 @@ var (
 )
 
 var GetCurrencyConversionCmd = &cobra.Command{
-	Use:   "currency-conversion",
-	Short: "Currency conversion",
-	Long:  "The currency conversion endpoint provides real-time exchange rates and calculates the converted amount for specified currency pairs, including both forex and cryptocurrencies. This endpoint is useful for obtaining up-to-date conversion values between two currencies, facilitating tasks such as financial reporting, e-commerce transactions, and travel budgeting.",
+	Use:     "currency-conversion",
+	Short:   "Currency conversion",
+	Long:    "The currency conversion endpoint provides real-time exchange rates and calculates the converted amount for specified currency pairs, including both forex and cryptocurrencies. This endpoint is useful for obtaining up-to-date conversion values between two currencies, facilitating tasks such as financial reporting, e-commerce transactions, and travel budgeting.",
+	Example: "td currency-conversion --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -68,9 +69,10 @@ var GetCurrencyConversionCmd = &cobra.Command{
 }
 
 var GetExchangeRateCmd = &cobra.Command{
-	Use:   "exchange-rate",
-	Short: "Exchange rate",
-	Long:  "The exchange rate endpoint provides real-time exchange rates for specified currency pairs, including both forex and cryptocurrency. It returns the current exchange rate value between two currencies, allowing users to quickly access up-to-date conversion rates for financial transactions or market analysis.",
+	Use:     "exchange-rate",
+	Short:   "Exchange rate",
+	Long:    "The exchange rate endpoint provides real-time exchange rates for specified currency pairs, including both forex and cryptocurrency. It returns the current exchange rate value between two currencies, allowing users to quickly access up-to-date conversion rates for financial transactions or market analysis.",
+	Example: "td exchange-rate --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {

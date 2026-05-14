@@ -23,9 +23,10 @@ var (
 )
 
 var GetAnalystRatingsLightCmd = &cobra.Command{
-	Use:   "analyst-ratings-light",
-	Short: "Analyst ratings snapshot",
-	Long:  "The analyst ratings snapshot endpoint provides a streamlined summary of ratings from analyst firms for both US and international markets. It delivers essential data on analyst recommendations, including buy, hold, and sell ratings, allowing users to quickly assess the general sentiment of analysts towards a particular stock.",
+	Use:     "analyst-ratings-light",
+	Short:   "Analyst ratings snapshot",
+	Long:    "The analyst ratings snapshot endpoint provides a streamlined summary of ratings from analyst firms for both US and international markets. It delivers essential data on analyst recommendations, including buy, hold, and sell ratings, allowing users to quickly assess the general sentiment of analysts towards a particular stock.",
+	Example: "td analyst-ratings-light --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -75,9 +76,10 @@ var GetAnalystRatingsLightCmd = &cobra.Command{
 }
 
 var GetAnalystRatingsUsEquitiesCmd = &cobra.Command{
-	Use:   "analyst-ratings-us-equities",
-	Short: "Analyst ratings US equities",
-	Long:  "The analyst ratings US equities endpoint provides detailed information on analyst ratings for U.S. stocks. It returns data on the latest ratings issued by various analyst firms, including the rating itself, the firm issuing the rating, and any changes in the rating. This endpoint is useful for users tracking analyst opinions on U.S. equities, allowing them to see how professional analysts view the potential performance of specific stocks.",
+	Use:     "analyst-ratings-us-equities",
+	Short:   "Analyst ratings US equities",
+	Long:    "The analyst ratings US equities endpoint provides detailed information on analyst ratings for U.S. stocks. It returns data on the latest ratings issued by various analyst firms, including the rating itself, the firm issuing the rating, and any changes in the rating. This endpoint is useful for users tracking analyst opinions on U.S. equities, allowing them to see how professional analysts view the potential performance of specific stocks.",
+	Example: "td analyst-ratings-us-equities --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -123,9 +125,10 @@ var GetAnalystRatingsUsEquitiesCmd = &cobra.Command{
 }
 
 var GetEarningsEstimateCmd = &cobra.Command{
-	Use:   "earnings-estimate",
-	Short: "Earnings estimate",
-	Long:  "The earnings estimate endpoint provides access to analysts' projected earnings per share (EPS) for a specific company, covering both upcoming quarterly and annual periods. This data is crucial for users who need to track and compare expected financial performance across different timeframes, aiding in the evaluation of a company's future profitability.",
+	Use:     "earnings-estimate",
+	Short:   "Earnings estimate",
+	Long:    "The earnings estimate endpoint provides access to analysts' projected earnings per share (EPS) for a specific company, covering both upcoming quarterly and annual periods. This data is crucial for users who need to track and compare expected financial performance across different timeframes, aiding in the evaluation of a company's future profitability.",
+	Example: "td earnings-estimate --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -166,9 +169,10 @@ var GetEarningsEstimateCmd = &cobra.Command{
 }
 
 var GetEpsRevisionsCmd = &cobra.Command{
-	Use:   "eps-revisions",
-	Short: "EPS revisions",
-	Long:  "The EPS revisions endpoint provides updated analyst forecasts for a company's earnings per share (EPS) on both a quarterly and annual basis. It delivers data on how these EPS predictions have changed over the past week and month, allowing users to track recent adjustments in analyst expectations. This endpoint is useful for monitoring shifts in market sentiment regarding a company's financial performance.",
+	Use:     "eps-revisions",
+	Short:   "EPS revisions",
+	Long:    "The EPS revisions endpoint provides updated analyst forecasts for a company's earnings per share (EPS) on both a quarterly and annual basis. It delivers data on how these EPS predictions have changed over the past week and month, allowing users to track recent adjustments in analyst expectations. This endpoint is useful for monitoring shifts in market sentiment regarding a company's financial performance.",
+	Example: "td eps-revisions --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -209,9 +213,10 @@ var GetEpsRevisionsCmd = &cobra.Command{
 }
 
 var GetEpsTrendCmd = &cobra.Command{
-	Use:   "eps-trend",
-	Short: "EPS trend",
-	Long:  "The EPS trend endpoint provides detailed historical data on Earnings Per Share (EPS) trends over specified periods. It returns a comprehensive breakdown of estimated EPS changes, allowing users to track and analyze the progression of a company's earnings performance over time. This endpoint is ideal for users seeking to understand historical EPS fluctuations and assess financial growth patterns.",
+	Use:     "eps-trend",
+	Short:   "EPS trend",
+	Long:    "The EPS trend endpoint provides detailed historical data on Earnings Per Share (EPS) trends over specified periods. It returns a comprehensive breakdown of estimated EPS changes, allowing users to track and analyze the progression of a company's earnings performance over time. This endpoint is ideal for users seeking to understand historical EPS fluctuations and assess financial growth patterns.",
+	Example: "td eps-trend --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -252,9 +257,10 @@ var GetEpsTrendCmd = &cobra.Command{
 }
 
 var GetGrowthEstimatesCmd = &cobra.Command{
-	Use:   "growth-estimates",
-	Short: "Growth estimates",
-	Long:  "The growth estimates endpoint provides consensus analyst projections on a company's growth rates over various timeframes. It aggregates and averages estimates from multiple analysts, focusing on key financial metrics such as earnings per share and revenue. This endpoint is useful for obtaining a comprehensive view of expected company performance based on expert analysis.",
+	Use:     "growth-estimates",
+	Short:   "Growth estimates",
+	Long:    "The growth estimates endpoint provides consensus analyst projections on a company's growth rates over various timeframes. It aggregates and averages estimates from multiple analysts, focusing on key financial metrics such as earnings per share and revenue. This endpoint is useful for obtaining a comprehensive view of expected company performance based on expert analysis.",
+	Example: "td growth-estimates --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -295,9 +301,10 @@ var GetGrowthEstimatesCmd = &cobra.Command{
 }
 
 var GetPriceTargetCmd = &cobra.Command{
-	Use:   "price-target",
-	Short: "Price target",
-	Long:  "The price target endpoint provides detailed projections of a security's future price as estimated by financial analysts. It returns data including the high, low, and average price targets. This endpoint is useful for users seeking to understand potential future valuations of specific securities based on expert analysis.",
+	Use:     "price-target",
+	Short:   "Price target",
+	Long:    "The price target endpoint provides detailed projections of a security's future price as estimated by financial analysts. It returns data including the high, low, and average price targets. This endpoint is useful for users seeking to understand potential future valuations of specific securities based on expert analysis.",
+	Example: "td price-target --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -338,9 +345,10 @@ var GetPriceTargetCmd = &cobra.Command{
 }
 
 var GetRecommendationsCmd = &cobra.Command{
-	Use:   "recommendations",
-	Short: "Recommendations",
-	Long:  "The recommendations endpoint provides a summary of analyst opinions for a specific stock, delivering an average recommendation categorized as Strong Buy, Buy, Hold, or Sell. It also includes a numerical recommendation score, offering a quick overview of market sentiment based on expert analysis.",
+	Use:     "recommendations",
+	Short:   "Recommendations",
+	Long:    "The recommendations endpoint provides a summary of analyst opinions for a specific stock, delivering an average recommendation categorized as Strong Buy, Buy, Hold, or Sell. It also includes a numerical recommendation score, offering a quick overview of market sentiment based on expert analysis.",
+	Example: "td recommendations --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -381,9 +389,10 @@ var GetRecommendationsCmd = &cobra.Command{
 }
 
 var GetRevenueEstimateCmd = &cobra.Command{
-	Use:   "revenue-estimate",
-	Short: "Revenue estimate",
-	Long:  "The revenue estimate endpoint provides a company's projected quarterly and annual revenue figures based on analysts' estimates. This data is useful for users seeking insights into expected company performance, allowing them to compare forecasted sales with historical data or other companies' estimates.",
+	Use:     "revenue-estimate",
+	Short:   "Revenue estimate",
+	Long:    "The revenue estimate endpoint provides a company's projected quarterly and annual revenue figures based on analysts' estimates. This data is useful for users seeking insights into expected company performance, allowing them to compare forecasted sales with historical data or other companies' estimates.",
+	Example: "td revenue-estimate --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {

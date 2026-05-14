@@ -8,9 +8,16 @@ import (
 	"github.com/twelvedata/twelvedata-cli/internal/output"
 )
 
-// errorCodesHelp is appended to every command's usage block. The code list is
-// pulled from output.ErrorCodes, which classify() in internal/output/errors.go
-// returns from — single source of truth, no duplication.
+// outputHelp and errorCodesHelp are appended to every command's usage block
+// via the shared UsageTemplate. Output is a single generic line — the schema
+// differs per endpoint, so we link to the API reference rather than dumping
+// shapes here. The code list comes from output.ErrorCodes (sourced by
+// classify() in internal/output/errors.go) so there's no duplication.
+const outputHelp = "\n\n" +
+	"Output:\n" +
+	"  Pretty-printed JSON by default, or streaming CSV with --output csv.\n" +
+	"  See https://twelvedata.com/docs for the response schema."
+
 var errorCodesHelp = "\n\n" +
 	"Error codes (JSON envelope on stderr in raw mode — --raw, piped stdout, or CI):\n" +
 	`  {"error":{"code":"<code>","message":"<message>","status":<http-status>}}` + "\n" +
@@ -27,6 +34,12 @@ var rootCmd = &cobra.Command{
 			return err
 		}
 		return promptMissingFlags(cmd)
+	},
+	Run: func(cmd *cobra.Command, _ []string) {
+		if !output.IsRaw(cmd) {
+			output.PrintBanner(cmd.OutOrStderr())
+		}
+		_ = cmd.Help()
 	},
 }
 
@@ -52,7 +65,7 @@ func init() {
 	// internal/output/errors.go and apply uniformly.
 	t = strings.Replace(t,
 		"{{.InheritedFlags.FlagUsages | trimTrailingWhitespaces}}{{end}}",
-		"{{.InheritedFlags.FlagUsages | trimTrailingWhitespaces}}{{end}}"+errorCodesHelp,
+		"{{.InheritedFlags.FlagUsages | trimTrailingWhitespaces}}{{end}}"+outputHelp+errorCodesHelp,
 		1)
 	rootCmd.SetUsageTemplate(t)
 }
