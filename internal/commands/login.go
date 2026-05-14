@@ -132,11 +132,8 @@ func init() {
 }
 
 // isJSON tells whether a non-error subcommand should emit JSON to stdout.
-// --quiet implies JSON; --output json explicitly opts in. Otherwise human text.
+// --output json (or its --json alias) opts in; otherwise human text.
 func isJSON(cmd *cobra.Command) bool {
-	if q, _ := cmd.Flags().GetBool("quiet"); q {
-		return true
-	}
 	if out, _ := cmd.Flags().GetString("output"); out == "json" {
 		return true
 	}

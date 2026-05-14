@@ -548,6 +548,8 @@ func init() {
 
 	flagx.Register(GetTimeSeriesCmd, "adjust", twelvedata.AllowedAdjustEnumEnumValues, "Adjusting mode for prices")
 
+	_ = GetTimeSeriesCmd.MarkFlagRequired("interval")
+
 	GetTimeSeriesCmd.MarkFlagsOneRequired("symbol", "isin", "figi", "cusip")
 
 	rootCmd.AddCommand(GetTimeSeriesCmd)

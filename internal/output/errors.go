@@ -5,11 +5,13 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net/http"
 	"os"
 	"strings"
 
 	"github.com/spf13/cobra"
 	"github.com/twelvedata/twelvedata-go/twelvedata"
+	"golang.org/x/term"
 
 	"github.com/twelvedata/twelvedata-cli/internal/auth"
 )
@@ -37,6 +39,39 @@ const (
 	ExitInternalServer = 8
 )
 
+// Error codes emitted in the JSON error envelope. classify() is the single
+// source of truth that returns these; ErrorCodes mirrors that set in the order
+// they're surfaced in --help.
+const (
+	CodeBadRequest          = "bad_request"
+	CodeUnauthorized        = "unauthorized"
+	CodeForbidden           = "forbidden"
+	CodeNotFound            = "not_found"
+	CodeParameterTooLong    = "parameter_too_long"
+	CodeRateLimited         = "rate_limited"
+	CodeInternalServerError = "internal_server_error"
+	CodeUsageError          = "usage_error"
+	CodeNotAuthenticated    = "not_authenticated"
+	CodeMissingAPIKey       = "missing_api_key"
+	CodeGenericError        = "error"
+)
+
+// ErrorCodes lists every code classify() may emit. Consumed by the Cobra usage
+// template in commands/root.go.
+var ErrorCodes = []string{
+	CodeBadRequest,
+	CodeUnauthorized,
+	CodeForbidden,
+	CodeNotFound,
+	CodeParameterTooLong,
+	CodeRateLimited,
+	CodeInternalServerError,
+	CodeUsageError,
+	CodeNotAuthenticated,
+	CodeMissingAPIKey,
+	CodeGenericError,
+}
+
 // NotImplementedParam is returned by a generated command when the API spec
 // declares a parameter whose type the api.mustache template doesn't handle yet
 // (e.g. number/array/file). The classifier maps it to a generic error so the
@@ -58,8 +93,8 @@ type envelopeBody struct {
 }
 
 // WriteError writes the error to stderr in the resolved format and returns the
-// process exit code. Format resolution mirrors Render: --output flag wins, then
-// --quiet, then TTY detection.
+// process exit code. Format resolution mirrors Render: --output flag wins,
+// then TTY detection.
 func WriteError(cmd *cobra.Command, err error) int {
 	if err == nil {
 		return ExitOK
@@ -67,7 +102,7 @@ func WriteError(cmd *cobra.Command, err error) int {
 
 	code, exit := classify(err)
 	msg := err.Error()
-	if code == "usage_error" {
+	if code == CodeUsageError {
 		msg = cobraWording.Replace(msg)
 	}
 
@@ -75,9 +110,99 @@ func WriteError(cmd *cobra.Command, err error) int {
 	if jsonMode(cmd) {
 		writeJSONError(w, code, msg, err)
 	} else {
-		fmt.Fprintf(w, "Error: %s\n", msg)
+		writePrettyError(w, err, msg)
 	}
 	return exit
+}
+
+// writePrettyError renders a human-friendly TTY error: red mark, bold status
+// name, dim status code, message indented and word-wrapped at terminal width.
+// For non-API errors falls back to a single colorized "Error: msg" line.
+func writePrettyError(w io.Writer, err error, msg string) {
+	color := useColor(w)
+
+	var apiErr twelvedata.TwelvedataApiError
+	if errors.As(err, &apiErr) {
+		status := apiErr.GetStatusCode()
+		name := statusName(status)
+		if color {
+			fmt.Fprintf(w, "\x1b[31m✗\x1b[0m \x1b[1m%s\x1b[0m \x1b[2m(%d)\x1b[0m\n", name, status)
+		} else {
+			fmt.Fprintf(w, "✗ %s (%d)\n", name, status)
+		}
+		bodyWidth := max(termWidth(w)-2, 20)
+		for _, line := range wrapWords(apiErr.GetMessage(), bodyWidth) {
+			fmt.Fprintf(w, "  %s\n", line)
+		}
+		return
+	}
+
+	if color {
+		fmt.Fprintf(w, "\x1b[31m✗\x1b[0m %s\n", msg)
+	} else {
+		fmt.Fprintf(w, "Error: %s\n", msg)
+	}
+}
+
+func statusName(code int) string {
+	if name := http.StatusText(code); name != "" {
+		return name
+	}
+	return "Error"
+}
+
+func useColor(w io.Writer) bool {
+	if os.Getenv("NO_COLOR") != "" {
+		return false
+	}
+	return isTerminal(w)
+}
+
+// termWidth returns the column width of w, capped at 100 so wide terminals
+// don't produce one absurdly long line. Falls back to 80 when w isn't a TTY.
+func termWidth(w io.Writer) int {
+	f, ok := w.(*os.File)
+	if !ok {
+		return 80
+	}
+	width, _, err := term.GetSize(int(f.Fd()))
+	if err != nil || width <= 0 {
+		return 80
+	}
+	if width > 100 {
+		return 100
+	}
+	return width
+}
+
+// wrapWords splits s on whitespace and greedy-wraps it into lines no wider
+// than width. A single word longer than width is kept on its own line rather
+// than broken — URLs and identifiers like (figi,figi_composite,...) stay intact.
+func wrapWords(s string, width int) []string {
+	words := strings.Fields(s)
+	if len(words) == 0 {
+		return []string{""}
+	}
+	var lines []string
+	var line strings.Builder
+	for _, word := range words {
+		if line.Len() == 0 {
+			line.WriteString(word)
+			continue
+		}
+		if line.Len()+1+len(word) > width {
+			lines = append(lines, line.String())
+			line.Reset()
+			line.WriteString(word)
+			continue
+		}
+		line.WriteByte(' ')
+		line.WriteString(word)
+	}
+	if line.Len() > 0 {
+		lines = append(lines, line.String())
+	}
+	return lines
 }
 
 func writeJSONError(w io.Writer, code, msg string, err error) {
@@ -114,31 +239,31 @@ func classify(err error) (string, int) {
 	if errors.As(err, &apiErr) {
 		switch apiErr.GetStatusCode() {
 		case 400:
-			return "bad_request", ExitBadRequest
+			return CodeBadRequest, ExitBadRequest
 		case 401:
-			return "unauthorized", ExitUnauthorized
+			return CodeUnauthorized, ExitUnauthorized
 		case 403:
-			return "forbidden", ExitForbidden
+			return CodeForbidden, ExitForbidden
 		case 404:
-			return "not_found", ExitNotFound
+			return CodeNotFound, ExitNotFound
 		case 414:
-			return "parameter_too_long", ExitBadRequest
+			return CodeParameterTooLong, ExitBadRequest
 		case 429:
-			return "rate_limited", ExitRateLimited
+			return CodeRateLimited, ExitRateLimited
 		case 500:
-			return "internal_server_error", ExitInternalServer
+			return CodeInternalServerError, ExitInternalServer
 		}
 	}
 	if isUsageError(err) {
-		return "usage_error", ExitUsage
+		return CodeUsageError, ExitUsage
 	}
 	if errors.Is(err, auth.ErrNoAPIKey) {
-		return "not_authenticated", ExitUnauthorized
+		return CodeNotAuthenticated, ExitUnauthorized
 	}
 	if strings.Contains(err.Error(), "TWELVEDATA_API_KEY environment variable is not set") {
-		return "missing_api_key", ExitUnauthorized
+		return CodeMissingAPIKey, ExitUnauthorized
 	}
-	return "error", ExitGeneric
+	return CodeGenericError, ExitGeneric
 }
 
 // isUsageError detects Cobra's flag/argument validation errors. Cobra does not
@@ -169,10 +294,6 @@ func jsonMode(cmd *cobra.Command) bool {
 	out, _ := cmd.Flags().GetString("output")
 	if out != "" {
 		return Format(out) == FormatJSON
-	}
-	quiet, _ := cmd.Flags().GetBool("quiet")
-	if quiet {
-		return true
 	}
 	return !isTerminal(os.Stderr) || isCI()
 }

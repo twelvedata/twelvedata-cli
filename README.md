@@ -25,7 +25,7 @@ For scripts and CI, skip `td login` and provide the key inline — either set `T
 
 CLI renders responses based on `--output`:
 
-- `--output json` (default): pretty-printed JSON.
+- `--output json` (default): pretty-printed JSON. Shortcut: `--json`.
 - `--output csv`: streams the API's CSV response verbatim. Sets `format=csv` upstream.
 
 ## Authentication
