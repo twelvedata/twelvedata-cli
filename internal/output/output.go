@@ -1,6 +1,7 @@
 package output
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -9,6 +10,7 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/tidwall/pretty"
 	"golang.org/x/term"
 )
 
@@ -66,9 +68,18 @@ func Render(cmd *cobra.Command, resp any, httpResp *http.Response, callErr error
 		return callErr
 	}
 
-	enc := json.NewEncoder(cmd.OutOrStdout())
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
 	enc.SetIndent("", "  ")
-	return enc.Encode(resp)
+	if err := enc.Encode(resp); err != nil {
+		return err
+	}
+	out := buf.Bytes()
+	if useColor(cmd, cmd.OutOrStdout()) {
+		out = pretty.Color(out, nil)
+	}
+	_, err = cmd.OutOrStdout().Write(out)
+	return err
 }
 
 // IsRaw reports whether the command is running in machine mode: errors render
