@@ -107,10 +107,10 @@ func WriteError(cmd *cobra.Command, err error) int {
 	}
 
 	w := cmd.ErrOrStderr()
-	if jsonMode(cmd) {
+	if IsRaw(cmd) {
 		writeJSONError(w, code, msg, err)
 	} else {
-		writePrettyError(w, err, msg)
+		writePrettyError(cmd, w, err, msg)
 	}
 	return exit
 }
@@ -118,8 +118,8 @@ func WriteError(cmd *cobra.Command, err error) int {
 // writePrettyError renders a human-friendly TTY error: red mark, bold status
 // name, dim status code, message indented and word-wrapped at terminal width.
 // For non-API errors falls back to a single colorized "Error: msg" line.
-func writePrettyError(w io.Writer, err error, msg string) {
-	color := useColor(w)
+func writePrettyError(cmd *cobra.Command, w io.Writer, err error, msg string) {
+	color := useColor(cmd, w)
 
 	var apiErr twelvedata.TwelvedataApiError
 	if errors.As(err, &apiErr) {
@@ -151,7 +151,10 @@ func statusName(code int) string {
 	return "Error"
 }
 
-func useColor(w io.Writer) bool {
+func useColor(cmd *cobra.Command, w io.Writer) bool {
+	if IsRaw(cmd) {
+		return false
+	}
 	if os.Getenv("NO_COLOR") != "" {
 		return false
 	}
@@ -288,12 +291,3 @@ func isUsageError(err error) bool {
 	return false
 }
 
-// jsonMode tells whether stderr should carry the JSON error envelope. Same
-// resolution rules as ResolveFormat for stdout.
-func jsonMode(cmd *cobra.Command) bool {
-	out, _ := cmd.Flags().GetString("output")
-	if out != "" {
-		return Format(out) == FormatJSON
-	}
-	return !isTerminal(os.Stderr) || isCI()
-}

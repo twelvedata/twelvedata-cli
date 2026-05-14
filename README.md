@@ -21,12 +21,45 @@ td ti rsi --symbol AAPL --interval 1day
 
 For scripts and CI, skip `td login` and provide the key inline — either set `TWELVEDATA_API_KEY=...` in the environment or pass `--api-key <key>` on each invocation. See [Authentication](#authentication).
 
-## Output formats
+## Output behavior
 
-CLI renders responses based on `--output`:
+The CLI has two output modes:
 
-- `--output json` (default): pretty-printed JSON. Shortcut: `--json`.
+| Mode            | When                                         | Stdout                | Stderr                              |
+| --------------- | -------------------------------------------- | --------------------- | ----------------------------------- |
+| **Interactive** | TTY                                          | Pretty-printed JSON   | Spinner, prompts, colorized errors  |
+| **Machine**     | `--raw`, piped stdout, `CI`, or `TERM=dumb`  | Pretty-printed JSON   | JSON error envelope                 |
+
+Switching is automatic — pipe stdout and machine mode activates:
+
+```sh
+td quote --symbol AAPL | jq .price
+```
+
+Use `--raw` to force machine mode from a TTY (e.g. when an agent captures both streams):
+
+```sh
+td quote --symbol AAPL --raw
+```
+
+In machine mode the spinner and color are suppressed, errors render as a JSON envelope on stderr, and every interactive helper (missing-option prompt, masked-key prompt, profile picker, destructive confirmation) is skipped — the same arguments that work in CI work from a `--raw` TTY.
+
+`--output` selects the response format (orthogonal to mode):
+
+- `--output json` (default): pretty-printed JSON.
 - `--output csv`: streams the API's CSV response verbatim. Sets `format=csv` upstream.
+
+### Error output
+
+Errors exit with a stable code (see [Exit codes](#exit-codes)). On **stderr** the format depends on the mode:
+
+- **Machine**: a JSON envelope, so **stdout** stays response-only for scripting:
+
+  ```json
+  { "error": { "code": "unauthorized", "message": "Invalid API key", "status": 401 } }
+  ```
+
+- **Interactive**: a human line with a red mark, the status name, and the word-wrapped body.
 
 ## Authentication
 
@@ -61,7 +94,7 @@ Other auth commands:
 
 The `-p` / `--profile` flag (or `TWELVEDATA_PROFILE` env var) overrides the active profile for one invocation.
 
-On a TTY, `td auth switch`, `td auth rename`, and `td auth remove` prompt for any missing argument with a selector, and `td logout` (without `--profile`) and `td auth remove` ask for confirmation before deleting. In non-interactive shells every argument is required and confirmations are skipped.
+Interactive behavior — selectors for missing arguments and confirmations for destructive operations — follows the rules in [Output behavior](#output-behavior).
 
 ### Storage
 

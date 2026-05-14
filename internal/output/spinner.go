@@ -3,7 +3,6 @@ package output
 import (
 	"fmt"
 	"io"
-	"os"
 	"sync"
 	"time"
 
@@ -38,7 +37,7 @@ type Spinner struct {
 
 // StartSpinner starts a spinner on stderr labeled "Fetching <command>...".
 // Returns a zero-value Spinner whose Stop is a no-op when spinners are
-// suppressed (--output json, non-TTY stderr, CI, dumb terminal).
+// suppressed (raw mode or non-TTY stderr).
 func StartSpinner(cmd *cobra.Command) *Spinner {
 	s := &Spinner{}
 	if !spinnerEnabled(cmd) {
@@ -85,17 +84,12 @@ func runSpinner(w io.Writer, msg string, cancel, done chan struct{}) {
 	}
 }
 
-// spinnerEnabled mirrors the predicate logic used elsewhere: if the user opted
-// into machine output (--output json) or stderr can't host ANSI animation
-// (non-TTY, CI, TERM=dumb), suppress entirely.
+// spinnerEnabled returns true only when the user is on an interactive
+// terminal capable of hosting the animation. Raw mode (--raw, piped stdout,
+// CI, TERM=dumb) suppresses it; an additional stderr-TTY gate covers the case
+// where stderr alone is redirected.
 func spinnerEnabled(cmd *cobra.Command) bool {
-	if out, _ := cmd.Flags().GetString("output"); out == "json" {
-		return false
-	}
-	if os.Getenv("TERM") == "dumb" {
-		return false
-	}
-	if isCI() {
+	if IsRaw(cmd) {
 		return false
 	}
 	return isTerminal(cmd.ErrOrStderr())

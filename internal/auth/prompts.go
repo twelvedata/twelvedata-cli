@@ -47,11 +47,13 @@ func SelectProfile(prompt string, profiles []ProfileInfo) (string, error) {
 	opts := make([]huh.Option[string], 0, len(profiles))
 	for _, p := range profiles {
 		label := p.Name
-		if p.Active {
-			label += " (active)"
-		}
-		if ValidateProfileName(p.Name) != nil {
-			label += " (invalid name)"
+		if !p.IsAction {
+			if p.Active {
+				label += " (active)"
+			}
+			if ValidateProfileName(p.Name) != nil {
+				label += " (invalid name)"
+			}
 		}
 		opts = append(opts, huh.NewOption(label, p.Name))
 	}

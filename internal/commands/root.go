@@ -2,7 +2,6 @@ package commands
 
 import (
 	"context"
-	"fmt"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -13,27 +12,19 @@ import (
 // pulled from output.ErrorCodes, which classify() in internal/output/errors.go
 // returns from — single source of truth, no duplication.
 var errorCodesHelp = "\n\n" +
-	"Error codes (JSON envelope on stderr in non-TTY mode or with --output json):\n" +
+	"Error codes (JSON envelope on stderr in raw mode — --raw, piped stdout, or CI):\n" +
 	`  {"error":{"code":"<code>","message":"<message>","status":<http-status>}}` + "\n" +
 	"  " + joinChunks(output.ErrorCodes, 4, " | ", "\n  ")
 
 var rootCmd = &cobra.Command{
 	Use:           "td",
 	Short:         "Twelve Data CLI",
-	Long:          "Twelve Data CLI — REST client for Twelve Data's market data API. Designed for AI agents and humans alike.\n\nResponses render as pretty-printed JSON by default; --output csv switches to the streaming CSV path for endpoints that support it.",
+	Long:          "Twelve Data CLI — REST client for Twelve Data's market data API. Designed for AI agents and humans alike.\n\nResponses render as pretty-printed JSON by default; --output csv switches to the streaming CSV path for endpoints that support it. On an interactive terminal the CLI shows a spinner and colorized errors; pass --raw (or pipe stdout) to force machine-friendly output.",
 	SilenceUsage:  true,
 	SilenceErrors: true,
 	PersistentPreRunE: func(cmd *cobra.Command, _ []string) error {
 		if _, err := output.ResolveFormat(cmd); err != nil {
 			return err
-		}
-		if j, _ := cmd.Flags().GetBool("json"); j {
-			if out, _ := cmd.Flags().GetString("output"); out != "" && out != "json" {
-				return fmt.Errorf("invalid argument: --json cannot be combined with --output %s", out)
-			}
-			if err := cmd.Flags().Set("output", "json"); err != nil {
-				return err
-			}
 		}
 		return promptMissingFlags(cmd)
 	},
@@ -42,7 +33,7 @@ var rootCmd = &cobra.Command{
 func init() {
 	rootCmd.PersistentFlags().String("api-key", "", "Twelve Data API key (overrides TWELVEDATA_API_KEY)")
 	rootCmd.PersistentFlags().StringP("output", "o", "", "Output format: json, csv (default: json)")
-	rootCmd.PersistentFlags().Bool("json", false, "Alias for --output json")
+	rootCmd.PersistentFlags().Bool("raw", false, "Force machine mode: JSON error envelope, no spinner, no color, no prompts")
 	rootCmd.PersistentFlags().StringP("profile", "p", "", "Profile to use (overrides TWELVEDATA_PROFILE)")
 
 	// Rename Cobra's "flag" vocabulary to "option" in usage output:

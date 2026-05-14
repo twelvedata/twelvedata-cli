@@ -9,6 +9,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/twelvedata/twelvedata-cli/internal/auth"
+	"github.com/twelvedata/twelvedata-cli/internal/output"
 )
 
 var authCmd = &cobra.Command{
@@ -38,7 +39,7 @@ var authListCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		if isJSON(cmd) {
+		if output.IsRaw(cmd) {
 			items := make([]map[string]any, 0, len(profiles))
 			for _, p := range profiles {
 				items = append(items, map[string]any{"name": p.Name, "active": p.Active})
@@ -89,8 +90,8 @@ var authSwitchCmd = &cobra.Command{
 			name = strings.TrimSpace(args[0])
 		}
 		if name == "" {
-			if !auth.IsInteractive() {
-				return errors.New("profile name is required in non-interactive mode")
+			if !shouldPrompt(cmd) {
+				return errors.New("profile name is required")
 			}
 			profiles, err := auth.ListProfiles()
 			if err != nil {
@@ -108,7 +109,7 @@ var authSwitchCmd = &cobra.Command{
 		if err := auth.SetActiveProfile(name); err != nil {
 			return err
 		}
-		if isJSON(cmd) {
+		if output.IsRaw(cmd) {
 			enc := json.NewEncoder(cmd.OutOrStdout())
 			enc.SetIndent("", "  ")
 			return enc.Encode(map[string]any{"success": true, "active_profile": name})
@@ -133,8 +134,8 @@ var authRenameCmd = &cobra.Command{
 		}
 
 		if oldName == "" {
-			if !auth.IsInteractive() {
-				return errors.New("old and new profile names are required in non-interactive mode")
+			if !shouldPrompt(cmd) {
+				return errors.New("old and new profile names are required")
 			}
 			profiles, err := auth.ListProfiles()
 			if err != nil {
@@ -150,8 +151,8 @@ var authRenameCmd = &cobra.Command{
 			oldName = chosen
 		}
 		if newName == "" {
-			if !auth.IsInteractive() {
-				return errors.New("new profile name is required in non-interactive mode")
+			if !shouldPrompt(cmd) {
+				return errors.New("new profile name is required")
 			}
 			placeholder := sanitizePlaceholder(oldName)
 			v, err := auth.PromptText(fmt.Sprintf("New name for %q", oldName), placeholder, func(v string) error {
@@ -166,7 +167,7 @@ var authRenameCmd = &cobra.Command{
 		if err := auth.RenameProfile(oldName, newName); err != nil {
 			return err
 		}
-		if isJSON(cmd) {
+		if output.IsRaw(cmd) {
 			enc := json.NewEncoder(cmd.OutOrStdout())
 			enc.SetIndent("", "  ")
 			return enc.Encode(map[string]any{"success": true, "from": oldName, "to": newName})
@@ -187,8 +188,8 @@ var authRemoveCmd = &cobra.Command{
 			name = strings.TrimSpace(args[0])
 		}
 		if name == "" {
-			if !auth.IsInteractive() {
-				return errors.New("profile name is required in non-interactive mode")
+			if !shouldPrompt(cmd) {
+				return errors.New("profile name is required")
 			}
 			profiles, err := auth.ListProfiles()
 			if err != nil {
@@ -203,7 +204,7 @@ var authRemoveCmd = &cobra.Command{
 			}
 			name = chosen
 		}
-		if auth.IsInteractive() && !isJSON(cmd) {
+		if shouldPrompt(cmd) {
 			ok, err := auth.ConfirmDestructive(fmt.Sprintf("Remove profile %q?", name))
 			if err != nil {
 				return err
@@ -216,7 +217,7 @@ var authRemoveCmd = &cobra.Command{
 		if err := auth.RemoveProfile(name); err != nil {
 			return err
 		}
-		if isJSON(cmd) {
+		if output.IsRaw(cmd) {
 			enc := json.NewEncoder(cmd.OutOrStdout())
 			enc.SetIndent("", "  ")
 			return enc.Encode(map[string]any{"success": true, "profile": name})

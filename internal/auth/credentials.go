@@ -122,6 +122,10 @@ func MaskKey(key string) string {
 type ProfileInfo struct {
 	Name   string
 	Active bool
+	// IsAction marks a synthetic entry (e.g. "+ Create new profile") so list
+	// renderers skip the (active)/(invalid name) annotations meant for real
+	// profile rows.
+	IsAction bool
 }
 
 func ListProfiles() ([]ProfileInfo, error) {

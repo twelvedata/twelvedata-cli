@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/twelvedata/twelvedata-cli/internal/auth"
+	"github.com/twelvedata/twelvedata-cli/internal/output"
 )
 
 var logoutCmd = &cobra.Command{
@@ -26,7 +27,7 @@ deleted (after a confirmation prompt on a TTY).`,
 			return emitLogout(cmd, profile, false)
 		}
 
-		if auth.IsInteractive() && !isJSON(cmd) {
+		if shouldPrompt(cmd) {
 			ok, err := auth.ConfirmDestructive("Remove all stored API keys?")
 			if err != nil {
 				return err
@@ -44,7 +45,7 @@ deleted (after a confirmation prompt on a TTY).`,
 }
 
 func emitLogout(cmd *cobra.Command, profile string, all bool) error {
-	if isJSON(cmd) {
+	if output.IsRaw(cmd) {
 		payload := map[string]any{"success": true}
 		if all {
 			payload["scope"] = "all"

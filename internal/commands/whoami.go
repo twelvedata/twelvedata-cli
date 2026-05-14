@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/twelvedata/twelvedata-cli/internal/auth"
+	"github.com/twelvedata/twelvedata-cli/internal/output"
 )
 
 var whoamiCmd = &cobra.Command{
@@ -16,7 +17,7 @@ var whoamiCmd = &cobra.Command{
 Local only — no network calls. The source field is one of: flag, env, config,
 or secure_storage.`,
 	Example: `  td whoami
-  td whoami --output json
+  td whoami --raw
   td whoami --profile staging`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		keyFlag, _ := cmd.Flags().GetString("api-key")
@@ -31,7 +32,7 @@ or secure_storage.`,
 		}
 		configPath := auth.CredentialsPath()
 
-		if isJSON(cmd) {
+		if output.IsRaw(cmd) {
 			enc := json.NewEncoder(cmd.OutOrStdout())
 			enc.SetIndent("", "  ")
 			return enc.Encode(map[string]any{

@@ -71,6 +71,27 @@ func Render(cmd *cobra.Command, resp any, httpResp *http.Response, callErr error
 	return enc.Encode(resp)
 }
 
+// IsRaw reports whether the command is running in machine mode: errors render
+// as a JSON envelope, the spinner and color are suppressed, and interactive
+// prompts/confirmations are skipped. Subcommands that have both a human form
+// and a JSON form (login, whoami, auth, logout) also branch on this.
+//
+// Raw is forced when --raw is set; otherwise it auto-detects from the
+// environment — a piped stdout, CI, or TERM=dumb each imply raw. A user on a
+// regular interactive terminal gets the non-raw path.
+func IsRaw(cmd *cobra.Command) bool {
+	if r, _ := cmd.Flags().GetBool("raw"); r {
+		return true
+	}
+	if os.Getenv("TERM") == "dumb" {
+		return true
+	}
+	if isCI() {
+		return true
+	}
+	return !isTerminal(cmd.OutOrStdout())
+}
+
 func isTerminal(w io.Writer) bool {
 	f, ok := w.(*os.File)
 	if !ok {

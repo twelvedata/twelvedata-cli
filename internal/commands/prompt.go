@@ -11,6 +11,7 @@ import (
 
 	"github.com/twelvedata/twelvedata-cli/internal/auth"
 	"github.com/twelvedata/twelvedata-cli/internal/flagx"
+	"github.com/twelvedata/twelvedata-cli/internal/output"
 )
 
 // oneRequiredAnnotation mirrors the unexported constant in cobra/flag_groups.go.
@@ -18,9 +19,9 @@ import (
 const oneRequiredAnnotation = "cobra_annotation_one_required"
 
 // promptMissingFlags fills in missing required flags interactively before
-// Cobra's own ValidateRequiredFlags / ValidateFlagGroups runs. On non-TTY or
-// machine mode (--output json, --json) this is a no-op — Cobra still emits
-// the usual "required flag(s)" usage error.
+// Cobra's own ValidateRequiredFlags / ValidateFlagGroups runs. In raw mode or
+// off a TTY this is a no-op — Cobra still emits the usual "required flag(s)"
+// usage error.
 //
 // Two annotation kinds are handled:
 //
@@ -40,11 +41,8 @@ func promptMissingFlags(cmd *cobra.Command) error {
 	return promptOneRequiredGroups(cmd)
 }
 
-// shouldPrompt mirrors the predicate in output.errors.jsonMode inverted: prompt
-// only when the user is plausibly on an interactive terminal and hasn't opted
-// into machine output.
 func shouldPrompt(cmd *cobra.Command) bool {
-	if out, _ := cmd.Flags().GetString("output"); out == "json" {
+	if output.IsRaw(cmd) {
 		return false
 	}
 	return auth.IsInteractive()

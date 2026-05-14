@@ -10,6 +10,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/twelvedata/twelvedata-cli/internal/auth"
+	"github.com/twelvedata/twelvedata-cli/internal/output"
 )
 
 var loginCmd = &cobra.Command{
@@ -47,11 +48,11 @@ listings, or CI logs.`,
 			}
 		}
 		if key == "" {
+			if !shouldPrompt(cmd) {
+				return errors.New(`required option "key" or "key-stdin" not set`)
+			}
 			v, err := auth.PromptAPIKey()
 			if err != nil {
-				if errors.Is(err, auth.ErrNotInteractive) {
-					return errors.New(`required option "key" or "key-stdin" not set: not running in an interactive terminal`)
-				}
 				return err
 			}
 			key = strings.TrimSpace(v)
@@ -67,7 +68,7 @@ listings, or CI logs.`,
 		}
 
 		profile := profileFlag
-		if profile == "" && auth.IsInteractive() {
+		if profile == "" && shouldPrompt(cmd) {
 			chosen, err := chooseLoginProfile()
 			if err != nil {
 				return err
@@ -82,13 +83,11 @@ listings, or CI logs.`,
 		if err != nil {
 			return err
 		}
-		if profileFlag != "" {
-			if err := auth.SetActiveProfile(profile); err != nil {
-				return err
-			}
+		if err := auth.SetActiveProfile(profile); err != nil {
+			return err
 		}
 
-		if isJSON(cmd) {
+		if output.IsRaw(cmd) {
 			payload := map[string]any{
 				"success":     true,
 				"profile":     profile,
@@ -113,7 +112,7 @@ func chooseLoginProfile() (string, error) {
 	if len(profiles) == 0 {
 		return "default", nil
 	}
-	name, err := auth.SelectProfile("Save API key to which profile?", append(profiles, auth.ProfileInfo{Name: "+ Create new profile"}))
+	name, err := auth.SelectProfile("Save API key to which profile?", append(profiles, auth.ProfileInfo{Name: "+ Create new profile", IsAction: true}))
 	if err != nil {
 		return "", err
 	}
@@ -131,11 +130,3 @@ func init() {
 	rootCmd.AddCommand(loginCmd)
 }
 
-// isJSON tells whether a non-error subcommand should emit JSON to stdout.
-// --output json (or its --json alias) opts in; otherwise human text.
-func isJSON(cmd *cobra.Command) bool {
-	if out, _ := cmd.Flags().GetString("output"); out == "json" {
-		return true
-	}
-	return false
-}
