@@ -80,7 +80,9 @@ var GetEodCmd = &cobra.Command{
 			req = req.Dp(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -143,7 +145,9 @@ var GetPriceCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -229,7 +233,9 @@ var GetQuoteCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -330,7 +336,9 @@ var GetTimeSeriesCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -419,7 +427,9 @@ var GetTimeSeriesCrossCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }

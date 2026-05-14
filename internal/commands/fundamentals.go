@@ -79,7 +79,9 @@ var GetBalanceSheetCmd = &cobra.Command{
 			req = req.Outputsize(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -141,7 +143,9 @@ var GetBalanceSheetConsolidatedCmd = &cobra.Command{
 			req = req.Outputsize(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -203,7 +207,9 @@ var GetCashFlowCmd = &cobra.Command{
 			req = req.Outputsize(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -265,7 +271,9 @@ var GetCashFlowConsolidatedCmd = &cobra.Command{
 			req = req.Outputsize(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -327,7 +335,9 @@ var GetDividendsCmd = &cobra.Command{
 			req = req.Adjust(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -390,7 +400,9 @@ var GetDividendsCalendarCmd = &cobra.Command{
 			req = req.Page(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -465,7 +477,9 @@ var GetEarningsCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -511,7 +525,9 @@ var GetEarningsCalendarCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -573,7 +589,9 @@ var GetIncomeStatementCmd = &cobra.Command{
 			req = req.Outputsize(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -635,7 +653,9 @@ var GetIncomeStatementConsolidatedCmd = &cobra.Command{
 			req = req.Outputsize(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -672,7 +692,9 @@ var GetIpoCalendarCmd = &cobra.Command{
 			req = req.EndDate(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -717,7 +739,9 @@ var GetKeyExecutivesCmd = &cobra.Command{
 			req = req.Country(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -750,7 +774,9 @@ var GetLogoCmd = &cobra.Command{
 			req = req.Country(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -813,7 +839,9 @@ var GetMarketCapCmd = &cobra.Command{
 			req = req.Outputsize(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -858,7 +886,9 @@ var GetProfileCmd = &cobra.Command{
 			req = req.Country(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -915,7 +945,9 @@ var GetSplitsCmd = &cobra.Command{
 			req = req.EndDate(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -977,7 +1009,9 @@ var GetSplitsCalendarCmd = &cobra.Command{
 			req = req.Page(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -1022,7 +1056,9 @@ var GetStatisticsCmd = &cobra.Command{
 			req = req.Country(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -1084,7 +1120,9 @@ var PressReleasesListParametersCmd = &cobra.Command{
 			req = req.Outputsize(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }

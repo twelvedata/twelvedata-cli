@@ -62,7 +62,9 @@ var GetDirectHoldersCmd = &cobra.Command{
 			req = req.Country(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -129,7 +131,9 @@ var GetEdgarFilingsArchiveCmd = &cobra.Command{
 			req = req.PageSize(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -174,7 +178,9 @@ var GetFundHoldersCmd = &cobra.Command{
 			req = req.Country(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -219,7 +225,9 @@ var GetInsiderTransactionsCmd = &cobra.Command{
 			req = req.Country(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -264,7 +272,9 @@ var GetInstitutionalHoldersCmd = &cobra.Command{
 			req = req.Country(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -305,7 +315,9 @@ var GetTaxInfoCmd = &cobra.Command{
 			req = req.MicCode(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }

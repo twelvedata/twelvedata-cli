@@ -42,7 +42,9 @@ var GetApiUsageCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }

@@ -42,7 +42,9 @@ var GetETFsFamilyCmd = &cobra.Command{
 			req = req.FundFamily(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -101,7 +103,9 @@ var GetETFsListCmd = &cobra.Command{
 			req = req.Outputsize(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -126,7 +130,9 @@ var GetETFsTypeCmd = &cobra.Command{
 			req = req.FundType(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -168,7 +174,9 @@ var GetETFsWorldCmd = &cobra.Command{
 			req = req.Dp(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -210,7 +218,9 @@ var GetETFsWorldCompositionCmd = &cobra.Command{
 			req = req.Dp(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -252,7 +262,9 @@ var GetETFsWorldPerformanceCmd = &cobra.Command{
 			req = req.Dp(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -294,7 +306,9 @@ var GetETFsWorldRiskCmd = &cobra.Command{
 			req = req.Dp(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -336,7 +350,9 @@ var GetETFsWorldSummaryCmd = &cobra.Command{
 			req = req.Dp(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }

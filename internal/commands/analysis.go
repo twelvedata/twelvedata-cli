@@ -67,7 +67,9 @@ var GetAnalystRatingsLightCmd = &cobra.Command{
 			req = req.Country(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -113,7 +115,9 @@ var GetAnalystRatingsUsEquitiesCmd = &cobra.Command{
 			req = req.Outputsize(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -154,7 +158,9 @@ var GetEarningsEstimateCmd = &cobra.Command{
 			req = req.Exchange(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -195,7 +201,9 @@ var GetEpsRevisionsCmd = &cobra.Command{
 			req = req.Exchange(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -236,7 +244,9 @@ var GetEpsTrendCmd = &cobra.Command{
 			req = req.Exchange(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -277,7 +287,9 @@ var GetGrowthEstimatesCmd = &cobra.Command{
 			req = req.Exchange(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -318,7 +330,9 @@ var GetPriceTargetCmd = &cobra.Command{
 			req = req.Exchange(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -359,7 +373,9 @@ var GetRecommendationsCmd = &cobra.Command{
 			req = req.Exchange(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -405,7 +421,9 @@ var GetRevenueEstimateCmd = &cobra.Command{
 			req = req.Dp(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }

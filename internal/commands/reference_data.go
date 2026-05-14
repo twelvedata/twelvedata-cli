@@ -65,7 +65,9 @@ var GetBondsCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -94,7 +96,9 @@ var GetCommoditiesCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -111,7 +115,9 @@ var GetCountriesCmd = &cobra.Command{
 
 		req := api.ReferenceDataAPI.GetCountries(cmd.Context())
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -144,7 +150,9 @@ var GetCrossListingsCmd = &cobra.Command{
 			req = req.Country(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -181,7 +189,9 @@ var GetCryptocurrenciesCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -202,7 +212,9 @@ var GetCryptocurrencyExchangesCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -251,7 +263,9 @@ var GetEarliestTimestampCmd = &cobra.Command{
 			req = req.Timezone(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -314,7 +328,9 @@ var GetEtfCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -347,7 +363,9 @@ var GetExchangeScheduleCmd = &cobra.Command{
 			req = req.Date(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -389,7 +407,9 @@ var GetExchangesCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -422,7 +442,9 @@ var GetForexPairsCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -486,7 +508,9 @@ var GetFundsCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -503,7 +527,9 @@ var GetInstrumentTypeCmd = &cobra.Command{
 
 		req := api.ReferenceDataAPI.GetInstrumentType(cmd.Context())
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -520,7 +546,9 @@ var GetIntervalsCmd = &cobra.Command{
 
 		req := api.ReferenceDataAPI.GetIntervals(cmd.Context())
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -549,7 +577,9 @@ var GetMarketStateCmd = &cobra.Command{
 			req = req.Country(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -616,7 +646,9 @@ var GetStocksCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -647,7 +679,9 @@ var GetSymbolSearchCmd = &cobra.Command{
 			req = req.ShowPlan(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -664,7 +698,9 @@ var GetTechnicalIndicatorsCmd = &cobra.Command{
 
 		req := api.ReferenceDataAPI.GetTechnicalIndicators(cmd.Context())
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }

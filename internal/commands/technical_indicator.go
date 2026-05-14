@@ -123,7 +123,9 @@ var GetTimeSeriesAdCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -239,7 +241,9 @@ var GetTimeSeriesAdOscCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -353,7 +357,9 @@ var GetTimeSeriesAddCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -464,7 +470,9 @@ var GetTimeSeriesAdxCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -575,7 +583,9 @@ var GetTimeSeriesAdxrCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -699,7 +709,9 @@ var GetTimeSeriesApoCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -810,7 +822,9 @@ var GetTimeSeriesAroonCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -921,7 +935,9 @@ var GetTimeSeriesAroonOscCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -1032,7 +1048,9 @@ var GetTimeSeriesAtrCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -1147,7 +1165,9 @@ var GetTimeSeriesAvgCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -1253,7 +1273,9 @@ var GetTimeSeriesAvgPriceCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -1377,7 +1399,9 @@ var GetTimeSeriesBBandsCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -1496,7 +1520,9 @@ var GetTimeSeriesBetaCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -1602,7 +1628,9 @@ var GetTimeSeriesBopCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -1713,7 +1741,9 @@ var GetTimeSeriesCciCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -1823,7 +1853,9 @@ var GetTimeSeriesCeilCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -1938,7 +1970,9 @@ var GetTimeSeriesCmoCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -2063,7 +2097,9 @@ var GetTimeSeriesCoppockCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -2182,7 +2218,9 @@ var GetTimeSeriesCorrelCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -2307,7 +2345,9 @@ var GetTimeSeriesCrsiCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -2422,7 +2462,9 @@ var GetTimeSeriesDemaCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -2536,7 +2578,9 @@ var GetTimeSeriesDivCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -2656,7 +2700,9 @@ var GetTimeSeriesDpoCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -2767,7 +2813,9 @@ var GetTimeSeriesDxCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -2882,7 +2930,9 @@ var GetTimeSeriesEmaCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -2992,7 +3042,9 @@ var GetTimeSeriesExpCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -3102,7 +3154,9 @@ var GetTimeSeriesFloorCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -3208,7 +3262,9 @@ var GetTimeSeriesHeikinashiCandlesCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -3314,7 +3370,9 @@ var GetTimeSeriesHlc3Cmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -3424,7 +3482,9 @@ var GetTimeSeriesHtDcPeriodCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -3534,7 +3594,9 @@ var GetTimeSeriesHtDcPhaseCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -3644,7 +3706,9 @@ var GetTimeSeriesHtPhasorCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -3754,7 +3818,9 @@ var GetTimeSeriesHtSineCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -3864,7 +3930,9 @@ var GetTimeSeriesHtTrendModeCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -3974,7 +4042,9 @@ var GetTimeSeriesHtTrendlineCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -4105,7 +4175,9 @@ var GetTimeSeriesIchimokuCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -4220,7 +4292,9 @@ var GetTimeSeriesKamaCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -4349,7 +4423,9 @@ var GetTimeSeriesKeltnerCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -4500,7 +4576,9 @@ var GetTimeSeriesKstCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -4615,7 +4693,9 @@ var GetTimeSeriesLinearRegCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -4730,7 +4810,9 @@ var GetTimeSeriesLinearRegAngleCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -4845,7 +4927,9 @@ var GetTimeSeriesLinearRegInterceptCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -4960,7 +5044,9 @@ var GetTimeSeriesLinearRegSlopeCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -5070,7 +5156,9 @@ var GetTimeSeriesLnCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -5180,7 +5268,9 @@ var GetTimeSeriesLog10Cmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -5299,7 +5389,9 @@ var GetTimeSeriesMaCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -5424,7 +5516,9 @@ var GetTimeSeriesMacdCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -5561,7 +5655,9 @@ var GetTimeSeriesMacdExtCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -5691,7 +5787,9 @@ var GetTimeSeriesMacdSlopeCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -5811,7 +5909,9 @@ var GetTimeSeriesMamaCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -5926,7 +6026,9 @@ var GetTimeSeriesMaxCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -6041,7 +6143,9 @@ var GetTimeSeriesMaxIndexCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -6152,7 +6256,9 @@ var GetTimeSeriesMcGinleyDynamicCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -6258,7 +6364,9 @@ var GetTimeSeriesMedPriceCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -6369,7 +6477,9 @@ var GetTimeSeriesMfiCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -6484,7 +6594,9 @@ var GetTimeSeriesMidPointCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -6595,7 +6707,9 @@ var GetTimeSeriesMidPriceCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -6710,7 +6824,9 @@ var GetTimeSeriesMinCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -6825,7 +6941,9 @@ var GetTimeSeriesMinIndexCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -6940,7 +7058,9 @@ var GetTimeSeriesMinMaxCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -7055,7 +7175,9 @@ var GetTimeSeriesMinMaxIndexCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -7166,7 +7288,9 @@ var GetTimeSeriesMinusDICmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -7277,7 +7401,9 @@ var GetTimeSeriesMinusDMCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -7392,7 +7518,9 @@ var GetTimeSeriesMomCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -7506,7 +7634,9 @@ var GetTimeSeriesMultCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -7617,7 +7747,9 @@ var GetTimeSeriesNatrCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -7727,7 +7859,9 @@ var GetTimeSeriesObvCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -7851,7 +7985,9 @@ var GetTimeSeriesPercentBCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -7962,7 +8098,9 @@ var GetTimeSeriesPivotPointsHLCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -8073,7 +8211,9 @@ var GetTimeSeriesPlusDICmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -8184,7 +8324,9 @@ var GetTimeSeriesPlusDMCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -8308,7 +8450,9 @@ var GetTimeSeriesPpoCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -8423,7 +8567,9 @@ var GetTimeSeriesRocCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -8538,7 +8684,9 @@ var GetTimeSeriesRocpCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -8653,7 +8801,9 @@ var GetTimeSeriesRocrCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -8768,7 +8918,9 @@ var GetTimeSeriesRocr100Cmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -8883,7 +9035,9 @@ var GetTimeSeriesRsiCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -8994,7 +9148,9 @@ var GetTimeSeriesRvolCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -9110,7 +9266,9 @@ var GetTimeSeriesSarCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -9256,7 +9414,9 @@ var GetTimeSeriesSarExtCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -9371,7 +9531,9 @@ var GetTimeSeriesSmaCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -9481,7 +9643,9 @@ var GetTimeSeriesSqrtCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -9601,7 +9765,9 @@ var GetTimeSeriesStdDevCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -9730,7 +9896,9 @@ var GetTimeSeriesStochCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -9850,7 +10018,9 @@ var GetTimeSeriesStochFCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -9988,7 +10158,9 @@ var GetTimeSeriesStochRsiCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -10102,7 +10274,9 @@ var GetTimeSeriesSubCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -10217,7 +10391,9 @@ var GetTimeSeriesSumCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -10333,7 +10509,9 @@ var GetTimeSeriesSuperTrendCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -10449,7 +10627,9 @@ var GetTimeSeriesSuperTrendHeikinAshiCandlesCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -10569,7 +10749,9 @@ var GetTimeSeriesT3maCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -10675,7 +10857,9 @@ var GetTimeSeriesTRangeCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -10790,7 +10974,9 @@ var GetTimeSeriesTemaCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -10905,7 +11091,9 @@ var GetTimeSeriesTrimaCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -11020,7 +11208,9 @@ var GetTimeSeriesTsfCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -11126,7 +11316,9 @@ var GetTimeSeriesTypPriceCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -11247,7 +11439,9 @@ var GetTimeSeriesUltOscCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -11362,7 +11556,9 @@ var GetTimeSeriesVarCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -11478,7 +11674,9 @@ var GetTimeSeriesVwapCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -11584,7 +11782,9 @@ var GetTimeSeriesWclPriceCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -11695,7 +11895,9 @@ var GetTimeSeriesWillRCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -11810,7 +12012,9 @@ var GetTimeSeriesWmaCmd = &cobra.Command{
 			req = req.Format(*f)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }

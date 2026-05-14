@@ -42,7 +42,9 @@ var GetMutualFundsFamilyCmd = &cobra.Command{
 			req = req.Country(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -111,7 +113,9 @@ var GetMutualFundsListCmd = &cobra.Command{
 			req = req.Outputsize(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -136,7 +140,9 @@ var GetMutualFundsTypeCmd = &cobra.Command{
 			req = req.Country(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -178,7 +184,9 @@ var GetMutualFundsWorldCmd = &cobra.Command{
 			req = req.Dp(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -220,7 +228,9 @@ var GetMutualFundsWorldCompositionCmd = &cobra.Command{
 			req = req.Dp(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -262,7 +272,9 @@ var GetMutualFundsWorldPerformanceCmd = &cobra.Command{
 			req = req.Dp(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -304,7 +316,9 @@ var GetMutualFundsWorldPurchaseInfoCmd = &cobra.Command{
 			req = req.Dp(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -346,7 +360,9 @@ var GetMutualFundsWorldRatingsCmd = &cobra.Command{
 			req = req.Dp(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -388,7 +404,9 @@ var GetMutualFundsWorldRiskCmd = &cobra.Command{
 			req = req.Dp(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -430,7 +448,9 @@ var GetMutualFundsWorldSummaryCmd = &cobra.Command{
 			req = req.Dp(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
@@ -472,7 +492,9 @@ var GetMutualFundsWorldSustainabilityCmd = &cobra.Command{
 			req = req.Dp(v)
 		}
 
+		sp := output.StartSpinner(cmd)
 		resp, httpResp, callErr := req.Execute()
+		sp.Stop()
 		return output.Render(cmd, resp, httpResp, callErr)
 	},
 }
