@@ -586,5 +586,11 @@ func init() {
 
 	GetTimeSeriesCrossCmd.Flags().String("timezone", "", "Timezone at which output datetime will be displayed. Supports: 1. Exchange for local exchange time 2. UTC for datetime at universal UTC standard 3. Timezone name according to the IANA Time Zone Database. E.g. America/New_York, Asia/Singapore. Full list of timezones can be found here. Take note that the IANA Timezone name is case-sensitive")
 
+	_ = GetTimeSeriesCrossCmd.MarkFlagRequired("base")
+
+	_ = GetTimeSeriesCrossCmd.MarkFlagRequired("quote")
+
+	_ = GetTimeSeriesCrossCmd.MarkFlagRequired("interval")
+
 	rootCmd.AddCommand(GetTimeSeriesCrossCmd)
 }

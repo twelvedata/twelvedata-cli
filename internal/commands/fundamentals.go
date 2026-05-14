@@ -1379,6 +1379,8 @@ func init() {
 
 	GetLogoCmd.Flags().String("country", "", "The country where the instrument is traded, e.g., `United States` or `US`")
 
+	_ = GetLogoCmd.MarkFlagRequired("symbol")
+
 	rootCmd.AddCommand(GetLogoCmd)
 
 	GetMarketCapCmd.Flags().String("symbol", "", "Filter by symbol")

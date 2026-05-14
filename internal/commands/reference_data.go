@@ -701,6 +701,8 @@ func init() {
 
 	GetCrossListingsCmd.Flags().String("country", "", "Country to which stock exchange belongs to")
 
+	_ = GetCrossListingsCmd.MarkFlagRequired("symbol")
+
 	rootCmd.AddCommand(GetCrossListingsCmd)
 
 	GetCryptocurrenciesCmd.Flags().String("symbol", "", "The ticker symbol of an instrument for which data is requested")
@@ -730,6 +732,8 @@ func init() {
 	GetEarliestTimestampCmd.Flags().String("mic-code", "", "Market Identifier Code (MIC) under ISO 10383 standard.")
 
 	GetEarliestTimestampCmd.Flags().String("timezone", "", "Timezone at which output datetime will be displayed. Supports: 1. Exchange for local exchange time 2. UTC for datetime at universal UTC standard 3. Timezone name according to the IANA Time Zone Database. E.g. America/New_York, Asia/Singapore. Full list of timezones can be found here. Interval Limitation: The timezone parameter is only applicable for intraday intervals (less than 1 day). For intervals of 1day, 1week, or 1month, the timezone parameter is ignored, and data is strictly returned in the Exchange local time. Take note that the IANA Timezone name is case-sensitive")
+
+	_ = GetEarliestTimestampCmd.MarkFlagRequired("interval")
 
 	GetEarliestTimestampCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
@@ -850,6 +854,8 @@ func init() {
 	GetSymbolSearchCmd.Flags().Int64("outputsize", 0, "Number of matches in response. Max 120")
 
 	GetSymbolSearchCmd.Flags().Bool("show-plan", false, "Adds info on which plan symbol is available.")
+
+	_ = GetSymbolSearchCmd.MarkFlagRequired("symbol")
 
 	rootCmd.AddCommand(GetSymbolSearchCmd)
 
