@@ -1247,7 +1247,7 @@ func init() {
 
 	GetDividendsCmd.Flags().String("country", "", "Country where instrument is traded, e.g., `United States` or `US`")
 
-	flagx.Register(GetDividendsCmd, "range", twelvedata.AllowedRangeEnumEnumValues, "Specifies the time range for which to retrieve dividend data. Accepts values such as `last` (most recent dividend), `next` (upcoming dividend), `1m` - `5y` for respective periods, or `full` for all available data. If provided together with `start_date` and/or `end_date`, this parameter takes precedence.")
+	flagx.Register(GetDividendsCmd, "range", twelvedata.AllowedRangeEnumEnumValues, "Specifies the time range for which to retrieve dividend data. Accepts values such as `last` (most recent dividend), `next` (upcoming dividend), `1m` - `5y` for respective periods, or `full` for all available data. If provided together with `start-date` and/or `end-date`, this parameter takes precedence.")
 
 	GetDividendsCmd.Flags().String("start-date", "", "Start date for the dividend data query. Only dividends with dates on or after this date will be returned. Format `2006-01-02`. If provided together with `range` parameter, `range` will take precedence.")
 
