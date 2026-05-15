@@ -330,7 +330,7 @@ var GetTaxInfoCmd = &cobra.Command{
 
 func init() {
 
-	GetDirectHoldersCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
+	GetDirectHoldersCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
 
 	GetDirectHoldersCmd.Flags().String("figi", "", "Filter by financial instrument global identifier (FIGI). This parameter is available on the Ultra plan (individual) and the Enterprise plan (business) and above.")
 
@@ -364,9 +364,9 @@ func init() {
 
 	GetEdgarFilingsArchiveCmd.Flags().String("form-type", "", "Filter by form types, example `8-K`, `EX-1.1`")
 
-	GetEdgarFilingsArchiveCmd.Flags().String("filled-from", "", "Filter by filled time from")
+	GetEdgarFilingsArchiveCmd.Flags().String("filled-from", "", "Filter by filled date from")
 
-	GetEdgarFilingsArchiveCmd.Flags().String("filled-to", "", "Filter by filled time to")
+	GetEdgarFilingsArchiveCmd.Flags().String("filled-to", "", "Filter by filled date to")
 
 	GetEdgarFilingsArchiveCmd.Flags().Int64("page", 0, "Page number")
 
@@ -376,7 +376,7 @@ func init() {
 
 	rootCmd.AddCommand(GetEdgarFilingsArchiveCmd)
 
-	GetFundHoldersCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
+	GetFundHoldersCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
 
 	GetFundHoldersCmd.Flags().String("figi", "", "Filter by financial instrument global identifier (FIGI). This parameter is available on the Ultra plan (individual) and the Enterprise plan (business) and above.")
 
@@ -394,7 +394,7 @@ func init() {
 
 	rootCmd.AddCommand(GetFundHoldersCmd)
 
-	GetInsiderTransactionsCmd.Flags().String("symbol", "", "The ticker symbol of an instrument for which data is requested, e.g., `AAPL`, `TSLA`. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
+	GetInsiderTransactionsCmd.Flags().String("symbol", "", "The ticker symbol of an instrument for which data is requested, e.g., `AAPL`, `TSLA`. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
 
 	GetInsiderTransactionsCmd.Flags().String("figi", "", "Filter by financial instrument global identifier (FIGI). This parameter is available on the Ultra plan (individual) and the Enterprise plan (business) and above.")
 
@@ -412,7 +412,7 @@ func init() {
 
 	rootCmd.AddCommand(GetInsiderTransactionsCmd)
 
-	GetInstitutionalHoldersCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
+	GetInstitutionalHoldersCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
 
 	GetInstitutionalHoldersCmd.Flags().String("figi", "", "Filter by financial instrument global identifier (FIGI). This parameter is available on the Ultra plan (individual) and the Enterprise plan (business) and above.")
 

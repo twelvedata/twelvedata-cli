@@ -1146,7 +1146,7 @@ var PressReleasesListParametersCmd = &cobra.Command{
 
 func init() {
 
-	GetBalanceSheetCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
+	GetBalanceSheetCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
 
 	GetBalanceSheetCmd.Flags().String("figi", "", "Filter by financial instrument global identifier (FIGI). This parameter is available on the Ultra plan (individual) and the Enterprise plan (business) and above.")
 
@@ -1160,7 +1160,7 @@ func init() {
 
 	GetBalanceSheetCmd.Flags().String("country", "", "Country where instrument is traded, e.g., `United States` or `US`")
 
-	flagx.Register(GetBalanceSheetCmd, "period", twelvedata.AllowedPeriodEnumEnumValues, "The reporting period for the balane sheet data")
+	flagx.Register(GetBalanceSheetCmd, "period", twelvedata.AllowedPeriodEnumEnumValues, "The reporting period for the balance sheet data")
 
 	GetBalanceSheetCmd.Flags().String("start-date", "", "Begin date for filtering items by fiscal date. Returns income statements with fiscal dates on or after this date. Format `2006-01-02`")
 
@@ -1172,7 +1172,7 @@ func init() {
 
 	rootCmd.AddCommand(GetBalanceSheetCmd)
 
-	GetBalanceSheetConsolidatedCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
+	GetBalanceSheetConsolidatedCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
 
 	GetBalanceSheetConsolidatedCmd.Flags().String("figi", "", "Filter by financial instrument global identifier (FIGI). This parameter is available on the Ultra plan (individual) and the Enterprise plan (business) and above.")
 
@@ -1198,7 +1198,7 @@ func init() {
 
 	rootCmd.AddCommand(GetBalanceSheetConsolidatedCmd)
 
-	GetCashFlowCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
+	GetCashFlowCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
 
 	GetCashFlowCmd.Flags().String("figi", "", "Filter by financial instrument global identifier (FIGI). This parameter is available on the Ultra plan (individual) and the Enterprise plan (business) and above.")
 
@@ -1224,7 +1224,7 @@ func init() {
 
 	rootCmd.AddCommand(GetCashFlowCmd)
 
-	GetCashFlowConsolidatedCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
+	GetCashFlowConsolidatedCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
 
 	GetCashFlowConsolidatedCmd.Flags().String("figi", "", "Filter by financial instrument global identifier (FIGI). This parameter is available on the Ultra plan (individual) and the Enterprise plan (business) and above.")
 
@@ -1250,7 +1250,7 @@ func init() {
 
 	rootCmd.AddCommand(GetCashFlowConsolidatedCmd)
 
-	GetDividendsCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
+	GetDividendsCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
 
 	GetDividendsCmd.Flags().String("figi", "", "Filter by financial instrument global identifier (FIGI). This parameter is available on the Ultra plan (individual) and the Enterprise plan (business) and above.")
 
@@ -1268,7 +1268,7 @@ func init() {
 
 	GetDividendsCmd.Flags().String("start-date", "", "Start date for the dividend data query. Only dividends with dates on or after this date will be returned. Format `2006-01-02`. If provided together with `range` parameter, `range` will take precedence.")
 
-	GetDividendsCmd.Flags().String("end-date", "", "End date for the dividend data query. Only dividends with dates on or after this date will be returned. Format `2006-01-02`. If provided together with `range` parameter, `range` will take precedence.")
+	GetDividendsCmd.Flags().String("end-date", "", "End date for the dividend data query. Only dividends with dates on or before this date will be returned. Format `2006-01-02`. If provided together with `range` parameter, `range` will take precedence.")
 
 	GetDividendsCmd.Flags().Bool("adjust", false, "Specifies if there should be an adjustment")
 
@@ -1276,7 +1276,7 @@ func init() {
 
 	rootCmd.AddCommand(GetDividendsCmd)
 
-	GetDividendsCalendarCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
+	GetDividendsCalendarCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
 
 	GetDividendsCalendarCmd.Flags().String("figi", "", "Filter by financial instrument global identifier (FIGI). This parameter is available on the Ultra plan (individual) and the Enterprise plan (business) and above.")
 
@@ -1302,7 +1302,7 @@ func init() {
 
 	rootCmd.AddCommand(GetDividendsCalendarCmd)
 
-	GetEarningsCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
+	GetEarningsCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
 
 	GetEarningsCmd.Flags().String("figi", "", "Filter by financial instrument global identifier (FIGI). This parameter is available on the Ultra plan (individual) and the Enterprise plan (business) and above.")
 
@@ -1346,7 +1346,7 @@ func init() {
 
 	rootCmd.AddCommand(GetEarningsCalendarCmd)
 
-	GetIncomeStatementCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
+	GetIncomeStatementCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
 
 	GetIncomeStatementCmd.Flags().String("figi", "", "Filter by financial instrument global identifier (FIGI). This parameter is available on the Ultra plan (individual) and the Enterprise plan (business) and above.")
 
@@ -1372,7 +1372,7 @@ func init() {
 
 	rootCmd.AddCommand(GetIncomeStatementCmd)
 
-	GetIncomeStatementConsolidatedCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
+	GetIncomeStatementConsolidatedCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
 
 	GetIncomeStatementConsolidatedCmd.Flags().String("figi", "", "Filter by financial instrument global identifier (FIGI). This parameter is available on the Ultra plan (individual) and the Enterprise plan (business) and above.")
 
@@ -1410,7 +1410,7 @@ func init() {
 
 	rootCmd.AddCommand(GetIpoCalendarCmd)
 
-	GetKeyExecutivesCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
+	GetKeyExecutivesCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
 
 	GetKeyExecutivesCmd.Flags().String("figi", "", "Filter by financial instrument global identifier (FIGI). This parameter is available on the Ultra plan (individual) and the Enterprise plan (business) and above.")
 
@@ -1466,7 +1466,7 @@ func init() {
 
 	rootCmd.AddCommand(GetMarketCapCmd)
 
-	GetProfileCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
+	GetProfileCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
 
 	GetProfileCmd.Flags().String("figi", "", "Filter by financial instrument global identifier (FIGI). This parameter is available on the Ultra plan (individual) and the Enterprise plan (business) and above.")
 
@@ -1484,7 +1484,7 @@ func init() {
 
 	rootCmd.AddCommand(GetProfileCmd)
 
-	GetSplitsCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
+	GetSplitsCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
 
 	GetSplitsCmd.Flags().String("figi", "", "Filter by financial instrument global identifier (FIGI). This parameter is available on the Ultra plan (individual) and the Enterprise plan (business) and above.")
 
@@ -1508,7 +1508,7 @@ func init() {
 
 	rootCmd.AddCommand(GetSplitsCmd)
 
-	GetSplitsCalendarCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
+	GetSplitsCalendarCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
 
 	GetSplitsCalendarCmd.Flags().String("figi", "", "Filter by financial instrument global identifier (FIGI). This parameter is available on the Ultra plan (individual) and the Enterprise plan (business) and above.")
 
@@ -1534,7 +1534,7 @@ func init() {
 
 	rootCmd.AddCommand(GetSplitsCalendarCmd)
 
-	GetStatisticsCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
+	GetStatisticsCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
 
 	GetStatisticsCmd.Flags().String("figi", "", "Filter by financial instrument global identifier (FIGI). This parameter is available on the Ultra plan (individual) and the Enterprise plan (business) and above.")
 
@@ -1552,7 +1552,7 @@ func init() {
 
 	rootCmd.AddCommand(GetStatisticsCmd)
 
-	PressReleasesListParametersCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preffered stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
+	PressReleasesListParametersCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
 
 	PressReleasesListParametersCmd.Flags().String("figi", "", "Filter by financial instrument global identifier (FIGI). This parameter is available on the Ultra plan (individual) and the Enterprise plan (business) and above.")
 
