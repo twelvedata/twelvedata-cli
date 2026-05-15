@@ -93,6 +93,11 @@ var GetETFsListCmd = &cobra.Command{
 			req = req.FundType(v)
 		}
 
+		if cmd.Flags().Changed("dp") {
+			v, _ := cmd.Flags().GetInt64("dp")
+			req = req.Dp(v)
+		}
+
 		if cmd.Flags().Changed("page") {
 			v, _ := cmd.Flags().GetInt64("page")
 			req = req.Page(v)
@@ -101,6 +106,10 @@ var GetETFsListCmd = &cobra.Command{
 		if cmd.Flags().Changed("outputsize") {
 			v, _ := cmd.Flags().GetInt64("outputsize")
 			req = req.Outputsize(v)
+		}
+
+		if f := csvFormat(cmd); f != nil {
+			req = req.Format(*f)
 		}
 
 		sp := output.StartSpinner(cmd)
@@ -385,6 +394,8 @@ func init() {
 	GetETFsListCmd.Flags().String("fund-family", "", "Filter by investment company that manages the fund")
 
 	GetETFsListCmd.Flags().String("fund-type", "", "Filter by the type of fund")
+
+	GetETFsListCmd.Flags().Int64("dp", 0, "Number of decimal places for floating values")
 
 	GetETFsListCmd.Flags().Int64("page", 0, "Page number")
 

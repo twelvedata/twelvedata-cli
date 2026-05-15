@@ -103,6 +103,11 @@ var GetMutualFundsListCmd = &cobra.Command{
 			req = req.RiskRating(v)
 		}
 
+		if cmd.Flags().Changed("dp") {
+			v, _ := cmd.Flags().GetInt64("dp")
+			req = req.Dp(v)
+		}
+
 		if cmd.Flags().Changed("page") {
 			v, _ := cmd.Flags().GetInt64("page")
 			req = req.Page(v)
@@ -111,6 +116,10 @@ var GetMutualFundsListCmd = &cobra.Command{
 		if cmd.Flags().Changed("outputsize") {
 			v, _ := cmd.Flags().GetInt64("outputsize")
 			req = req.Outputsize(v)
+		}
+
+		if f := csvFormat(cmd); f != nil {
+			req = req.Format(*f)
 		}
 
 		sp := output.StartSpinner(cmd)
@@ -534,6 +543,8 @@ func init() {
 	GetMutualFundsListCmd.Flags().Int64("performance-rating", 0, "Filter by performance rating from `0` to `5`")
 
 	GetMutualFundsListCmd.Flags().Int64("risk-rating", 0, "Filter by risk rating from `0` to `5`")
+
+	GetMutualFundsListCmd.Flags().Int64("dp", 0, "Number of decimal places for floating values")
 
 	GetMutualFundsListCmd.Flags().Int64("page", 0, "Page number")
 

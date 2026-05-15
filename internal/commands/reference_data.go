@@ -92,6 +92,16 @@ var GetCommoditiesCmd = &cobra.Command{
 			req = req.Category(v)
 		}
 
+		if cmd.Flags().Changed("page") {
+			v, _ := cmd.Flags().GetInt64("page")
+			req = req.Page(v)
+		}
+
+		if cmd.Flags().Changed("outputsize") {
+			v, _ := cmd.Flags().GetInt64("outputsize")
+			req = req.Outputsize(v)
+		}
+
 		if f := csvFormat(cmd); f != nil {
 			req = req.Format(*f)
 		}
@@ -184,6 +194,16 @@ var GetCryptocurrenciesCmd = &cobra.Command{
 
 		if v, _ := cmd.Flags().GetString("currency-quote"); v != "" {
 			req = req.CurrencyQuote(v)
+		}
+
+		if cmd.Flags().Changed("page") {
+			v, _ := cmd.Flags().GetInt64("page")
+			req = req.Page(v)
+		}
+
+		if cmd.Flags().Changed("outputsize") {
+			v, _ := cmd.Flags().GetInt64("outputsize")
+			req = req.Outputsize(v)
 		}
 
 		if f := csvFormat(cmd); f != nil {
@@ -326,6 +346,16 @@ var GetEtfCmd = &cobra.Command{
 			req = req.IncludeDelisted(v)
 		}
 
+		if cmd.Flags().Changed("page") {
+			v, _ := cmd.Flags().GetInt64("page")
+			req = req.Page(v)
+		}
+
+		if cmd.Flags().Changed("outputsize") {
+			v, _ := cmd.Flags().GetInt64("outputsize")
+			req = req.Outputsize(v)
+		}
+
 		if f := csvFormat(cmd); f != nil {
 			req = req.Format(*f)
 		}
@@ -438,6 +468,16 @@ var GetForexPairsCmd = &cobra.Command{
 
 		if v, _ := cmd.Flags().GetString("currency-quote"); v != "" {
 			req = req.CurrencyQuote(v)
+		}
+
+		if cmd.Flags().Changed("page") {
+			v, _ := cmd.Flags().GetInt64("page")
+			req = req.Page(v)
+		}
+
+		if cmd.Flags().Changed("outputsize") {
+			v, _ := cmd.Flags().GetInt64("outputsize")
+			req = req.Outputsize(v)
 		}
 
 		if f := csvFormat(cmd); f != nil {
@@ -644,6 +684,16 @@ var GetStocksCmd = &cobra.Command{
 			req = req.IncludeDelisted(v)
 		}
 
+		if cmd.Flags().Changed("page") {
+			v, _ := cmd.Flags().GetInt64("page")
+			req = req.Page(v)
+		}
+
+		if cmd.Flags().Changed("outputsize") {
+			v, _ := cmd.Flags().GetInt64("outputsize")
+			req = req.Outputsize(v)
+		}
+
 		if f := csvFormat(cmd); f != nil {
 			req = req.Format(*f)
 		}
@@ -728,6 +778,10 @@ func init() {
 
 	GetCommoditiesCmd.Flags().String("category", "", "Filter by category of commodity")
 
+	GetCommoditiesCmd.Flags().Int64("page", 0, "Page number of the results to fetch")
+
+	GetCommoditiesCmd.Flags().Int64("outputsize", 0, "Determines the number of data points returned in the output")
+
 	rootCmd.AddCommand(GetCommoditiesCmd)
 
 	rootCmd.AddCommand(GetCountriesCmd)
@@ -751,6 +805,10 @@ func init() {
 	GetCryptocurrenciesCmd.Flags().String("currency-base", "", "Filter by currency base")
 
 	GetCryptocurrenciesCmd.Flags().String("currency-quote", "", "Filter by currency quote")
+
+	GetCryptocurrenciesCmd.Flags().Int64("page", 0, "Page number of the results to fetch")
+
+	GetCryptocurrenciesCmd.Flags().Int64("outputsize", 0, "Determines the number of data points returned in the output")
 
 	rootCmd.AddCommand(GetCryptocurrenciesCmd)
 
@@ -798,6 +856,10 @@ func init() {
 
 	GetEtfCmd.Flags().Bool("include-delisted", false, "Include delisted identifiers")
 
+	GetEtfCmd.Flags().Int64("page", 0, "Page number of the results to fetch")
+
+	GetEtfCmd.Flags().Int64("outputsize", 0, "Determines the number of data points returned in the output")
+
 	rootCmd.AddCommand(GetEtfCmd)
 
 	GetExchangeScheduleCmd.Flags().String("mic-name", "", "Filter by exchange name")
@@ -827,6 +889,10 @@ func init() {
 	GetForexPairsCmd.Flags().String("currency-base", "", "Filter by currency base")
 
 	GetForexPairsCmd.Flags().String("currency-quote", "", "Filter by currency quote")
+
+	GetForexPairsCmd.Flags().Int64("page", 0, "Page number of the results to fetch")
+
+	GetForexPairsCmd.Flags().Int64("outputsize", 0, "Determines the number of data points returned in the output")
 
 	rootCmd.AddCommand(GetForexPairsCmd)
 
@@ -885,6 +951,10 @@ func init() {
 	GetStocksCmd.Flags().Bool("show-plan", false, "Adds info on which plan symbol is available")
 
 	GetStocksCmd.Flags().Bool("include-delisted", false, "Include delisted identifiers")
+
+	GetStocksCmd.Flags().Int64("page", 0, "Page number of the results to fetch")
+
+	GetStocksCmd.Flags().Int64("outputsize", 0, "Determines the number of data points returned in the output")
 
 	rootCmd.AddCommand(GetStocksCmd)
 
