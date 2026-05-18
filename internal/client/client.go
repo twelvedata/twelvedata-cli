@@ -11,7 +11,7 @@ import (
 // --api-key flag → TWELVEDATA_API_KEY env → secure storage / config file for
 // the active profile. The resolved key is passed to NewConfig as-is so the
 // SDK's internal env-var fallback never triggers and the source remains
-// inspectable via `td whoami`.
+// inspectable via `twelvedata whoami`.
 func New(cmd *cobra.Command) (*twelvedata.APIClient, error) {
 	keyFlag, _ := cmd.Flags().GetString("api-key")
 	profileFlag, _ := cmd.Flags().GetString("profile")

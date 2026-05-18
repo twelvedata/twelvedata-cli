@@ -26,7 +26,7 @@ var GetTimeSeriesAdCmd = &cobra.Command{
 	Use:     "ad",
 	Short:   "Accumulation/distribution",
 	Long:    "The Accumulation/Distribution (AD) endpoint provides data on the cumulative money flow into and out of a financial instrument, using its closing price, price range, and trading volume. This endpoint returns the AD line, which helps users identify potential buying or selling pressure and assess the strength of price movements.",
-	Example: "td ti ad --symbol AAPL --interval 1day",
+	Example: "twelvedata ti ad --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -135,7 +135,7 @@ var GetTimeSeriesAdOscCmd = &cobra.Command{
 	Use:     "adosc",
 	Short:   "Accumulation/distribution oscillator",
 	Long:    "The Accumulation/Distribution Oscillator endpoint (ADOSC) calculates a momentum indicator that highlights shifts in buying or selling pressure by analyzing price and volume data over different time frames. It returns numerical values that help users identify potential trend reversals in financial markets.",
-	Example: "td ti adosc --symbol AAPL --interval 1day",
+	Example: "twelvedata ti adosc --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -254,7 +254,7 @@ var GetTimeSeriesAddCmd = &cobra.Command{
 	Use:     "add",
 	Short:   "Addition",
 	Long:    "The Addition (ADD) endpoint calculates the sum of two input data series, such as technical indicators or price data, and returns the combined result. This endpoint is useful for users who need to aggregate data points to create custom indicators or analyze the combined effect of multiple data series in financial analysis.",
-	Example: "td ti add --symbol AAPL --interval 1day",
+	Example: "twelvedata ti add --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -371,7 +371,7 @@ var GetTimeSeriesAdxCmd = &cobra.Command{
 	Use:     "adx",
 	Short:   "Average directional index",
 	Long:    "The Average Directional Index (ADX) endpoint provides data on the strength of a market trend, regardless of its direction. It returns a numerical value that helps users identify whether a market is trending or moving sideways.",
-	Example: "td ti adx --symbol AAPL --interval 1day",
+	Example: "twelvedata ti adx --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -485,7 +485,7 @@ var GetTimeSeriesAdxrCmd = &cobra.Command{
 	Use:     "adxr",
 	Short:   "Average directional movement index rating",
 	Long:    "The Average Directional Movement Index Rating (ADXR) endpoint provides a smoothed measure of trend strength for a specified financial instrument. It returns the ADXR values, which help users assess the consistency of a trend over a given period by reducing short-term fluctuations. This endpoint is useful for traders and analysts who need to evaluate the stability of market trends for better timing of entry and exit points in their trading strategies.",
-	Example: "td ti adxr --symbol AAPL --interval 1day",
+	Example: "twelvedata ti adxr --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -599,7 +599,7 @@ var GetTimeSeriesApoCmd = &cobra.Command{
 	Use:     "apo",
 	Short:   "Absolute price oscillator",
 	Long:    "The Absolute Price Oscillator (APO) endpoint calculates the difference between two specified moving averages of a financial instrument's price, providing data that helps users identify potential price trends and reversals. The response includes the calculated APO values over a specified time period, which can be used to track momentum changes and assess the strength of price movements.",
-	Example: "td ti apo --symbol AAPL --interval 1day",
+	Example: "twelvedata ti apo --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -726,7 +726,7 @@ var GetTimeSeriesAroonCmd = &cobra.Command{
 	Use:     "aroon",
 	Short:   "Aroon indicator",
 	Long:    "The Aroon Indicator endpoint provides data on the time elapsed since the highest high and lowest low within a specified period, helping users identify the presence and strength of market trends. It returns two values: Aroon Up and Aroon Down, which indicate the trend direction and momentum. This endpoint is useful for traders and analysts looking to assess trend patterns and potential reversals in financial markets.",
-	Example: "td ti aroon --symbol AAPL --interval 1day",
+	Example: "twelvedata ti aroon --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -840,7 +840,7 @@ var GetTimeSeriesAroonOscCmd = &cobra.Command{
 	Use:     "aroonosc",
 	Short:   "Aroon oscillator",
 	Long:    "The Aroon Oscillator endpoint provides the calculated difference between the Aroon Up and Aroon Down indicators for a given financial instrument. It returns a time series of values that help users identify the strength and direction of a trend, as well as potential trend reversals. This data is useful for traders and analysts seeking to evaluate market trends over a specified period.",
-	Example: "td ti aroonosc --symbol AAPL --interval 1day",
+	Example: "twelvedata ti aroonosc --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -954,7 +954,7 @@ var GetTimeSeriesAtrCmd = &cobra.Command{
 	Use:     "atr",
 	Short:   "Average true range",
 	Long:    "The Average True Range (ATR) endpoint provides data on market volatility by calculating the average range of price movement over a user-defined period. It returns numerical values representing the ATR for each time interval, allowing users to gauge the degree of price fluctuation in a financial instrument. This data is useful for setting stop-loss levels and determining optimal entry and exit points in trading strategies.",
-	Example: "td ti atr --symbol AAPL --interval 1day",
+	Example: "twelvedata ti atr --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -1068,7 +1068,7 @@ var GetTimeSeriesAvgCmd = &cobra.Command{
 	Use:     "avg",
 	Short:   "Average",
 	Long:    "The Average (AVG) endpoint calculates the arithmetic mean of a specified data series over a chosen time period. It returns a smoothed dataset that helps users identify trends by reducing short-term fluctuations. This endpoint is useful for obtaining a clearer view of data trends, particularly in time series analysis.",
-	Example: "td ti avg --symbol AAPL --interval 1day",
+	Example: "twelvedata ti avg --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -1186,7 +1186,7 @@ var GetTimeSeriesAvgPriceCmd = &cobra.Command{
 	Use:     "avgprice",
 	Short:   "Average price",
 	Long:    "The Average Price (AVGPRICE) endpoint calculates and returns the mean value of a security's open, high, low, and close prices. This endpoint provides a straightforward metric to assess the overall price level of a security over a specified period.",
-	Example: "td ti avgprice --symbol AAPL --interval 1day",
+	Example: "twelvedata ti avgprice --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -1295,7 +1295,7 @@ var GetTimeSeriesBBandsCmd = &cobra.Command{
 	Use:     "bbands",
 	Short:   "Bollinger bands",
 	Long:    "The Bollinger Bands (BBANDS) endpoint calculates and returns three key data points: an upper band, a lower band, and a simple moving average (SMA) for a specified financial instrument. These bands are used to assess market volatility by showing how far prices deviate from the SMA. This information helps users identify potential price reversals and determine whether an asset is overbought or oversold.",
-	Example: "td ti bbands --symbol AAPL --interval 1day",
+	Example: "twelvedata ti bbands --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -1422,7 +1422,7 @@ var GetTimeSeriesBetaCmd = &cobra.Command{
 	Use:     "beta",
 	Short:   "Beta indicator",
 	Long:    "The Beta Indicator endpoint provides data on a security's sensitivity to market movements by comparing its price changes to a benchmark index. It returns the beta value, which quantifies the systematic risk of the security relative to the market. This information is useful for evaluating how much a security's price is expected to move in relation to market changes.",
-	Example: "td ti beta --symbol AAPL --interval 1day",
+	Example: "twelvedata ti beta --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -1544,7 +1544,7 @@ var GetTimeSeriesBopCmd = &cobra.Command{
 	Use:     "bop",
 	Short:   "Balance of power",
 	Long:    "The Balance of Power (BOP) endpoint provides data on the buying and selling pressure of a security by analyzing its open, high, low, and close prices. It returns numerical values that help users detect shifts in market sentiment and potential price movements.",
-	Example: "td ti bop --symbol AAPL --interval 1day",
+	Example: "twelvedata ti bop --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -1653,7 +1653,7 @@ var GetTimeSeriesCciCmd = &cobra.Command{
 	Use:     "cci",
 	Short:   "Commodity channel index",
 	Long:    "The Commodity Channel Index (CCI) endpoint provides data on the CCI values for a specified security, helping users detect potential price reversals by identifying overbought or oversold conditions. It returns a series of CCI values calculated over a specified time period, allowing users to assess the momentum of a security relative to its average price range.",
-	Example: "td ti cci --symbol AAPL --interval 1day",
+	Example: "twelvedata ti cci --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -1767,7 +1767,7 @@ var GetTimeSeriesCeilCmd = &cobra.Command{
 	Use:     "ceil",
 	Short:   "Ceiling",
 	Long:    "The Ceiling (CEIL) endpoint rounds each value in the input data series up to the nearest whole number. It returns a series where each original data point is adjusted to its ceiling value, which can be useful for precise calculations or when integrating with other technical indicators that require integer inputs.",
-	Example: "td ti ceil --symbol AAPL --interval 1day",
+	Example: "twelvedata ti ceil --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -1880,7 +1880,7 @@ var GetTimeSeriesCmoCmd = &cobra.Command{
 	Use:     "cmo",
 	Short:   "Chande momentum oscillator",
 	Long:    "The Chande Momentum Oscillator (CMO) endpoint provides data on the momentum of a security by calculating the relative strength of recent price movements. It returns a numerical value indicating whether a security is potentially overbought or oversold, assisting users in identifying possible trend reversals.",
-	Example: "td ti cmo --symbol AAPL --interval 1day",
+	Example: "twelvedata ti cmo --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -1998,7 +1998,7 @@ var GetTimeSeriesCoppockCmd = &cobra.Command{
 	Use:     "coppock",
 	Short:   "Coppock curve",
 	Long:    "The Coppock Curve is a momentum oscillator used to detect potential long-term trend reversals in financial markets. It returns the calculated values of this indicator over a specified period, allowing users to identify when a security's price may be shifting from a downtrend to an uptrend. This endpoint is particularly useful for analyzing securities in bottoming markets.",
-	Example: "td ti coppock --symbol AAPL --interval 1day",
+	Example: "twelvedata ti coppock --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -2126,7 +2126,7 @@ var GetTimeSeriesCorrelCmd = &cobra.Command{
 	Use:     "correl",
 	Short:   "Correlation",
 	Long:    "The Correlation (CORREL) endpoint calculates the statistical relationship between two securities over a specified time period, returning a correlation coefficient. This coefficient ranges from -1 to 1, indicating the strength and direction of their linear relationship. A value close to 1 suggests a strong positive correlation, while a value near -1 indicates a strong negative correlation. This data is useful for identifying securities that move together or in opposite directions, aiding in strategies like diversification or pairs trading.",
-	Example: "td ti correl --symbol AAPL --interval 1day",
+	Example: "twelvedata ti correl --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -2248,7 +2248,7 @@ var GetTimeSeriesCrsiCmd = &cobra.Command{
 	Use:     "crsi",
 	Short:   "Connors relative strength index",
 	Long:    "The Connors Relative Strength Index (CRSI) endpoint provides a detailed analysis of stock momentum by combining three components: the Relative Strength Index, the Rate of Change, and the Up/Down Length. This endpoint returns a numerical value that helps identify potential trend reversals and momentum shifts in a security's price. Ideal for traders seeking to refine entry and exit points, the CRSI offers a nuanced view of market conditions beyond traditional RSI indicators.",
-	Example: "td ti crsi --symbol AAPL --interval 1day",
+	Example: "twelvedata ti crsi --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -2376,7 +2376,7 @@ var GetTimeSeriesDemaCmd = &cobra.Command{
 	Use:     "dema",
 	Short:   "Double exponential moving average",
 	Long:    "The Double Exponential Moving Average (DEMA) endpoint provides a data series that calculates a moving average with reduced lag by emphasizing recent price data. This endpoint returns time-series data that includes the DEMA values for a specified financial instrument, allowing users to track price trends and identify potential trading opportunities.",
-	Example: "td ti dema --symbol AAPL --interval 1day",
+	Example: "twelvedata ti dema --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -2494,7 +2494,7 @@ var GetTimeSeriesDivCmd = &cobra.Command{
 	Use:     "div",
 	Short:   "Division",
 	Long:    "The Division (DIV) endpoint calculates the result of dividing one data series by another, providing a normalized output. It is commonly used to combine or adjust multiple technical indicators or price data for comparative analysis. This endpoint returns the division results as a time series, allowing users to easily interpret and utilize the normalized data in their financial models or charts.",
-	Example: "td ti div --symbol AAPL --interval 1day",
+	Example: "twelvedata ti div --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -2611,7 +2611,7 @@ var GetTimeSeriesDpoCmd = &cobra.Command{
 	Use:     "dpo",
 	Short:   "Detrended price oscillator",
 	Long:    "The Detrended Price Oscillator (DPO) endpoint calculates and returns the DPO values for a specified financial instrument over a given time period. This endpoint helps traders by highlighting short-term price cycles and identifying potential overbought or oversold conditions without the influence of long-term trends. The response includes a series of DPO values, which can be used to assess price momentum and cyclical patterns in the market.",
-	Example: "td ti dpo --symbol AAPL --interval 1day",
+	Example: "twelvedata ti dpo --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -2734,7 +2734,7 @@ var GetTimeSeriesDxCmd = &cobra.Command{
 	Use:     "dx",
 	Short:   "Directional movement index",
 	Long:    "Retrieve the Directional Movement Index (DX) values for a given security to assess the strength of its positive and negative price movements. This endpoint provides a time series of DX values, which are useful for evaluating the momentum and trend direction of the security over a specified period.",
-	Example: "td ti dx --symbol AAPL --interval 1day",
+	Example: "twelvedata ti dx --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -2848,7 +2848,7 @@ var GetTimeSeriesEmaCmd = &cobra.Command{
 	Use:     "ema",
 	Short:   "Exponential moving average",
 	Long:    "The Exponential Moving Average (EMA) endpoint calculates the EMA for a specified financial instrument over a given time period. It returns a time series of EMA values, which highlight recent price trends by weighting recent data more heavily. This is useful for traders seeking to identify trend directions and potential trade opportunities based on recent price movements.",
-	Example: "td ti ema --symbol AAPL --interval 1day",
+	Example: "twelvedata ti ema --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -2966,7 +2966,7 @@ var GetTimeSeriesExpCmd = &cobra.Command{
 	Use:     "exp",
 	Short:   "Exponential",
 	Long:    "The Exponential (EXP) Indicator endpoint computes the exponential value of a specified input, providing a numerical result that is commonly applied in complex mathematical and financial computations.",
-	Example: "td ti exp --symbol AAPL --interval 1day",
+	Example: "twelvedata ti exp --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -3079,7 +3079,7 @@ var GetTimeSeriesFloorCmd = &cobra.Command{
 	Use:     "floor",
 	Short:   "Floor",
 	Long:    "The Floor (FLOOR) endpoint processes numerical input data by rounding each value down to the nearest integer. It returns a series of adjusted data points that can be used for further calculations or combined with other datasets. This endpoint is useful for users needing to simplify data by removing decimal precision, aiding in scenarios where integer values are required.",
-	Example: "td ti floor --symbol AAPL --interval 1day",
+	Example: "twelvedata ti floor --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -3192,7 +3192,7 @@ var GetTimeSeriesHeikinashiCandlesCmd = &cobra.Command{
 	Use:     "heikinashicandles",
 	Short:   "Heikinashi candles",
 	Long:    "The heikinashi candles endpoint provides smoothed candlestick data by averaging price information to reduce market noise. It returns a series of Heikin Ashi candles, which include open, high, low, and close values, making it easier to identify trends and potential reversals in asset prices. This endpoint is useful for traders and analysts seeking a clearer view of market trends without the volatility present in traditional candlestick charts.",
-	Example: "td ti heikinashicandles --symbol AAPL --interval 1day",
+	Example: "twelvedata ti heikinashicandles --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -3301,7 +3301,7 @@ var GetTimeSeriesHlc3Cmd = &cobra.Command{
 	Use:     "hlc3",
 	Short:   "High, low, close average",
 	Long:    "The High, Low, Close Average (HLC3) endpoint calculates and returns the average of a security's high, low, and close prices for a specified period. This endpoint provides a straightforward metric to assess price trends, helping users quickly identify the average price level of a security over time.",
-	Example: "td ti hlc3 --symbol AAPL --interval 1day",
+	Example: "twelvedata ti hlc3 --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -3410,7 +3410,7 @@ var GetTimeSeriesHtDcPeriodCmd = &cobra.Command{
 	Use:     "ht-dcperiod",
 	Short:   "Hilbert transform dominant cycle period",
 	Long:    "The Hilbert Transform Dominant Cycle Period (HT_DCPERIOD) endpoint calculates the dominant cycle length of a financial instrument's price data. It returns a numerical value representing the cycle period, which traders can use to identify prevailing market cycles and adjust their trading strategies accordingly.",
-	Example: "td ti ht-dcperiod --symbol AAPL --interval 1day",
+	Example: "twelvedata ti ht-dcperiod --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -3523,7 +3523,7 @@ var GetTimeSeriesHtDcPhaseCmd = &cobra.Command{
 	Use:     "ht-dcphase",
 	Short:   "Hilbert transform dominant cycle phase",
 	Long:    "The Hilbert Transform Dominant Cycle Phase (HT_DCPHASE) endpoint provides the current phase of the dominant market cycle for a given financial instrument. It returns numerical data indicating the phase angle, which can be used by traders to identify potential market entry and exit points based on cyclical patterns.",
-	Example: "td ti ht-dcphase --symbol AAPL --interval 1day",
+	Example: "twelvedata ti ht-dcphase --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -3636,7 +3636,7 @@ var GetTimeSeriesHtPhasorCmd = &cobra.Command{
 	Use:     "ht-phasor",
 	Short:   "Hilbert transform phasor components",
 	Long:    "The Hilbert Transform Phasor Components (HT_PHASOR) endpoint analyzes a price series to return two key components: in-phase and quadrature. These components help identify cyclical patterns and the direction of trends in the data. Use this endpoint to gain precise insights into the timing and strength of market cycles, enhancing your ability to track and predict price movements.",
-	Example: "td ti ht-phasor --symbol AAPL --interval 1day",
+	Example: "twelvedata ti ht-phasor --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -3749,7 +3749,7 @@ var GetTimeSeriesHtSineCmd = &cobra.Command{
 	Use:     "ht-sine",
 	Short:   "Hilbert transform sine wave",
 	Long:    "The Hilbert Transform Sine Wave (HT_SINE) endpoint provides sine and cosine wave components derived from the dominant market cycle. This data helps traders pinpoint potential market turning points and assess trend directions by analyzing cyclical patterns.",
-	Example: "td ti ht-sine --symbol AAPL --interval 1day",
+	Example: "twelvedata ti ht-sine --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -3862,7 +3862,7 @@ var GetTimeSeriesHtTrendModeCmd = &cobra.Command{
 	Use:     "ht-trendmode",
 	Short:   "Hilbert transform trend vs cycle mode",
 	Long:    "The Hilbert Transform Trend vs Cycle Mode (HT_TRENDMODE) endpoint identifies whether a market is in a trending or cyclical phase. It returns data indicating the current market phase, allowing users to adjust their trading strategies based on the prevailing conditions.",
-	Example: "td ti ht-trendmode --symbol AAPL --interval 1day",
+	Example: "twelvedata ti ht-trendmode --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -3975,7 +3975,7 @@ var GetTimeSeriesHtTrendlineCmd = &cobra.Command{
 	Use:     "ht-trendline",
 	Short:   "Hilbert transform instantaneous trendline",
 	Long:    "The Hilbert Transform Instantaneous Trendline (HT_TRENDLINE) endpoint provides a smoothed moving average that aligns with the dominant market cycle. It returns data points that help traders identify current market trends and determine potential entry or exit points in trading.",
-	Example: "td ti ht-trendline --symbol AAPL --interval 1day",
+	Example: "twelvedata ti ht-trendline --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -4088,7 +4088,7 @@ var GetTimeSeriesIchimokuCmd = &cobra.Command{
 	Use:     "ichimoku",
 	Short:   "Ichimoku cloud",
 	Long:    "The Ichimoku Cloud endpoint provides data on the Ichimoku Kinko Hyo indicator, offering insights into trend direction, support and resistance levels, and potential entry and exit points. It returns key components such as the Tenkan-sen, Kijun-sen, Senkou Span A, Senkou Span B, and Chikou Span. This data helps users evaluate market trends and identify strategic trading opportunities.",
-	Example: "td ti ichimoku --symbol AAPL --interval 1day",
+	Example: "twelvedata ti ichimoku --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -4222,7 +4222,7 @@ var GetTimeSeriesKamaCmd = &cobra.Command{
 	Use:     "kama",
 	Short:   "Kaufman adaptive moving average",
 	Long:    "The Kaufman Adaptive Moving Average (KAMA) endpoint calculates the KAMA for a specified financial instrument, returning a time series of values that reflect the average price adjusted for market volatility. This endpoint helps users identify trends by smoothing out price fluctuations while remaining sensitive to significant price movements.",
-	Example: "td ti kama --symbol AAPL --interval 1day",
+	Example: "twelvedata ti kama --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -4340,7 +4340,7 @@ var GetTimeSeriesKeltnerCmd = &cobra.Command{
 	Use:     "keltner",
 	Short:   "Keltner channel",
 	Long:    "The Keltner Channel endpoint provides data for a volatility-based technical indicator that combines the Exponential Moving Average (EMA) and the Average True Range (ATR) to form a channel around a security's price. This endpoint returns the upper, middle, and lower bands of the channel, which can be used to identify potential overbought or oversold conditions, assess trend direction, and detect possible price breakouts.",
-	Example: "td ti keltner --symbol AAPL --interval 1day",
+	Example: "twelvedata ti keltner --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -4472,7 +4472,7 @@ var GetTimeSeriesKstCmd = &cobra.Command{
 	Use:     "kst",
 	Short:   "Know sure thing",
 	Long:    "The Know Sure Thing (KST) endpoint provides a momentum oscillator that combines four smoothed rates of change into a single trend-following indicator. This endpoint returns data that helps users identify potential trend reversals, as well as overbought or oversold conditions in the market.",
-	Example: "td ti kst --symbol AAPL --interval 1day",
+	Example: "twelvedata ti kst --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -4626,7 +4626,7 @@ var GetTimeSeriesLinearRegCmd = &cobra.Command{
 	Use:     "linearreg",
 	Short:   "Linear regression",
 	Long:    "The Linear Regression endpoint (LINEARREG) calculates the best-fit straight line through a series of financial data points. It returns the slope and intercept values of this line, allowing users to determine the overall direction of a market trend and identify potential support or resistance levels.",
-	Example: "td ti linearreg --symbol AAPL --interval 1day",
+	Example: "twelvedata ti linearreg --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -4744,7 +4744,7 @@ var GetTimeSeriesLinearRegAngleCmd = &cobra.Command{
 	Use:     "linearregangle",
 	Short:   "Linear regression angle",
 	Long:    "The Linear Regression Angle endpoint (LINEARREGANGLE) calculates the angle of the linear regression line for a given time series of stock prices. It returns the slope of the trend line, expressed in degrees, which helps users identify the direction and steepness of a trend over a specified period. This data is useful for detecting upward or downward trends in asset prices.",
-	Example: "td ti linearregangle --symbol AAPL --interval 1day",
+	Example: "twelvedata ti linearregangle --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -4862,7 +4862,7 @@ var GetTimeSeriesLinearRegInterceptCmd = &cobra.Command{
 	Use:     "linearregintercept",
 	Short:   "Linear regression intercept",
 	Long:    "The Linear Regression Intercept endpoint (LINEARREGINTERCEPT) calculates the y-intercept of a linear regression line for a given dataset. It returns the value where the regression line crosses the y-axis, providing a numerical reference point for understanding the starting position of a trend over a specified period. This can be useful for users needing to establish baseline values in their data analysis.",
-	Example: "td ti linearregintercept --symbol AAPL --interval 1day",
+	Example: "twelvedata ti linearregintercept --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -4980,7 +4980,7 @@ var GetTimeSeriesLinearRegSlopeCmd = &cobra.Command{
 	Use:     "linearregslope",
 	Short:   "Linear regression slope",
 	Long:    "The Linear Regression Slope endpoint (LINEARREGSLOPE) calculates the slope of a linear regression line for a given dataset, reflecting the rate of change in the data trend over a specified period. It returns a numerical value representing this slope, which can be used to assess the direction and strength of the trend in the dataset.",
-	Example: "td ti linearregslope --symbol AAPL --interval 1day",
+	Example: "twelvedata ti linearregslope --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -5098,7 +5098,7 @@ var GetTimeSeriesLnCmd = &cobra.Command{
 	Use:     "ln",
 	Short:   "Natural logarithm",
 	Long:    "The Natural Logarithm (LN) endpoint computes the natural logarithm of a specified input value, returning a numerical result. This endpoint is useful for users needing to perform logarithmic transformations on data, which can be applied in various financial calculations and advanced mathematical analyses.",
-	Example: "td ti ln --symbol AAPL --interval 1day",
+	Example: "twelvedata ti ln --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -5211,7 +5211,7 @@ var GetTimeSeriesLog10Cmd = &cobra.Command{
 	Use:     "log10",
 	Short:   "Base-10 logarithm",
 	Long:    "The Base-10 Logarithm (LOG10) endpoint computes the base-10 logarithm of a specified input value. It returns a numerical result that represents the power to which the number 10 must be raised to obtain the input value. This endpoint is useful for transforming data into a logarithmic scale, which can simplify the analysis of exponential growth patterns or compress large ranges of data in financial calculations.",
-	Example: "td ti log10 --symbol AAPL --interval 1day",
+	Example: "twelvedata ti log10 --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -5324,7 +5324,7 @@ var GetTimeSeriesMaCmd = &cobra.Command{
 	Use:     "ma",
 	Short:   "Moving average",
 	Long:    "The Moving Average (MA) endpoint provides the average price of a security over a specified time frame, offering a smoothed representation of price data. This endpoint returns the calculated moving average values, which can assist users in identifying price trends and potential support or resistance levels in the market.",
-	Example: "td ti ma --symbol AAPL --interval 1day",
+	Example: "twelvedata ti ma --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -5446,7 +5446,7 @@ var GetTimeSeriesMacdCmd = &cobra.Command{
 	Use:     "macd",
 	Short:   "Moving average convergence divergence",
 	Long:    "This endpoint calculates the Moving Average Convergence Divergence (MACD) for a specified financial instrument. It returns the MACD line, signal line, and histogram values, which help users identify potential trend reversals and trading opportunities by analyzing the relationship between two moving averages.",
-	Example: "td ti macd --symbol AAPL --interval 1day",
+	Example: "twelvedata ti macd --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -5574,7 +5574,7 @@ var GetTimeSeriesMacdExtCmd = &cobra.Command{
 	Use:     "macdext",
 	Short:   "Moving average convergence divergence extension",
 	Long:    "The Moving Average Convergence Divergence Extension (MACDEXT) endpoint provides a customizable version of the MACD indicator, allowing users to specify different moving average types and parameters. It returns data that includes the MACD line, signal line, and histogram values, tailored to the user's chosen settings. This endpoint is useful for traders who require flexibility in analyzing price trends and momentum by adjusting the calculation methods to fit their specific trading strategies.",
-	Example: "td ti macdext --symbol AAPL --interval 1day",
+	Example: "twelvedata ti macdext --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -5714,7 +5714,7 @@ var GetTimeSeriesMacdSlopeCmd = &cobra.Command{
 	Use:     "macd-slope",
 	Short:   "Moving average convergence divergence slope",
 	Long:    "The Moving Average Convergence Divergence (MACD) Slope endpoint provides the rate of change of the MACD line for a given security. It returns data on how quickly the MACD line is rising or falling, offering insights into the momentum shifts in the security's price. This information is useful for traders looking to gauge the speed of price movements and potential trend reversals.",
-	Example: "td ti macd-slope --symbol AAPL --interval 1day",
+	Example: "twelvedata ti macd-slope --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -5847,7 +5847,7 @@ var GetTimeSeriesMamaCmd = &cobra.Command{
 	Use:     "mama",
 	Short:   "MESA adaptive moving average",
 	Long:    "The MESA Adaptive Moving Average (MAMA) endpoint calculates a moving average that adjusts to the dominant market cycle, offering a balance between quick response to price changes and noise reduction. It returns data that includes the adaptive moving average values, which can be used to identify trends and potential reversal points.",
-	Example: "td ti mama --symbol AAPL --interval 1day",
+	Example: "twelvedata ti mama --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -5970,7 +5970,7 @@ var GetTimeSeriesMaxCmd = &cobra.Command{
 	Use:     "max",
 	Short:   "Maximum",
 	Long:    "The Maximum (MAX) endpoint calculates and returns the highest value within a specified data series over a given period. This endpoint is useful for identifying potential resistance levels or detecting extreme price movements in financial data.",
-	Example: "td ti max --symbol AAPL --interval 1day",
+	Example: "twelvedata ti max --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -6088,7 +6088,7 @@ var GetTimeSeriesMaxIndexCmd = &cobra.Command{
 	Use:     "maxindex",
 	Short:   "Maximum Index",
 	Long:    "The Maximum Index (MAXINDEX) endpoint identifies the position of the highest value within a specified data series over a given time frame. It returns the index where the peak value occurs, allowing users to pinpoint when the maximum price or value was reached in the series. This is useful for tracking the timing of significant peaks in financial data.",
-	Example: "td ti maxindex --symbol AAPL --interval 1day",
+	Example: "twelvedata ti maxindex --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -6206,7 +6206,7 @@ var GetTimeSeriesMcGinleyDynamicCmd = &cobra.Command{
 	Use:     "mcginley-dynamic",
 	Short:   "McGinley dynamic indicator",
 	Long:    "This endpoint calculates the McGinley Dynamic (MCGINLEY_DYNAMIC) indicator, which provides a refined moving average that adapts to market volatility. This endpoint returns data that reflects smoother price trends and identifies potential support or resistance levels more accurately than traditional moving averages. It is useful for users seeking to track price movements with reduced lag and enhanced responsiveness to market changes.",
-	Example: "td ti mcginley-dynamic --symbol AAPL --interval 1day",
+	Example: "twelvedata ti mcginley-dynamic --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -6320,7 +6320,7 @@ var GetTimeSeriesMedPriceCmd = &cobra.Command{
 	Use:     "medprice",
 	Short:   "Median price",
 	Long:    "The Median Price (MEDPRICE) endpoint calculates and returns the average of the high and low prices of a security for a specified period. This endpoint provides a simplified view of price movements, helping users quickly assess price trends by focusing on the midpoint of price action.",
-	Example: "td ti medprice --symbol AAPL --interval 1day",
+	Example: "twelvedata ti medprice --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -6429,7 +6429,7 @@ var GetTimeSeriesMfiCmd = &cobra.Command{
 	Use:     "mfi",
 	Short:   "Money flow index",
 	Long:    "The Money Flow Index (MFI) endpoint provides a volume-weighted momentum oscillator that quantifies buying and selling pressure by analyzing positive and negative money flow. It returns data indicating potential overbought or oversold conditions in a financial asset, aiding users in understanding market trends and price movements.",
-	Example: "td ti mfi --symbol AAPL --interval 1day",
+	Example: "twelvedata ti mfi --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -6543,7 +6543,7 @@ var GetTimeSeriesMidPointCmd = &cobra.Command{
 	Use:     "midpoint",
 	Short:   "Midpoint",
 	Long:    "The Midpoint (MIDPOINT) endpoint calculates the average value between the highest and lowest prices of a financial instrument over a specified period. It returns a time series of midpoint values, which can help users identify price trends and smooth out short-term fluctuations in the data.",
-	Example: "td ti midpoint --symbol AAPL --interval 1day",
+	Example: "twelvedata ti midpoint --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -6661,7 +6661,7 @@ var GetTimeSeriesMidPriceCmd = &cobra.Command{
 	Use:     "midprice",
 	Short:   "Midprice",
 	Long:    "The Midprice (MIDPRICE) endpoint calculates and returns the average of a financial instrument's highest and lowest prices over a specified time period. This data provides a smoothed representation of price movements, helping users identify potential support or resistance levels in the market.",
-	Example: "td ti midprice --symbol AAPL --interval 1day",
+	Example: "twelvedata ti midprice --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -6775,7 +6775,7 @@ var GetTimeSeriesMinCmd = &cobra.Command{
 	Use:     "min",
 	Short:   "Minimum",
 	Long:    "The Minimum (MIN) Indicator endpoint provides the lowest value of a specified data series over a chosen time period. This endpoint is useful for identifying potential support levels or detecting extreme price movements in financial data.",
-	Example: "td ti min --symbol AAPL --interval 1day",
+	Example: "twelvedata ti min --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -6893,7 +6893,7 @@ var GetTimeSeriesMinIndexCmd = &cobra.Command{
 	Use:     "minindex",
 	Short:   "Minimum index",
 	Long:    "The Minimum Index (MININDEX) endpoint identifies the position of the lowest value within a specified data series over a given time frame. It returns the index number corresponding to the earliest occurrence of this minimum value. This is useful for pinpointing when the lowest price or value occurred in a dataset, aiding in time-based analysis of data trends.",
-	Example: "td ti minindex --symbol AAPL --interval 1day",
+	Example: "twelvedata ti minindex --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -7011,7 +7011,7 @@ var GetTimeSeriesMinMaxCmd = &cobra.Command{
 	Use:     "minmax",
 	Short:   "Minimum and maximum",
 	Long:    "The Minimum and Maximum (MINMAX) endpoint identifies the lowest and highest values within a specified time frame for a given data series. It returns these extreme values, which can be used to detect potential support and resistance levels or significant price fluctuations in the data.",
-	Example: "td ti minmax --symbol AAPL --interval 1day",
+	Example: "twelvedata ti minmax --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -7129,7 +7129,7 @@ var GetTimeSeriesMinMaxIndexCmd = &cobra.Command{
 	Use:     "minmaxindex",
 	Short:   "Minimum and maximum index",
 	Long:    "The Minimum and Maximum Index (MINMAXINDEX) endpoint identifies the positions of the lowest and highest values within a specified data series period. It returns indices that indicate when these extreme values occur, allowing users to pinpoint significant price changes over time.",
-	Example: "td ti minmaxindex --symbol AAPL --interval 1day",
+	Example: "twelvedata ti minmaxindex --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -7247,7 +7247,7 @@ var GetTimeSeriesMinusDICmd = &cobra.Command{
 	Use:     "minus-di",
 	Short:   "Minus directional indicator",
 	Long:    "The Minus Directional Indicator (MINUS_DI) endpoint calculates and returns the strength of a security's downward price movement over a specified period. This data is useful for traders and analysts looking to identify bearish trends and assess the intensity of price declines in financial markets.",
-	Example: "td ti minus-di --symbol AAPL --interval 1day",
+	Example: "twelvedata ti minus-di --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -7361,7 +7361,7 @@ var GetTimeSeriesMinusDMCmd = &cobra.Command{
 	Use:     "minus-dm",
 	Short:   "Minus directional movement",
 	Long:    "The Minus Directional Movement endpoint (MINUS_DM) calculates the downward price movement of a security over a specified period. It returns a series of values indicating the strength of downward trends, useful for traders to identify potential selling opportunities or confirm bearish market conditions.",
-	Example: "td ti minus-dm --symbol AAPL --interval 1day",
+	Example: "twelvedata ti minus-dm --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -7475,7 +7475,7 @@ var GetTimeSeriesMomCmd = &cobra.Command{
 	Use:     "mom",
 	Short:   "Momentum",
 	Long:    "The Momentum (MOM) endpoint provides data on the rate of change in a security's price over a user-defined period. It returns a series of numerical values indicating the speed and direction of the price movement, which can help users detect emerging trends or potential reversals in the market.",
-	Example: "td ti mom --symbol AAPL --interval 1day",
+	Example: "twelvedata ti mom --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -7593,7 +7593,7 @@ var GetTimeSeriesMultCmd = &cobra.Command{
 	Use:     "mult",
 	Short:   "Multiplication",
 	Long:    "The Multiplication (MULT) endpoint calculates the product of two input data series, returning a new data series that represents the element-wise multiplication of the inputs. This is useful for combining or adjusting technical indicators or price data to create custom metrics or to normalize values across different scales.",
-	Example: "td ti mult --symbol AAPL --interval 1day",
+	Example: "twelvedata ti mult --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -7710,7 +7710,7 @@ var GetTimeSeriesNatrCmd = &cobra.Command{
 	Use:     "natr",
 	Short:   "Normalized average true range",
 	Long:    "The Normalized Average True Range (NATR) endpoint provides a volatility indicator that calculates the average range of price movement over a specified period, expressed as a percentage of the security's price. This data allows users to compare volatility levels across different securities easily. The endpoint returns a time series of NATR values, which can be used to assess and compare the price volatility of various financial instruments.",
-	Example: "td ti natr --symbol AAPL --interval 1day",
+	Example: "twelvedata ti natr --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -7824,7 +7824,7 @@ var GetTimeSeriesObvCmd = &cobra.Command{
 	Use:     "obv",
 	Short:   "On balance volume",
 	Long:    "The On Balance Volume (OBV) endpoint provides a time series of the OBV indicator, which calculates cumulative volume to reflect buying and selling pressure over time. This endpoint returns data that helps users track volume trends in relation to price movements, aiding in the identification of potential trend continuations or reversals in a security's price.",
-	Example: "td ti obv --symbol AAPL --interval 1day",
+	Example: "twelvedata ti obv --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -7937,7 +7937,7 @@ var GetTimeSeriesPercentBCmd = &cobra.Command{
 	Use:     "percent-b",
 	Short:   "Percent B",
 	Long:    "The Percent B (%B) endpoint calculates and returns the %B value, which indicates the position of a security's price relative to its Bollinger Bands. This data helps users determine if a security is near the upper or lower band, potentially signaling overbought or oversold conditions.",
-	Example: "td ti percent-b --symbol AAPL --interval 1day",
+	Example: "twelvedata ti percent-b --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -8064,7 +8064,7 @@ var GetTimeSeriesPivotPointsHLCmd = &cobra.Command{
 	Use:     "pivot-points-hl",
 	Short:   "Pivot points high low",
 	Long:    "The Pivot Points High Low (PIVOT_POINTS_HL) endpoint calculates key support and resistance levels for a security by analyzing its highest and lowest prices over a specified period. This endpoint returns data that includes pivot points, support levels, and resistance levels, which can be used to identify potential price reversal zones and optimize trade entry and exit strategies.",
-	Example: "td ti pivot-points-hl --symbol AAPL --interval 1day",
+	Example: "twelvedata ti pivot-points-hl --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -8178,7 +8178,7 @@ var GetTimeSeriesPlusDICmd = &cobra.Command{
 	Use:     "plus-di",
 	Short:   "Plus directional indicator",
 	Long:    "The Plus Directional Indicator endpoint (/plus_di) provides data on the strength of a security's upward price movement by calculating the Plus Directional Indicator (PLUS_DI). It returns a time series of PLUS_DI values, which can be used to assess the intensity of upward trends in a security's price over a specified period.",
-	Example: "td ti plus-di --symbol AAPL --interval 1day",
+	Example: "twelvedata ti plus-di --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -8292,7 +8292,7 @@ var GetTimeSeriesPlusDMCmd = &cobra.Command{
 	Use:     "plus-dm",
 	Short:   "Plus directional movement",
 	Long:    "The Plus Directional Movement (PLUS_DM) endpoint calculates the upward price movement of a financial security over a specified period. It returns numerical values representing the magnitude of upward price changes, which can be used to assess the strength of an uptrend. This data is essential for traders and analysts who need to evaluate the bullish momentum of a security.",
-	Example: "td ti plus-dm --symbol AAPL --interval 1day",
+	Example: "twelvedata ti plus-dm --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -8406,7 +8406,7 @@ var GetTimeSeriesPpoCmd = &cobra.Command{
 	Use:     "ppo",
 	Short:   "Percentage price oscillator",
 	Long:    "The Percentage Price Oscillator (PPO) endpoint calculates the percentage difference between two specified moving averages of a financial instrument's price. It returns data that includes the PPO values, which traders can use to identify potential trend reversals and generate trading signals.",
-	Example: "td ti ppo --symbol AAPL --interval 1day",
+	Example: "twelvedata ti ppo --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -8533,7 +8533,7 @@ var GetTimeSeriesRocCmd = &cobra.Command{
 	Use:     "roc",
 	Short:   "Rate of change",
 	Long:    "The Rate of Change (ROC) endpoint calculates the percentage change in a security's price over a defined period, returning a time series of ROC values. This data helps users track momentum by showing how quickly prices are changing, which can be useful for identifying potential price movements.",
-	Example: "td ti roc --symbol AAPL --interval 1day",
+	Example: "twelvedata ti roc --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -8651,7 +8651,7 @@ var GetTimeSeriesRocpCmd = &cobra.Command{
 	Use:     "rocp",
 	Short:   "Rate of change percentage",
 	Long:    "The Rate of Change Percentage (ROCP) endpoint calculates and returns the percentage change in the price of a financial security over a user-defined period. This data helps users identify shifts in price momentum and potential trend reversals by providing a clear numerical representation of how much the price has increased or decreased in percentage terms.",
-	Example: "td ti rocp --symbol AAPL --interval 1day",
+	Example: "twelvedata ti rocp --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -8769,7 +8769,7 @@ var GetTimeSeriesRocrCmd = &cobra.Command{
 	Use:     "rocr",
 	Short:   "Rate of change ratio",
 	Long:    "The Rate of Change Ratio (ROCR) endpoint calculates and returns the ratio of a security's current price to its price from a specified number of periods ago. This data helps users track price momentum and identify potential trend reversals by providing a clear numerical value that reflects price changes over time.",
-	Example: "td ti rocr --symbol AAPL --interval 1day",
+	Example: "twelvedata ti rocr --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -8887,7 +8887,7 @@ var GetTimeSeriesRocr100Cmd = &cobra.Command{
 	Use:     "rocr100",
 	Short:   "Rate of change ratio 100",
 	Long:    "The Rate of Change Ratio 100 (ROCR100) endpoint calculates the percentage change in a security's price over a specified period, expressed as a ratio to 100. It returns data that highlights the momentum of the price movement and identifies potential trend reversals. This endpoint is useful for users looking to assess the strength and direction of a security's price trend over time.",
-	Example: "td ti rocr100 --symbol AAPL --interval 1day",
+	Example: "twelvedata ti rocr100 --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -9005,7 +9005,7 @@ var GetTimeSeriesRsiCmd = &cobra.Command{
 	Use:     "rsi",
 	Short:   "Relative strength index",
 	Long:    "The Relative Strength Index (RSI) endpoint provides data on the RSI values for a specified financial instrument over a given period. It returns a series of RSI values, which indicate the momentum of price movements and help identify potential overbought or oversold conditions. This data is useful for traders looking to assess the strength of price trends and anticipate possible trend reversals.",
-	Example: "td ti rsi --symbol AAPL --interval 1day",
+	Example: "twelvedata ti rsi --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -9123,7 +9123,7 @@ var GetTimeSeriesRvolCmd = &cobra.Command{
 	Use:     "rvol",
 	Short:   "Relative volume",
 	Long:    "The Relative Volume endpoint (/rvol) provides a ratio comparing a security's current trading volume to its average volume over a specified period. This data helps users detect unusual trading activity and assess the strength of price movements, offering insights into potential market breakouts.",
-	Example: "td ti rvol --symbol AAPL --interval 1day",
+	Example: "twelvedata ti rvol --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -9237,7 +9237,7 @@ var GetTimeSeriesSarCmd = &cobra.Command{
 	Use:     "sar",
 	Short:   "Parabolic stop and reverse",
 	Long:    "The Parabolic Stop and Reverse (SAR) endpoint provides data on potential support and resistance levels for a specified security, using its price and time. This endpoint returns numerical values that help traders determine possible entry and exit points in their trading strategies.",
-	Example: "td ti sar --symbol AAPL --interval 1day",
+	Example: "twelvedata ti sar --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -9356,7 +9356,7 @@ var GetTimeSeriesSarExtCmd = &cobra.Command{
 	Use:     "sarext",
 	Short:   "Parabolic stop and reverse extended",
 	Long:    "The Parabolic SAR Extended (SAREXT) endpoint provides a customizable version of the Parabolic SAR indicator, which is used to identify potential entry and exit points in trading. Users can adjust parameters such as acceleration factors to tailor the indicator to specific trading strategies. The endpoint returns data points indicating potential trend reversals.",
-	Example: "td ti sarext --symbol AAPL --interval 1day",
+	Example: "twelvedata ti sarext --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -9505,7 +9505,7 @@ var GetTimeSeriesSmaCmd = &cobra.Command{
 	Use:     "sma",
 	Short:   "Simple moving average",
 	Long:    "The Simple Moving Average (SMA) endpoint calculates and returns the average price of a security over a user-defined time period. This endpoint provides a series of data points that represent the smoothed price trend, which can help users identify potential price movements and evaluate historical price behavior.",
-	Example: "td ti sma --symbol AAPL --interval 1day",
+	Example: "twelvedata ti sma --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -9623,7 +9623,7 @@ var GetTimeSeriesSqrtCmd = &cobra.Command{
 	Use:     "sqrt",
 	Short:   "Square root",
 	Long:    "The Square Root (SQRT) endpoint computes the square root of a specified numerical input. It returns a single numerical value representing the square root, which can be used in various mathematical computations or financial models requiring this specific transformation.",
-	Example: "td ti sqrt --symbol AAPL --interval 1day",
+	Example: "twelvedata ti sqrt --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -9736,7 +9736,7 @@ var GetTimeSeriesStdDevCmd = &cobra.Command{
 	Use:     "stddev",
 	Short:   "Standard deviation",
 	Long:    "The Standard Deviation (STDDEV) endpoint calculates the dispersion of a financial instrument's price data from its average value. It returns a numerical value representing the volatility of the asset over a specified period. This endpoint is useful for traders and analysts to assess price variability and identify periods of high or low volatility in the market.",
-	Example: "td ti stddev --symbol AAPL --interval 1day",
+	Example: "twelvedata ti stddev --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -9859,7 +9859,7 @@ var GetTimeSeriesStochCmd = &cobra.Command{
 	Use:     "stoch",
 	Short:   "Stochastic oscillator",
 	Long:    "The Stochastic Oscillator endpoint provides data on a momentum indicator that evaluates a security's closing price relative to its price range over a specified timeframe. It returns values indicating potential overbought or oversold conditions, aiding in identifying possible trend reversals. Users receive the %K and %D values, which are essential for analyzing the momentum and potential turning points in the market.",
-	Example: "td ti stoch --symbol AAPL --interval 1day",
+	Example: "twelvedata ti stoch --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -9991,7 +9991,7 @@ var GetTimeSeriesStochFCmd = &cobra.Command{
 	Use:     "stochf",
 	Short:   "Stochastic fast",
 	Long:    "The Stochastic Fast (STOCHF) endpoint calculates the fast version of the Stochastic Oscillator, providing data on the momentum of a financial instrument by comparing a particular closing price to a range of its prices over a specified period. This endpoint returns the %K and %D values, which are used to identify potential overbought or oversold conditions in the market. It is useful for traders who need quick, responsive insights into price movements, although it may generate more false signals due to its sensitivity.",
-	Example: "td ti stochf --symbol AAPL --interval 1day",
+	Example: "twelvedata ti stochf --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -10114,7 +10114,7 @@ var GetTimeSeriesStochRsiCmd = &cobra.Command{
 	Use:     "stochrsi",
 	Short:   "Stochastic relative strength index",
 	Long:    "The Stochastic Relative Strength Index (Stochastic RSI) endpoint calculates the Stochastic RSI values for a given financial instrument, providing data on its momentum and potential price reversals. This endpoint returns time-series data, including the %K and %D lines, which help users identify overbought or oversold conditions. Ideal for traders seeking to refine entry and exit points by analyzing short-term price movements.",
-	Example: "td ti stochrsi --symbol AAPL --interval 1day",
+	Example: "twelvedata ti stochrsi --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -10255,7 +10255,7 @@ var GetTimeSeriesSubCmd = &cobra.Command{
 	Use:     "sub",
 	Short:   "Subtraction",
 	Long:    "The Subtraction (SUB) endpoint calculates the difference between two input data series, such as technical indicators or price data. It returns a time series of the resulting values, allowing users to compare or normalize data by highlighting the variance between the two series.",
-	Example: "td ti sub --symbol AAPL --interval 1day",
+	Example: "twelvedata ti sub --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -10372,7 +10372,7 @@ var GetTimeSeriesSumCmd = &cobra.Command{
 	Use:     "sum",
 	Short:   "Summation",
 	Long:    "The Summation (SUM) endpoint calculates the cumulative total of a specified data series over a defined time period. It returns a numerical value representing the sum, which can be used to track the aggregate value of financial data, such as stock prices or trading volumes, over time. This endpoint is useful for users needing to compute the total accumulation of a dataset for further analysis or reporting.",
-	Example: "td ti sum --symbol AAPL --interval 1day",
+	Example: "twelvedata ti sum --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -10490,7 +10490,7 @@ var GetTimeSeriesSuperTrendCmd = &cobra.Command{
 	Use:     "supertrend",
 	Short:   "Supertrend",
 	Long:    "The Supertrend endpoint provides data on the Supertrend indicator, a tool used to identify potential buy and sell signals in trending markets. It returns values that indicate the current trend direction and potential reversal points based on price, time, and volatility. Users can leverage this data to pinpoint optimal entry and exit points for trades.",
-	Example: "td ti supertrend --symbol AAPL --interval 1day",
+	Example: "twelvedata ti supertrend --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -10609,7 +10609,7 @@ var GetTimeSeriesSuperTrendHeikinAshiCandlesCmd = &cobra.Command{
 	Use:     "supertrend-heikinashicandles",
 	Short:   "Supertrend Heikin Ashi candles",
 	Long:    "The Supertrend Heikin Ashi candles endpoint provides data combining Supertrend signals with Heikin Ashi candlestick patterns. It returns a series of data points indicating trend direction and smoothed price movements, useful for identifying potential buy or sell opportunities in trading.",
-	Example: "td ti supertrend-heikinashicandles --symbol AAPL --interval 1day",
+	Example: "twelvedata ti supertrend-heikinashicandles --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -10728,7 +10728,7 @@ var GetTimeSeriesT3maCmd = &cobra.Command{
 	Use:     "t3ma",
 	Short:   "Triple exponential moving average",
 	Long:    "The Triple Exponential Moving Average (T3MA) endpoint calculates a smoothed moving average using three exponential moving averages on price data. It returns a dataset that highlights price trends with reduced lag, offering precise trend analysis. This is useful for identifying trend direction and potential reversal points.",
-	Example: "td ti t3ma --symbol AAPL --interval 1day",
+	Example: "twelvedata ti t3ma --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -10851,7 +10851,7 @@ var GetTimeSeriesTRangeCmd = &cobra.Command{
 	Use:     "trange",
 	Short:   "True range",
 	Long:    "The True Range (TRANGE) endpoint calculates the range of price movement for a specified period, providing a measure of market volatility. It returns data that includes the highest and lowest prices over the period, along with the closing price from the previous period. This information is useful for traders to assess market volatility and adjust their trading strategies accordingly.",
-	Example: "td ti trange --symbol AAPL --interval 1day",
+	Example: "twelvedata ti trange --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -10960,7 +10960,7 @@ var GetTimeSeriesTemaCmd = &cobra.Command{
 	Use:     "tema",
 	Short:   "Triple exponential moving average",
 	Long:    "The Triple Exponential Moving Average (TEMA) endpoint calculates and returns the TEMA values for a specified financial instrument over a given time period. This endpoint provides a series of data points that smooth out price fluctuations by applying three layers of exponential moving averages, allowing users to identify and track underlying trends in the instrument's price movement.",
-	Example: "td ti tema --symbol AAPL --interval 1day",
+	Example: "twelvedata ti tema --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -11078,7 +11078,7 @@ var GetTimeSeriesTrimaCmd = &cobra.Command{
 	Use:     "trima",
 	Short:   "Triangular moving average",
 	Long:    "The Triangular Moving Average (TRIMA) endpoint calculates and returns the smoothed average price of a financial security over a specified period, with a focus on central data points. This endpoint provides a balanced view of price trends by applying a double smoothing process, making it useful for identifying underlying price patterns and reducing short-term fluctuations.",
-	Example: "td ti trima --symbol AAPL --interval 1day",
+	Example: "twelvedata ti trima --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -11196,7 +11196,7 @@ var GetTimeSeriesTsfCmd = &cobra.Command{
 	Use:     "tsf",
 	Short:   "Time series forecast",
 	Long:    "The Time Series Forecast (TSF) endpoint provides projected future price levels using linear regression analysis. It returns data that helps users identify potential support and resistance levels, as well as trend direction in a financial market. This endpoint is useful for traders seeking to anticipate price movements and adjust their strategies accordingly.",
-	Example: "td ti tsf --symbol AAPL --interval 1day",
+	Example: "twelvedata ti tsf --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -11314,7 +11314,7 @@ var GetTimeSeriesTypPriceCmd = &cobra.Command{
 	Use:     "typprice",
 	Short:   "Typical price",
 	Long:    "The Typical Price (TYPPRICE) endpoint calculates and returns the average of a financial instrument's high, low, and close prices for a given period. This endpoint provides a simplified metric that reflects the central tendency of price movements, useful for traders and analysts who need a straightforward view of price trends.",
-	Example: "td ti typprice --symbol AAPL --interval 1day",
+	Example: "twelvedata ti typprice --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -11423,7 +11423,7 @@ var GetTimeSeriesUltOscCmd = &cobra.Command{
 	Use:     "ultosc",
 	Short:   "Ultimate oscillator endpoint",
 	Long:    "The Ultimate Oscillator endpoint (/ultosc) calculates a momentum oscillator that integrates short, intermediate, and long-term price movements to detect potential overbought or oversold conditions and possible trend reversals. It returns a time series of oscillator values, which can be used to assess market momentum and identify entry or exit points in trading strategies.",
-	Example: "td ti ultosc --symbol AAPL --interval 1day",
+	Example: "twelvedata ti ultosc --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -11547,7 +11547,7 @@ var GetTimeSeriesVarCmd = &cobra.Command{
 	Use:     "var",
 	Short:   "Variance",
 	Long:    "The Variance (VAR) endpoint calculates the statistical variance of a financial data series, providing a measure of how much the data points deviate from the average value. It returns a numerical value representing this dispersion, which can be used to assess the volatility of a security over a specified period. This information is crucial for traders and analysts who need to evaluate the risk associated with price fluctuations in the market.",
-	Example: "td ti var --symbol AAPL --interval 1day",
+	Example: "twelvedata ti var --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -11665,7 +11665,7 @@ var GetTimeSeriesVwapCmd = &cobra.Command{
 	Use:     "vwap",
 	Short:   "Volume weighted average price",
 	Long:    "The Volume Weighted Average Price (VWAP) endpoint provides the VWAP value for a specified stock or asset over a given time period. This indicator calculates the average price at which a security has traded throughout the day, based on both volume and price. It is useful for identifying the true average price of an asset, helping traders to assess the current price relative to the day's average.",
-	Example: "td ti vwap --symbol AAPL --interval 1day",
+	Example: "twelvedata ti vwap --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -11784,7 +11784,7 @@ var GetTimeSeriesWclPriceCmd = &cobra.Command{
 	Use:     "wclprice",
 	Short:   "Weighted close price",
 	Long:    "The Weighted Close Price (WCLPRICE) endpoint calculates a security's average price by giving additional weight to the closing price, using the formula: (High + Low + Close * 2) / 4.",
-	Example: "td ti wclprice --symbol AAPL --interval 1day",
+	Example: "twelvedata ti wclprice --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -11893,7 +11893,7 @@ var GetTimeSeriesWillRCmd = &cobra.Command{
 	Use:     "willr",
 	Short:   "Williams %R",
 	Long:    "The Williams %R (WILLR) endpoint calculates the Williams Percent Range, a momentum indicator that evaluates a security's closing price relative to its high-low range over a specified period. This endpoint returns data that helps users identify potential overbought or oversold conditions and possible trend reversals in the market.",
-	Example: "td ti willr --symbol AAPL --interval 1day",
+	Example: "twelvedata ti willr --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -12007,7 +12007,7 @@ var GetTimeSeriesWmaCmd = &cobra.Command{
 	Use:     "wma",
 	Short:   "Weighted moving average",
 	Long:    "The Weighted Moving Average (WMA) endpoint calculates and returns the WMA values for a given security over a specified period. This endpoint provides a time series of weighted averages, where recent prices have a higher influence, allowing users to track and analyze short-term price trends effectively.",
-	Example: "td ti wma --symbol AAPL --interval 1day",
+	Example: "twelvedata ti wma --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {

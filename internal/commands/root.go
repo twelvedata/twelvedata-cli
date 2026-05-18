@@ -25,7 +25,7 @@ var errorCodesHelp = "\n\n" +
 	"  " + joinChunks(output.ErrorCodes, 4, " | ", "\n  ")
 
 var rootCmd = &cobra.Command{
-	Use:           "td",
+	Use:           "twelvedata",
 	Short:         "Twelve Data CLI",
 	Long:          "Twelve Data CLI — REST client for Twelve Data's market data API. Designed for AI agents and humans alike.\n\nResponses render as pretty-printed JSON by default; --output csv switches to the streaming CSV path for endpoints that support it. On an interactive terminal the CLI shows a spinner and colorized errors; pass --raw (or pipe stdout) to force machine-friendly output.",
 	SilenceUsage:  true,
@@ -38,7 +38,7 @@ var rootCmd = &cobra.Command{
 	},
 	// PersistentPostRun fires after a subcommand's RunE returns without error.
 	// It runs on the command that defined it (rootCmd), so the notifier hits
-	// every successful invocation — including `td` with no args, which falls
+	// every successful invocation — including `twelvedata` with no args, which falls
 	// through to the Run handler below.
 	PersistentPostRun: func(cmd *cobra.Command, _ []string) {
 		update.MaybeNotify(cmd)

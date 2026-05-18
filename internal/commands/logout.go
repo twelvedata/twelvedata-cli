@@ -16,8 +16,8 @@ var logoutCmd = &cobra.Command{
 	Long: `Remove one or all stored API keys. With --profile, only that profile is
 removed; without --profile every profile is wiped and credentials.json is
 deleted (after a confirmation prompt on a TTY).`,
-	Example: `  td logout                       # remove all profiles
-  td logout --profile staging     # remove a single profile`,
+	Example: `  twelvedata logout                       # remove all profiles
+  twelvedata logout --profile staging     # remove a single profile`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		profile, _ := cmd.Flags().GetString("profile")
 		if profile != "" {

@@ -53,9 +53,9 @@ var doctorCmd = &cobra.Command{
 
 Each check reports pass | warn | fail; the command exits 1 if any check is fail.
 Use --raw (or pipe stdout) to get the result as a JSON envelope suitable for CI.`,
-	Example: `  td doctor
-  td doctor --raw
-  td doctor --profile staging`,
+	Example: `  twelvedata doctor
+  twelvedata doctor --raw
+  twelvedata doctor --profile staging`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		ctx := cmd.Context()
 		keyFlag, _ := cmd.Flags().GetString("api-key")
@@ -149,7 +149,7 @@ func checkAPIKey(keyFlag, profileFlag string) doctorCheck {
 		c.Status = doctorStatusFail
 		if errors.Is(err, auth.ErrNoAPIKey) {
 			c.Message = "No API key found"
-			c.Detail = "Run: td login"
+			c.Detail = "Run: twelvedata login"
 		} else {
 			c.Message = err.Error()
 		}

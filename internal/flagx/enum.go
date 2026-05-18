@@ -22,7 +22,7 @@ type Enum struct {
 }
 
 // AllowedValuer is implemented by Enum so the schema dumper can introspect the
-// allowed set and surface it to agents in `td schema`. Any flag value that
+// allowed set and surface it to agents in `twelvedata schema`. Any flag value that
 // wants to advertise an enum to agents can satisfy this interface.
 type AllowedValuer interface {
 	Allowed() []string

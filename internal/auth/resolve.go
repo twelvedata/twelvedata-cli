@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-// Source labels where an API key came from. It powers `td whoami` and lets
+// Source labels where an API key came from. It powers `twelvedata whoami` and lets
 // callers report a precise origin in error messages.
 type Source string
 
@@ -28,7 +28,7 @@ type ResolvedKey struct {
 
 // ErrNoAPIKey is returned when nothing in the resolution chain yielded a key.
 // The internal/output classifier maps it to exit code 3 (auth failure).
-var ErrNoAPIKey = errors.New("no Twelve Data API key configured. Run `td login` or set TWELVEDATA_API_KEY")
+var ErrNoAPIKey = errors.New("no Twelve Data API key configured. Run `twelvedata login` or set TWELVEDATA_API_KEY")
 
 // ResolveProfileName picks the profile name to use, in order: explicit flag,
 // TWELVEDATA_PROFILE env var, credentials.json active_profile, "default".
@@ -96,7 +96,7 @@ func SetActiveProfile(name string) error {
 		return err
 	}
 	if creds == nil {
-		return errors.New("no credentials file found. Run `td login` first")
+		return errors.New("no credentials file found. Run `twelvedata login` first")
 	}
 	if _, ok := creds.Profiles[name]; !ok {
 		return errProfileNotFound(name, creds)

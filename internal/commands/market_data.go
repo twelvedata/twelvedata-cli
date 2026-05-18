@@ -26,7 +26,7 @@ var GetEodCmd = &cobra.Command{
 	Use:     "eod",
 	Short:   "End of day price",
 	Long:    "The End of Day (EOD) Prices endpoint provides the closing price and other relevant metadata for a financial instrument at the end of a trading day. This endpoint is useful for retrieving daily historical data for stocks, ETFs, or other securities, allowing users to track performance over time and compare daily market movements.",
-	Example: "td eod --symbol AAPL",
+	Example: "twelvedata eod --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -92,7 +92,7 @@ var GetPriceCmd = &cobra.Command{
 	Use:     "price",
 	Short:   "Latest price",
 	Long:    "The latest price endpoint provides the latest market price for a specified financial instrument. It returns a single data point representing the current (or the most recently available) trading price.",
-	Example: "td price --symbol AAPL",
+	Example: "twelvedata price --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -158,7 +158,7 @@ var GetQuoteCmd = &cobra.Command{
 	Use:     "quote",
 	Short:   "Quote",
 	Long:    "The quote endpoint provides real-time data for a selected financial instrument, returning essential information such as the latest price, open, high, low, close, volume, and price change. This endpoint is ideal for users needing up-to-date market data to track price movements and trading activity for specific stocks, ETFs, or other securities.",
-	Example: "td quote --symbol AAPL",
+	Example: "twelvedata quote --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -247,7 +247,7 @@ var GetTimeSeriesCmd = &cobra.Command{
 	Use:     "time-series",
 	Short:   "Time series",
 	Long:    "The time series endpoint provides detailed historical data for a specified financial instrument. It returns two main components: metadata, which includes essential information about the instrument, and a time series dataset. The time series consists of chronological entries with Open, High, Low, and Close prices, and for applicable instruments, it also includes trading volume. This endpoint is ideal for retrieving comprehensive historical price data for analysis or visualization purposes.",
-	Example: "td time-series --symbol AAPL --interval 1day",
+	Example: "twelvedata time-series --symbol AAPL --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -351,7 +351,7 @@ var GetTimeSeriesCrossCmd = &cobra.Command{
 	Use:     "time-series-cross",
 	Short:   "Time series cross",
 	Long:    "The Time Series Cross endpoint calculates and returns historical cross-rate data for exotic forex pairs, cryptocurrencies, or stocks (e.g., Apple Inc. price in Indian Rupees) on the fly. It provides metadata about the requested symbol and a time series array with Open, High, Low, and Close prices, sorted descending by time, enabling analysis of price history and market trends.",
-	Example: "td time-series-cross --interval 1day",
+	Example: "twelvedata time-series-cross --interval 1day",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {

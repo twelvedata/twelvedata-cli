@@ -67,7 +67,7 @@ func openInBrowser(url string) error {
 		return err
 	}
 	// Detach: we don't care when the browser exits, and we don't want a
-	// zombie subprocess hanging around if td is invoked in a long-lived
+	// zombie subprocess hanging around if twelvedata is invoked in a long-lived
 	// shell session.
 	return c.Process.Release()
 }

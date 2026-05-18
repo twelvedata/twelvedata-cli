@@ -16,9 +16,9 @@ var whoamiCmd = &cobra.Command{
 	Long: `Print the profile and API key (masked) that the next command will use.
 Local only — no network calls. The source field is one of: flag, env, config,
 or secure_storage.`,
-	Example: `  td whoami
-  td whoami --raw
-  td whoami --profile staging`,
+	Example: `  twelvedata whoami
+  twelvedata whoami --raw
+  twelvedata whoami --profile staging`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		keyFlag, _ := cmd.Flags().GetString("api-key")
 		profileFlag, _ := cmd.Flags().GetString("profile")

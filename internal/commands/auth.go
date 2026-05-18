@@ -21,11 +21,11 @@ Environment variables:
   TWELVEDATA_API_KEY           API key (overrides stored credentials)
   TWELVEDATA_PROFILE           Profile name (overrides config default)
   TWELVEDATA_CREDENTIAL_STORE  Storage method: "secure_storage" or "file"`,
-	Example: `  td auth list
-  td auth switch staging
-  td auth rename staging production
-  td auth remove staging`,
-	// Default behavior of `td auth` with no subcommand is `td auth list`.
+	Example: `  twelvedata auth list
+  twelvedata auth switch staging
+  twelvedata auth rename staging production
+  twelvedata auth remove staging`,
+	// Default behavior of `twelvedata auth` with no subcommand is `twelvedata auth list`.
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return authListCmd.RunE(cmd, args)
 	},
@@ -49,7 +49,7 @@ var authListCmd = &cobra.Command{
 			return enc.Encode(map[string]any{"profiles": items})
 		}
 		if len(profiles) == 0 {
-			fmt.Fprintln(cmd.OutOrStdout(), "No profiles configured. Run: td login")
+			fmt.Fprintln(cmd.OutOrStdout(), "No profiles configured. Run: twelvedata login")
 			return nil
 		}
 		fmt.Fprintln(cmd.OutOrStdout())
@@ -72,7 +72,7 @@ var authListCmd = &cobra.Command{
 		}
 		if hasInvalid {
 			fmt.Fprintln(cmd.OutOrStdout())
-			fmt.Fprintln(cmd.OutOrStdout(), "  Rename profiles with invalid names via `td auth rename`.")
+			fmt.Fprintln(cmd.OutOrStdout(), "  Rename profiles with invalid names via `twelvedata auth rename`.")
 		}
 		fmt.Fprintln(cmd.OutOrStdout())
 		return nil
@@ -83,7 +83,7 @@ var authSwitchCmd = &cobra.Command{
 	Use:     "switch [name]",
 	Short:   "Switch the active profile",
 	Args:    cobra.MaximumNArgs(1),
-	Example: "  td auth switch staging",
+	Example: "  twelvedata auth switch staging",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		name := ""
 		if len(args) == 1 {
@@ -98,7 +98,7 @@ var authSwitchCmd = &cobra.Command{
 				return err
 			}
 			if len(profiles) == 0 {
-				return errors.New("no profiles configured. Run `td login` first")
+				return errors.New("no profiles configured. Run `twelvedata login` first")
 			}
 			chosen, err := auth.SelectProfile("Switch to which profile?", profiles)
 			if err != nil {
@@ -123,7 +123,7 @@ var authRenameCmd = &cobra.Command{
 	Use:     "rename <old> <new>",
 	Short:   "Rename a profile",
 	Args:    cobra.MaximumNArgs(2),
-	Example: "  td auth rename staging production",
+	Example: "  twelvedata auth rename staging production",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		var oldName, newName string
 		if len(args) >= 1 {
@@ -181,7 +181,7 @@ var authRemoveCmd = &cobra.Command{
 	Use:     "remove [name]",
 	Short:   "Remove a profile",
 	Args:    cobra.MaximumNArgs(1),
-	Example: "  td auth remove staging",
+	Example: "  twelvedata auth remove staging",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		name := ""
 		if len(args) == 1 {

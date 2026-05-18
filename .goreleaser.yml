@@ -1,0 +1,115 @@
+version: 2
+
+project_name: twelvedata-cli
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: twelvedata
+    main: ./cmd/twelvedata
+    binary: twelvedata
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ignore:
+      - goos: windows
+        goarch: arm64
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w
+      - -X github.com/twelvedata/twelvedata-cli/internal/version.Version={{ .Version }}
+
+archives:
+  - id: twelvedata
+    ids:
+      - twelvedata
+    name_template: 'twelvedata-{{ .Os }}-{{ if eq .Arch "amd64" }}x64{{ else }}{{ .Arch }}{{ end }}'
+    formats:
+      - tar.gz
+    format_overrides:
+      - goos: windows
+        formats:
+          - zip
+    files:
+      - LICENSE
+      - README.md
+
+checksum:
+  name_template: checksums.txt
+
+snapshot:
+  version_template: "{{ incpatch .Version }}-next"
+
+changelog:
+  sort: asc
+  use: github
+  groups:
+    - title: Features
+      regexp: '^.*?feat(\(.+\))??!?:.+$'
+      order: 0
+    - title: Bug fixes
+      regexp: '^.*?fix(\(.+\))??!?:.+$'
+      order: 1
+    - title: Documentation
+      regexp: '^.*?docs(\(.+\))??!?:.+$'
+      order: 2
+    - title: Other
+      order: 999
+  filters:
+    exclude:
+      - '^test:'
+      - '^chore:'
+      - '^ci:'
+      - '^style:'
+      - '^refactor:'
+
+release:
+  github:
+    owner: twelvedata
+    name: twelvedata-cli
+  draft: false
+  prerelease: auto
+  mode: replace
+  header: |
+    ## Install
+
+    **cURL (macOS / Linux)**
+    ```sh
+    curl -fsSL https://raw.githubusercontent.com/twelvedata/twelvedata-cli/main/install.sh | bash
+    ```
+
+    **PowerShell (Windows)**
+    ```sh
+    irm https://raw.githubusercontent.com/twelvedata/twelvedata-cli/main/install.ps1 | iex
+    ```
+
+    **Go**
+    ```sh
+    go install github.com/twelvedata/twelvedata-cli/cmd/twelvedata@{{ .Tag }}
+    ```
+
+# Homebrew tap — uncomment once `twelvedata/homebrew-cli` exists and
+# HOMEBREW_TAP_GITHUB_TOKEN is configured as a repo secret.
+# brews:
+#   - name: twelvedata
+#     repository:
+#       owner: twelvedata
+#       name: homebrew-cli
+#       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+#     directory: Formula
+#     homepage: https://twelvedata.com
+#     description: Twelve Data CLI
+#     license: MIT
+#     install: |
+#       bin.install "twelvedata"
+#     test: |
+#       system "#{bin}/twelvedata --version"

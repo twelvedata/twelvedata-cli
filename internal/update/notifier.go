@@ -15,6 +15,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
@@ -26,14 +27,16 @@ import (
 )
 
 const (
-	githubReleasesURL = "https://api.github.com/repos/twelvedata/twelvedata-cli/releases/latest"
-	upgradeCommand    = "go install github.com/twelvedata/twelvedata-cli/cmd/td@v%s"
-	cacheDirName      = "twelvedata-cli"
-	cacheFileName     = "update-check.json"
-	cacheTTL          = 24 * time.Hour
-	fetchTimeout      = 2 * time.Second
-	maxResponseBytes  = 1 << 16
-	envOptOut         = "TWELVEDATA_NO_UPDATE_NOTIFIER"
+	githubReleasesURL  = "https://api.github.com/repos/twelvedata/twelvedata-cli/releases/latest"
+	githubReleasesPage = "https://github.com/twelvedata/twelvedata-cli/releases/latest"
+	installScriptURL   = "https://raw.githubusercontent.com/twelvedata/twelvedata-cli/main/install.sh"
+	installScriptURLPS = "https://raw.githubusercontent.com/twelvedata/twelvedata-cli/main/install.ps1"
+	cacheDirName       = "twelvedata-cli"
+	cacheFileName      = "update-check.json"
+	cacheTTL           = 24 * time.Hour
+	fetchTimeout       = 2 * time.Second
+	maxResponseBytes   = 1 << 16
+	envOptOut          = "TWELVEDATA_NO_UPDATE_NOTIFIER"
 )
 
 type cacheState struct {
@@ -190,7 +193,37 @@ func splitVersion(v string) [3]int {
 }
 
 func printNotice(cmd *cobra.Command, latest string) {
+	exe, _ := os.Executable()
+	if resolved, err := filepath.EvalSymlinks(exe); err == nil {
+		exe = resolved
+	}
+	hint, isURL := upgradeHint(exe, latest)
+	verb := "Run"
+	if isURL {
+		verb = "Visit"
+	}
 	fmt.Fprintf(cmd.ErrOrStderr(),
-		"\nA new version of td is available: v%s → v%s\n  Run: "+upgradeCommand+"\n  Disable: %s=1\n",
-		version.Version, latest, latest, envOptOut)
+		"\nA new version of twelvedata is available: v%s → v%s\n  %s: %s\n  Disable: %s=1\n",
+		version.Version, latest, verb, hint, envOptOut)
+}
+
+// upgradeHint returns the command (or URL) the user should run to upgrade twelvedata,
+// inferred from the running binary's path. The hint matches how the binary
+// was installed so users don't see, for example, a `go install` line when
+// they installed via brew. Returns (hint, isURL).
+func upgradeHint(execPath, latest string) (string, bool) {
+	p := strings.ToLower(filepath.ToSlash(execPath))
+	switch {
+	case strings.Contains(p, "/.twelvedata/bin/"):
+		if runtime.GOOS == "windows" {
+			return "irm " + installScriptURLPS + " | iex", false
+		}
+		return "curl -fsSL " + installScriptURL + " | bash", false
+	case strings.Contains(p, "/cellar/") || strings.Contains(p, "/homebrew/"):
+		return "brew update && brew upgrade twelvedata", false
+	case strings.Contains(p, "/go/bin/"):
+		return fmt.Sprintf("go install github.com/twelvedata/twelvedata-cli/cmd/twelvedata@v%s", latest), false
+	default:
+		return githubReleasesPage, true
+	}
 }

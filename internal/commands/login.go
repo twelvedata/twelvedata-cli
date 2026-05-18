@@ -23,10 +23,10 @@ On a TTY, the key is prompted for in masked form. In non-interactive shells
 either --key-stdin (read the key from stdin) or --key <value> is required;
 prefer --key-stdin so the secret never appears in shell history, process
 listings, or CI logs.`,
-	Example: `  td login                                          # prompts on a TTY
-  printf '%s' "$TWELVEDATA_API_KEY" | td login --key-stdin
-  td login --profile staging --key-stdin <<<"$KEY"
-  td login --key abc123                             # discouraged: leaks to shell history`,
+	Example: `  twelvedata login                                          # prompts on a TTY
+  printf '%s' "$TWELVEDATA_API_KEY" | twelvedata login --key-stdin
+  twelvedata login --profile staging --key-stdin <<<"$KEY"
+  twelvedata login --key abc123                             # discouraged: leaks to shell history`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		key, _ := cmd.Flags().GetString("key")
 		key = strings.TrimSpace(key)

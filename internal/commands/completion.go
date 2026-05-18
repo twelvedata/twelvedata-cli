@@ -17,7 +17,7 @@ import (
 	"github.com/twelvedata/twelvedata-cli/internal/auth"
 )
 
-// completionMarker tags the snippet `td completion install` writes into a
+// completionMarker tags the snippet `twelvedata completion install` writes into a
 // shell profile so we don't append a second copy on re-runs.
 const completionMarker = "# twelvedata-cli shell completion"
 
@@ -26,19 +26,19 @@ var completionShells = []string{"bash", "zsh", "fish", "powershell"}
 var completionCmd = &cobra.Command{
 	Use:   "completion",
 	Short: "Generate or install the shell completion script",
-	Long: `Generate or install the shell completion script for td.
+	Long: `Generate or install the shell completion script for twelvedata.
 
 Use a per-shell subcommand to print the script to stdout — pipe it into
 your shell, or save it where the shell expects completion files.
 
-` + "`td completion install [shell]`" + ` writes the script and wires it
+` + "`twelvedata completion install [shell]`" + ` writes the script and wires it
 into the shell's profile in one step. The shell is auto-detected from
 $SHELL when omitted.`,
 	Example: strings.TrimSpace(`
-  td completion install               # auto-detect $SHELL
-  td completion install bash          # explicit
-  source <(td completion bash)        # one-shot, current shell only
-  td completion fish > ~/.config/fish/completions/td.fish`),
+  twelvedata completion install               # auto-detect $SHELL
+  twelvedata completion install bash          # explicit
+  source <(twelvedata completion bash)        # one-shot, current shell only
+  twelvedata completion fish > ~/.config/fish/completions/twelvedata.fish`),
 }
 
 var completionBashCmd = &cobra.Command{
@@ -49,15 +49,15 @@ var completionBashCmd = &cobra.Command{
 
 Source it for the current shell:
 
-  source <(td completion bash)
+  source <(twelvedata completion bash)
 
 Or add it permanently:
 
   # Linux
-  echo 'eval "$(td completion bash)"' >> ~/.bashrc
+  echo 'eval "$(twelvedata completion bash)"' >> ~/.bashrc
 
   # macOS
-  echo 'eval "$(td completion bash)"' >> ~/.bash_profile
+  echo 'eval "$(twelvedata completion bash)"' >> ~/.bash_profile
 
 Requires bash-completion v2.`,
 	RunE: func(cmd *cobra.Command, _ []string) error {
@@ -73,11 +73,11 @@ var completionZshCmd = &cobra.Command{
 
 Source it for the current shell:
 
-  source <(td completion zsh)
+  source <(twelvedata completion zsh)
 
 Or save it where compinit will pick it up:
 
-  td completion zsh > "${fpath[1]}/_td"
+  twelvedata completion zsh > "${fpath[1]}/_td"
 
 Then start a new shell.`,
 	RunE: func(cmd *cobra.Command, _ []string) error {
@@ -96,11 +96,11 @@ var completionFishCmd = &cobra.Command{
 
 Source it for the current shell:
 
-  td completion fish | source
+  twelvedata completion fish | source
 
 Or save it where fish loads completions automatically:
 
-  td completion fish > ~/.config/fish/completions/td.fish`,
+  twelvedata completion fish > ~/.config/fish/completions/twelvedata.fish`,
 	RunE: func(cmd *cobra.Command, _ []string) error {
 		return rootCmd.GenFishCompletion(cmd.OutOrStdout(), !noDesc(cmd))
 	},
@@ -114,11 +114,11 @@ var completionPowerShellCmd = &cobra.Command{
 
 Load it for the current session:
 
-  td completion powershell | Out-String | Invoke-Expression
+  twelvedata completion powershell | Out-String | Invoke-Expression
 
 Or persist it in your PowerShell profile:
 
-  Add-Content $PROFILE 'td completion powershell | Out-String | Invoke-Expression'`,
+  Add-Content $PROFILE 'twelvedata completion powershell | Out-String | Invoke-Expression'`,
 	RunE: func(cmd *cobra.Command, _ []string) error {
 		if noDesc(cmd) {
 			return rootCmd.GenPowerShellCompletion(cmd.OutOrStdout())
@@ -132,7 +132,7 @@ var completionInstallCmd = &cobra.Command{
 	Short: "Install completion into your shell profile",
 	Long: `Write the completion script and wire it into the shell's profile.
 
-If no shell is given, td auto-detects from $SHELL; on an interactive
+If no shell is given, twelvedata auto-detects from $SHELL; on an interactive
 terminal it falls back to prompting. Already-installed completions are
 detected via a marker line and not duplicated.`,
 	Args: cobra.MaximumNArgs(1),
@@ -203,9 +203,9 @@ func installCompletion(out io.Writer, shell string) error {
 	}
 	switch shell {
 	case "bash":
-		return installEvalLine(out, bashProfile(home), `eval "$(td completion bash)"`)
+		return installEvalLine(out, bashProfile(home), `eval "$(twelvedata completion bash)"`)
 	case "powershell":
-		return installEvalLine(out, powershellProfile(home), `td completion powershell | Out-String | Invoke-Expression`)
+		return installEvalLine(out, powershellProfile(home), `twelvedata completion powershell | Out-String | Invoke-Expression`)
 	case "zsh":
 		return installZsh(out, home)
 	case "fish":
@@ -292,7 +292,7 @@ func installFish(out io.Writer, home string) error {
 	if err := os.MkdirAll(completionDir, 0o755); err != nil {
 		return err
 	}
-	target := filepath.Join(completionDir, "td.fish")
+	target := filepath.Join(completionDir, "twelvedata.fish")
 	var buf bytes.Buffer
 	if err := rootCmd.GenFishCompletion(&buf, true); err != nil {
 		return err

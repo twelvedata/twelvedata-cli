@@ -7,19 +7,19 @@ Every API endpoint is reachable as a Cobra subcommand, with predictable flags, s
 ## Install
 
 ```sh
-go install github.com/twelvedata/twelvedata-cli/cmd/td@v1.0.0
+go install github.com/twelvedata/twelvedata-cli/cmd/twelvedata@v1.0.0
 ```
 
 ## Quick start
 
 ```sh
-td login
-td time-series --symbol AAPL --interval 1day
+twelvedata login
+twelvedata time-series --symbol AAPL --interval 1day
 ```
 
-For scripts and CI, skip `td login` and provide the key inline — either set `TWELVEDATA_API_KEY=...` in the environment or pass `--api-key <key>` on each invocation. See [Authentication](#authentication).
+For scripts and CI, skip `twelvedata login` and provide the key inline — either set `TWELVEDATA_API_KEY=...` in the environment or pass `--api-key <key>` on each invocation. See [Authentication](#authentication).
 
-`td docs` and `td dashboard` open URLs in your default browser. In machine mode (`--raw`, piped stdout, CI) they print the URL to stdout instead of launching a browser, so they're safe to call from scripts.
+`twelvedata docs` and `twelvedata dashboard` open URLs in your default browser. In machine mode (`--raw`, piped stdout, CI) they print the URL to stdout instead of launching a browser, so they're safe to call from scripts.
 
 ## Output behavior
 
@@ -33,13 +33,13 @@ The CLI has two output modes:
 Switching is automatic — pipe stdout and machine mode activates:
 
 ```sh
-td quote --symbol AAPL | jq .price
+twelvedata quote --symbol AAPL | jq .price
 ```
 
 Use `--raw` to force machine mode from a TTY (e.g. when an agent captures both streams):
 
 ```sh
-td quote --symbol AAPL --raw
+twelvedata quote --symbol AAPL --raw
 ```
 
 In machine mode the spinner and color are suppressed, errors render as a JSON envelope on stderr, and every interactive helper (missing-option prompt, masked-key prompt, profile picker, destructive confirmation) is skipped — the same arguments that work in CI work from a `--raw` TTY.
@@ -67,30 +67,30 @@ CLI resolves the API key from these sources, in order:
 
 1. `--api-key <key>` flag
 2. `TWELVEDATA_API_KEY` environment variable
-3. Active profile in `credentials.json` (see `td whoami`)
+3. Active profile in `credentials.json` (see `twelvedata whoami`)
 
-> **Avoid putting secrets on the command line.** `--api-key` and `td login --key` accept the key as a literal argument, which leaks it to shell history, `ps` output, and CI logs. For day-to-day use prefer `TWELVEDATA_API_KEY`, a saved profile, or `td login --key-stdin` for piped input.
+> **Avoid putting secrets on the command line.** `--api-key` and `twelvedata login --key` accept the key as a literal argument, which leaks it to shell history, `ps` output, and CI logs. For day-to-day use prefer `TWELVEDATA_API_KEY`, a saved profile, or `twelvedata login --key-stdin` for piped input.
 
 ### Profiles
 
 CLI supports named profiles so you can keep separate keys for prototyping, production, or different team accounts.
 
 ```sh
-td login                                          # prompts on a TTY (masked input)
-printf '%s' "$TWELVEDATA_API_KEY" | td login --key-stdin
-td login --profile staging --key-stdin <<<"$KEY"  # CI/scripts
-td auth list                                      # list profiles (also: bare `td auth`)
-td auth switch staging                            # change active profile
-td whoami                                         # show active profile + masked key
+twelvedata login                                          # prompts on a TTY (masked input)
+printf '%s' "$TWELVEDATA_API_KEY" | twelvedata login --key-stdin
+twelvedata login --profile staging --key-stdin <<<"$KEY"  # CI/scripts
+twelvedata auth list                                      # list profiles (also: bare `twelvedata auth`)
+twelvedata auth switch staging                            # change active profile
+twelvedata whoami                                         # show active profile + masked key
 ```
 
-`td login --key <value>` still works for ad-hoc use but is discouraged for the leakage reasons above.
+`twelvedata login --key <value>` still works for ad-hoc use but is discouraged for the leakage reasons above.
 
 Other auth commands:
 
-- `td logout [--profile <name>]`
-- `td auth rename <old> <new>`
-- `td auth remove <name>`
+- `twelvedata logout [--profile <name>]`
+- `twelvedata auth rename <old> <new>`
+- `twelvedata auth remove <name>`
 
 The `-p` / `--profile` flag (or `TWELVEDATA_PROFILE` env var) overrides the active profile for one invocation.
 
@@ -122,7 +122,7 @@ Override storage with `TWELVEDATA_CREDENTIAL_STORE=file` to force plaintext.
 
 ## Diagnostics
 
-`td doctor` runs four checks against your local setup and the API, and exits non-zero on any failure — useful as a smoke test in CI and as a triage step when commands start misbehaving.
+`twelvedata doctor` runs four checks against your local setup and the API, and exits non-zero on any failure — useful as a smoke test in CI and as a triage step when commands start misbehaving.
 
 | Check | What it verifies |
 | --- | --- |
@@ -134,9 +134,9 @@ Override storage with `TWELVEDATA_CREDENTIAL_STORE=file` to force plaintext.
 Each check reports `pass`, `warn`, or `fail`. Exit code is `1` if any check is `fail`; `warn` does not affect the exit code (so a stale CLI build or a transient network hiccup won't break CI).
 
 ```sh
-td doctor                              # human-readable output
-td doctor --raw                        # JSON envelope for scripts and CI
-td doctor --profile staging            # run checks against a specific profile
+twelvedata doctor                              # human-readable output
+twelvedata doctor --raw                        # JSON envelope for scripts and CI
+twelvedata doctor --profile staging            # run checks against a specific profile
 ```
 
 In machine mode the payload shape is:
@@ -155,30 +155,30 @@ In machine mode the payload shape is:
 
 ## Agent discovery
 
-`td commands` dumps the entire command tree as JSON — names, flags, types, enum value sets, descriptions — so an LLM can introspect what commands and arguments are available without scraping `--help` text. `td schema` is kept as an alias.
+`twelvedata commands` dumps the entire command tree as JSON — names, flags, types, enum value sets, descriptions — so an LLM can introspect what commands and arguments are available without scraping `--help` text. `twelvedata schema` is kept as an alias.
 
 ## Shell completion
 
-`td` ships completion for bash, zsh, fish, and PowerShell. Each script is generated from the live command tree, so flags and enum values stay in sync with the binary.
+`twelvedata` ships completion for bash, zsh, fish, and PowerShell. Each script is generated from the live command tree, so flags and enum values stay in sync with the binary.
 
 One-line install (auto-detects `$SHELL`):
 
 ```sh
-td completion install
+twelvedata completion install
 ```
 
-Then restart your shell. Pass a shell name to override detection (`td completion install zsh`).
+Then restart your shell. Pass a shell name to override detection (`twelvedata completion install zsh`).
 
 Manual setup — print the script and source it yourself:
 
 ```sh
-source <(td completion bash)                                # current shell only
-td completion zsh > "${fpath[1]}/_td"                       # zsh, system fpath
-td completion fish > ~/.config/fish/completions/td.fish     # fish
-td completion powershell | Out-String | Invoke-Expression   # PowerShell session
+source <(twelvedata completion bash)                                # current shell only
+twelvedata completion zsh > "${fpath[1]}/_td"                       # zsh, system fpath
+twelvedata completion fish > ~/.config/fish/completions/twelvedata.fish     # fish
+twelvedata completion powershell | Out-String | Invoke-Expression   # PowerShell session
 ```
 
-`td completion install` is idempotent — re-running won't append a second copy.
+`twelvedata completion install` is idempotent — re-running won't append a second copy.
 
 ## Local development
 
@@ -200,10 +200,10 @@ Use this when you want to change the CLI and run your build locally.
 2. **Build the binary**
 
    ```sh
-   go build -o td ./cmd/td
+   go build -o twelvedata ./cmd/twelvedata
    ```
 
-   Output: `./td`
+   Output: `./twelvedata`
 
 ## Running the CLI locally
 
@@ -211,13 +211,13 @@ Set your API key, then run the built binary:
 
 ```sh
 export TWELVEDATA_API_KEY=...
-./td quote --symbol AAPL
+./twelvedata quote --symbol AAPL
 ```
 
 Or run directly from source without producing a binary:
 
 ```sh
-go run ./cmd/td quote --symbol AAPL
+go run ./cmd/twelvedata quote --symbol AAPL
 ```
 
 ### Making changes
@@ -225,7 +225,7 @@ go run ./cmd/td quote --symbol AAPL
 After editing source files, rebuild:
 
 ```sh
-go build -o td ./cmd/td
+go build -o twelvedata ./cmd/twelvedata
 ```
 
 Or skip the build step entirely with `go run`.

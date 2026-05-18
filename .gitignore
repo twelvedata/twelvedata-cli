@@ -23,7 +23,7 @@ _testmain.go
 *.test
 *.prof
 
-td
-td.exe
+twelvedata
+twelvedata.exe
 
 .env
