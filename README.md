@@ -14,7 +14,7 @@ go install github.com/twelvedata/twelvedata-cli/cmd/td@v1.0.0
 
 ```sh
 td login
-td time-series
+td time-series --symbol AAPL --interval 1day
 ```
 
 For scripts and CI, skip `td login` and provide the key inline — either set `TWELVEDATA_API_KEY=...` in the environment or pass `--api-key <key>` on each invocation. See [Authentication](#authentication).
@@ -119,6 +119,39 @@ Override storage with `TWELVEDATA_CREDENTIAL_STORE=file` to force plaintext.
 | `TWELVEDATA_PROFILE` | Profile name override |
 | `TWELVEDATA_CREDENTIAL_STORE` | `secure_storage` (default) or `file` |
 | `TWELVEDATA_CONFIG_DIR` | Override the credentials directory (mostly for tests) |
+
+## Diagnostics
+
+`td doctor` runs four checks against your local setup and the API, and exits non-zero on any failure — useful as a smoke test in CI and as a triage step when commands start misbehaving.
+
+| Check | What it verifies |
+| --- | --- |
+| CLI Version        | Installed binary matches the latest GitHub release |
+| API Key            | A key is resolvable via flag, env var, or credentials file |
+| Credential Storage | Whether keys live in OS secure storage or a plaintext file |
+| API Validation     | The resolved key is accepted by `/api_usage` |
+
+Each check reports `pass`, `warn`, or `fail`. Exit code is `1` if any check is `fail`; `warn` does not affect the exit code (so a stale CLI build or a transient network hiccup won't break CI).
+
+```sh
+td doctor                              # human-readable output
+td doctor --raw                        # JSON envelope for scripts and CI
+td doctor --profile staging            # run checks against a specific profile
+```
+
+In machine mode the payload shape is:
+
+```json
+{
+  "ok": true,
+  "checks": [
+    { "name": "CLI Version",        "status": "pass", "message": "v1.0.0 (latest)" },
+    { "name": "API Key",            "status": "pass", "message": "abc...wxyz (source: secure storage, profile: default)" },
+    { "name": "Credential Storage", "status": "pass", "message": "Secret Service (libsecret)" },
+    { "name": "API Validation",     "status": "pass", "message": "API key accepted" }
+  ]
+}
+```
 
 ## Agent discovery
 
