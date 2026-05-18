@@ -6,6 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/twelvedata/twelvedata-cli/internal/output"
+	"github.com/twelvedata/twelvedata-cli/internal/update"
 )
 
 // outputHelp and errorCodesHelp are appended to every command's usage block
@@ -34,6 +35,13 @@ var rootCmd = &cobra.Command{
 			return err
 		}
 		return promptMissingFlags(cmd)
+	},
+	// PersistentPostRun fires after a subcommand's RunE returns without error.
+	// It runs on the command that defined it (rootCmd), so the notifier hits
+	// every successful invocation — including `td` with no args, which falls
+	// through to the Run handler below.
+	PersistentPostRun: func(cmd *cobra.Command, _ []string) {
+		update.MaybeNotify(cmd)
 	},
 	Run: func(cmd *cobra.Command, _ []string) {
 		if !output.IsRaw(cmd) {
