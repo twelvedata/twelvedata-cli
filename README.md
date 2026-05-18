@@ -124,6 +124,29 @@ Override storage with `TWELVEDATA_CREDENTIAL_STORE=file` to force plaintext.
 
 `td schema` dumps the entire command tree as JSON — names, flags, types, enum value sets, descriptions — so an LLM can introspect what commands and arguments are available without scraping `--help` text.
 
+## Shell completion
+
+`td` ships completion for bash, zsh, fish, and PowerShell. Each script is generated from the live command tree, so flags and enum values stay in sync with the binary.
+
+One-line install (auto-detects `$SHELL`):
+
+```sh
+td completion install
+```
+
+Then restart your shell. Pass a shell name to override detection (`td completion install zsh`).
+
+Manual setup — print the script and source it yourself:
+
+```sh
+source <(td completion bash)                                # current shell only
+td completion zsh > "${fpath[1]}/_td"                       # zsh, system fpath
+td completion fish > ~/.config/fish/completions/td.fish     # fish
+td completion powershell | Out-String | Invoke-Expression   # PowerShell session
+```
+
+`td completion install` is idempotent — re-running won't append a second copy.
+
 ## Local development
 
 Use this when you want to change the CLI and run your build locally.
