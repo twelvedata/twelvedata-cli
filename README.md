@@ -2,15 +2,14 @@
 
 `twelvedata-cli` is the official command-line client for the [Twelve Data API](https://twelvedata.com/), built for AI agents and humans alike.
 
-Every API endpoint is reachable as a Cobra subcommand, with predictable flags, structured output, and stable exit codes.
+Every API endpoint is available as a subcommand, with predictable flags and structured output.
 
 ```
-████████╗██╗    ██╗███████╗██╗    ██╗   ██╗███████╗    ██████╗  █████╗ ████████╗ █████╗
-╚══██╔══╝██║    ██║██╔════╝██║    ██║   ██║██╔════╝    ██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗
-   ██║   ██║ █╗ ██║█████╗  ██║    ██║   ██║█████╗      ██║  ██║███████║   ██║   ███████║
-   ██║   ██║███╗██║██╔══╝  ██║    ╚██╗ ██╔╝██╔══╝      ██║  ██║██╔══██║   ██║   ██╔══██║
-   ██║   ╚███╔███╔╝███████╗███████╗╚████╔╝ ███████╗    ██████╔╝██║  ██║   ██║   ██║  ██║
-   ╚═╝    ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═══╝  ╚══════╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝
+  _______       __________ _    ________   ____  ___  _________
+ /_  __/ |     / / ____/ /| |  / / ____/  / __ \/   |/_  __/   |
+  / /  | | /| / / __/ / / | | / / __/    / / / / /| | / / / /| |
+ / /   | |/ |/ / /___/ /__| |/ / /___   / /_/ / ___ |/ / / ___ |
+/_/    |__/|__/_____/_____/___/_____/  /_____/_/  |_/_/ /_/  |_|
 ```
 
 ## Install
