@@ -13,13 +13,13 @@ go install github.com/twelvedata/twelvedata-cli/cmd/td@v1.0.0
 ## Quick start
 
 ```sh
-td login                          # save your API key (prompts on a TTY)
-td quote --symbol AAPL
-td time-series --symbol AAPL --interval 1day --outputsize 5
-td ti rsi --symbol AAPL --interval 1day
+td login
+td time-series
 ```
 
 For scripts and CI, skip `td login` and provide the key inline — either set `TWELVEDATA_API_KEY=...` in the environment or pass `--api-key <key>` on each invocation. See [Authentication](#authentication).
+
+`td docs` and `td dashboard` open URLs in your default browser. In machine mode (`--raw`, piped stdout, CI) they print the URL to stdout instead of launching a browser, so they're safe to call from scripts.
 
 ## Output behavior
 
