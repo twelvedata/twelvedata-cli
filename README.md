@@ -6,9 +6,31 @@ Every API endpoint is reachable as a Cobra subcommand, with predictable flags, s
 
 ## Install
 
+### cURL (macOS / Linux)
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/twelvedata/twelvedata-cli/main/install.sh | bash
+```
+
+Pin a specific version: append `-s v1.0.0`. Override the install location with `TWELVEDATA_INSTALL=<dir>` (default `~/.twelvedata`).
+
+### PowerShell (Windows)
+
+```sh
+irm https://raw.githubusercontent.com/twelvedata/twelvedata-cli/main/install.ps1 | iex
+```
+
+Pin a specific version: `$env:TWELVEDATA_VERSION = 'v1.0.0'` before piping. Override the install location with `$env:TWELVEDATA_INSTALL`.
+
+### Go
+
 ```sh
 go install github.com/twelvedata/twelvedata-cli/cmd/twelvedata@v1.0.0
 ```
+
+### Prebuilt binaries
+
+Download a tarball / zip for your OS from the [releases page](https://github.com/twelvedata/twelvedata-cli/releases/latest) and put the `twelvedata` binary on your `PATH`.
 
 ## Quick start
 
@@ -153,6 +175,27 @@ In machine mode the payload shape is:
 }
 ```
 
+## Update notifications
+
+After a successful command, `twelvedata` checks GitHub releases at most once every 24 hours and prints a one-line hint to **stderr** when a newer version is available:
+
+```
+A new version of twelvedata is available: v1.0.0 → v<latest>
+  Run: <upgrade command for your install method>
+  Disable: TWELVEDATA_NO_UPDATE_NOTIFIER=1
+```
+
+The upgrade hint is inferred from the running binary's path so it matches how you installed `twelvedata`:
+
+| Detected path | Hint |
+| --- | --- |
+| `~/.twelvedata/bin/twelvedata` (or `.exe`) | `curl … install.sh \| bash` or `irm … install.ps1 \| iex` |
+| `…/Cellar/twelvedata/…` or `…/homebrew/…/twelvedata` | `brew update && brew upgrade twelvedata` |
+| `$GOPATH/bin/twelvedata` or `~/go/bin/twelvedata` | `go install github.com/twelvedata/twelvedata-cli/cmd/twelvedata@v<latest>` |
+| anything else | `https://github.com/twelvedata/twelvedata-cli/releases/latest` (shown as "Visit:") |
+
+The check is skipped automatically in machine mode (`--raw`, piped stdout, `CI`, or `TERM=dumb`), so scripts and agents never see the notice. The result is cached at `$XDG_CACHE_HOME/twelvedata-cli/update-check.json` (or your OS cache dir). Set `TWELVEDATA_NO_UPDATE_NOTIFIER=1` to opt out entirely.
+
 ## Agent discovery
 
 `twelvedata commands` dumps the entire command tree as JSON — names, flags, types, enum value sets, descriptions — so an LLM can introspect what commands and arguments are available without scraping `--help` text. `twelvedata schema` is kept as an alias.
@@ -173,7 +216,7 @@ Manual setup — print the script and source it yourself:
 
 ```sh
 source <(twelvedata completion bash)                                # current shell only
-twelvedata completion zsh > "${fpath[1]}/_td"                       # zsh, system fpath
+twelvedata completion zsh > "${fpath[1]}/_twelvedata"                       # zsh, system fpath
 twelvedata completion fish > ~/.config/fish/completions/twelvedata.fish     # fish
 twelvedata completion powershell | Out-String | Invoke-Expression   # PowerShell session
 ```
