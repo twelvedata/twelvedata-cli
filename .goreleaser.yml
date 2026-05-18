@@ -87,6 +87,11 @@ release:
     curl -fsSL https://raw.githubusercontent.com/twelvedata/twelvedata-cli/main/install.sh | bash
     ```
 
+    **Homebrew (macOS / Linux)**
+    ```sh
+    brew install twelvedata/cli/twelvedata
+    ```
+
     **PowerShell (Windows)**
     ```sh
     irm https://raw.githubusercontent.com/twelvedata/twelvedata-cli/main/install.ps1 | iex
@@ -97,19 +102,26 @@ release:
     go install github.com/twelvedata/twelvedata-cli/cmd/twelvedata@{{ .Tag }}
     ```
 
-# Homebrew tap — uncomment once `twelvedata/homebrew-cli` exists and
-# HOMEBREW_TAP_GITHUB_TOKEN is configured as a repo secret.
-# brews:
-#   - name: twelvedata
-#     repository:
-#       owner: twelvedata
-#       name: homebrew-cli
-#       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
-#     directory: Formula
-#     homepage: https://twelvedata.com
-#     description: Twelve Data CLI
-#     license: MIT
-#     install: |
-#       bin.install "twelvedata"
-#     test: |
-#       system "#{bin}/twelvedata --version"
+# Homebrew tap — bumps Formula/twelvedata.rb in twelvedata/homebrew-cli on
+# every stable release. Skipped for pre-releases (skip_upload: auto). Requires
+# the HOMEBREW_TAP_GITHUB_TOKEN secret on the twelvedata-cli repo.
+brews:
+  - name: twelvedata
+    repository:
+      owner: twelvedata
+      name: homebrew-cli
+      branch: main
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    directory: Formula
+    commit_author:
+      name: goreleaserbot
+      email: bot@goreleaser.com
+    commit_msg_template: "Bump twelvedata to {{ .Tag }}"
+    homepage: https://twelvedata.com
+    description: Twelve Data CLI — REST client for the Twelve Data market data API
+    license: MIT
+    skip_upload: auto
+    install: |
+      bin.install "twelvedata"
+    test: |
+      system "#{bin}/twelvedata", "--version"
