@@ -122,7 +122,7 @@ Override storage with `TWELVEDATA_CREDENTIAL_STORE=file` to force plaintext.
 
 ## Agent discovery
 
-`td schema` dumps the entire command tree as JSON — names, flags, types, enum value sets, descriptions — so an LLM can introspect what commands and arguments are available without scraping `--help` text.
+`td commands` dumps the entire command tree as JSON — names, flags, types, enum value sets, descriptions — so an LLM can introspect what commands and arguments are available without scraping `--help` text. `td schema` is kept as an alias.
 
 ## Shell completion
 

@@ -32,9 +32,10 @@ type schemaFlag struct {
 	Enum      []string `json:"enum,omitempty"`
 }
 
-var schemaCmd = &cobra.Command{
-	Use:   "schema",
-	Short: "Dump the full command tree as JSON for agent discovery",
+var commandsCmd = &cobra.Command{
+	Use:     "commands",
+	Aliases: []string{"schema"},
+	Short:   "Dump the full command tree as JSON for agent discovery",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		root := buildSchema(rootCmd, "")
 		enc := json.NewEncoder(cmd.OutOrStdout())
@@ -91,5 +92,5 @@ func buildSchema(c *cobra.Command, parentPath string) schemaNode {
 }
 
 func init() {
-	rootCmd.AddCommand(schemaCmd)
+	rootCmd.AddCommand(commandsCmd)
 }
