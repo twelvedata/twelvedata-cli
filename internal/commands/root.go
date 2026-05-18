@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/twelvedata/twelvedata-cli/internal/output"
 	"github.com/twelvedata/twelvedata-cli/internal/update"
+	"github.com/twelvedata/twelvedata-cli/internal/version"
 )
 
 // outputHelp and errorCodesHelp are appended to every command's usage block
@@ -28,6 +29,7 @@ var rootCmd = &cobra.Command{
 	Use:           "twelvedata",
 	Short:         "Twelve Data CLI",
 	Long:          "Twelve Data CLI — REST client for Twelve Data's market data API. Designed for AI agents and humans alike.\n\nResponses render as pretty-printed JSON by default; --output csv switches to the streaming CSV path for endpoints that support it. On an interactive terminal the CLI shows a spinner and colorized errors; pass --raw (or pipe stdout) to force machine-friendly output.",
+	Version:       version.Version,
 	SilenceUsage:  true,
 	SilenceErrors: true,
 	PersistentPreRunE: func(cmd *cobra.Command, _ []string) error {
@@ -52,6 +54,9 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
+	// Emit just the version string (no "twelvedata version " prefix) so install
+	// scripts can use the output directly in their success message.
+	rootCmd.SetVersionTemplate("{{.Version}}\n")
 	rootCmd.PersistentFlags().String("api-key", "", "Twelve Data API key (overrides TWELVEDATA_API_KEY)")
 	rootCmd.PersistentFlags().StringP("output", "o", "", "Output format: json, csv (default: json)")
 	rootCmd.PersistentFlags().Bool("raw", false, "Force machine mode: JSON error envelope, no spinner, no color, no prompts")
