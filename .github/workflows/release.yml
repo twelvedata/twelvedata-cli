@@ -49,7 +49,13 @@ jobs:
         uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6
         with:
           go-version-file: go.mod
-          cache: true
+          # Cache disabled: restoring the test job's module cache here
+          # collides with files the Go 1.23 toolchain ships pre-populated
+          # under GOMODCACHE (x/telemetry/config@v0.97.0), which makes tar
+          # exit with code 2 and produces a noisy "Failed to restore"
+          # warning. Releases run rarely enough that re-downloading modules
+          # is cheap.
+          cache: false
 
       - name: Install cosign
         uses: sigstore/cosign-installer@398d4b0eeef1380460a10c8013a76f728fb906ac # v3
