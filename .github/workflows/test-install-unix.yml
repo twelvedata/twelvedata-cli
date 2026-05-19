@@ -19,7 +19,7 @@ jobs:
           - macos-14           # darwin-arm64 (Apple Silicon)
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Run install.sh from repo
         run: bash install.sh

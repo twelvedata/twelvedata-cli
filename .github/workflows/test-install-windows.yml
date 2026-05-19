@@ -18,7 +18,7 @@ jobs:
       run:
         shell: ${{ matrix.shell }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Run installer via Invoke-Expression (simulates irm | iex)
         run: |
@@ -78,7 +78,7 @@ jobs:
     # independently of the install.ps1 path.
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Download latest windows-x64 release archive
         env:
@@ -148,7 +148,7 @@ jobs:
       run:
         shell: ${{ matrix.shell }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Run installer with bogus version (expect failure)
         id: bogus
