@@ -160,6 +160,10 @@ if ($pathEntries -contains $binDir) {
   Write-Host "twelvedata --help" -ForegroundColor Cyan -NoNewline
   Write-Host " to get started"
   Write-Host ""
+  Write-Info "Enable shell completion (optional):"
+  Write-Host ""
+  Write-Host "    twelvedata completion install" -ForegroundColor Cyan
+  Write-Host ""
   return
 }
 
@@ -176,5 +180,9 @@ Write-Info "Next steps:"
 Write-Host ""
 Write-Host "    `$env:TWELVEDATA_API_KEY = '...'" -ForegroundColor Cyan
 Write-Host "    twelvedata --help" -ForegroundColor Cyan
+Write-Host ""
+Write-Info "Enable shell completion (optional):"
+Write-Host ""
+Write-Host "    twelvedata completion install" -ForegroundColor Cyan
 Write-Host ""
 return

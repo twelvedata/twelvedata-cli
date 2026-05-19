@@ -59,6 +59,31 @@ For scripts and CI, skip `twelvedata login` and provide the key inline — eithe
 
 `twelvedata docs` and `twelvedata dashboard` open URLs in your default browser. In machine mode (`--raw`, piped stdout, CI) they print the URL to stdout instead of launching a browser, so they're safe to call from scripts.
 
+## Shell completion
+
+`twelvedata` ships completion for bash, zsh, fish, and PowerShell. Each script is generated from the live command tree, so flags and enum values stay in sync with the binary.
+
+> **Homebrew users:** completion is installed automatically by `brew install twelvedata/cli/twelvedata` — no extra step. bash users need `brew install bash-completion@2` once; zsh and fish pick it up out of the box.
+
+For non-Homebrew installs, one-line install (auto-detects `$SHELL`):
+
+```sh
+twelvedata completion install
+```
+
+Then restart your shell. Pass a shell name to override detection (`twelvedata completion install zsh`).
+
+Manual setup — print the script and source it yourself:
+
+```sh
+source <(twelvedata completion bash)                                # current shell only
+twelvedata completion zsh > "${fpath[1]}/_twelvedata"                       # zsh, system fpath
+twelvedata completion fish > ~/.config/fish/completions/twelvedata.fish     # fish
+twelvedata completion powershell | Out-String | Invoke-Expression   # PowerShell session
+```
+
+`twelvedata completion install` is idempotent — re-running won't append a second copy.
+
 ## Output behavior
 
 The CLI has two output modes:
@@ -216,29 +241,6 @@ The check is skipped automatically in machine mode (`--raw`, piped stdout, `CI`,
 ## Agent discovery
 
 `twelvedata commands` dumps the entire command tree as JSON — names, flags, types, enum value sets, descriptions — so an LLM can introspect what commands and arguments are available without scraping `--help` text. `twelvedata schema` is kept as an alias.
-
-## Shell completion
-
-`twelvedata` ships completion for bash, zsh, fish, and PowerShell. Each script is generated from the live command tree, so flags and enum values stay in sync with the binary.
-
-One-line install (auto-detects `$SHELL`):
-
-```sh
-twelvedata completion install
-```
-
-Then restart your shell. Pass a shell name to override detection (`twelvedata completion install zsh`).
-
-Manual setup — print the script and source it yourself:
-
-```sh
-source <(twelvedata completion bash)                                # current shell only
-twelvedata completion zsh > "${fpath[1]}/_twelvedata"                       # zsh, system fpath
-twelvedata completion fish > ~/.config/fish/completions/twelvedata.fish     # fish
-twelvedata completion powershell | Out-String | Invoke-Expression   # PowerShell session
-```
-
-`twelvedata completion install` is idempotent — re-running won't append a second copy.
 
 ## Local development
 

@@ -225,6 +225,10 @@ if command -v twelvedata >/dev/null 2>&1; then
     echo ""
     bold "  Run ${Blue}twelvedata --help${Color_Off}${Bold} to get started${Color_Off}"
     echo ""
+    info "  Enable shell completion (optional):"
+    echo ""
+    bold "    twelvedata completion install"
+    echo ""
     exit 0
   else
     warn "another 'twelvedata' was found at ${existing}"
@@ -320,6 +324,10 @@ info "  Next steps:"
 echo ""
 bold "    export TWELVEDATA_API_KEY=..."
 bold "    twelvedata --help"
+echo ""
+info "  Enable shell completion (optional):"
+echo ""
+bold "    twelvedata completion install"
 echo ""
 
 }

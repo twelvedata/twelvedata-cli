@@ -141,6 +141,17 @@ homebrew_casks:
     homepage: https://twelvedata.com
     description: Twelve Data CLI — the official command-line client for the Twelve Data API,
     skip_upload: auto
+    # Generate shell completion scripts at brew-install time and stage them
+    # into brew's standard completion paths. bash users with bash-completion@2
+    # installed pick them up automatically; zsh and fish users get them free.
+    # Avoids the user having to run `twelvedata completion install` separately.
+    generate_completions_from_executable:
+      executable: "bin/twelvedata"
+      args:
+        - completion
+      base_name: "twelvedata"
+      shell_parameter_format: cobra
+      shells: [bash, zsh, fish, pwsh]
     hooks:
       post:
         install: |
