@@ -146,9 +146,13 @@ homebrew_casks:
     # installed pick them up automatically; zsh and fish users get them free.
     # Avoids the user having to run `twelvedata completion install` separately.
     generate_completions_from_executable:
-      executable: "bin/twelvedata"
-      args:
-        - completion
+      # Path is relative to the cask's staged_path, which is the root of the
+      # tarball — same level as `binary "twelvedata"`. Adding a `bin/` prefix
+      # produces "command not found: bin/twelvedata" at brew install time.
+      executable: "twelvedata"
+      # No `args:` — `shell_parameter_format: cobra` already invokes
+      # `<binary> completion <shell>`. Adding `completion` to args doubles it
+      # up: `twelvedata completion completion bash`.
       base_name: "twelvedata"
       shell_parameter_format: cobra
       shells: [bash, zsh, fish, pwsh]
