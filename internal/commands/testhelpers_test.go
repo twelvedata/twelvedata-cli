@@ -84,17 +84,3 @@ func runRoot(t *testing.T, stdin io.Reader, args ...string) (stdout, stderr *byt
 	err = rootCmd.Execute()
 	return stdout, stderr, err
 }
-
-// newTestCmd builds a standalone cobra.Command wired with the four persistent
-// flags rootCmd defines. Use it when a test wants to invoke a command's RunE
-// directly without driving Cobra's parse/dispatch over the global rootCmd
-// (handy when the command-under-test has its own subtree, or to keep test
-// state hermetic).
-func newTestCmd() *cobra.Command {
-	c := &cobra.Command{Use: "test"}
-	c.PersistentFlags().String("api-key", "", "")
-	c.PersistentFlags().StringP("output", "o", "", "")
-	c.PersistentFlags().Bool("raw", false, "")
-	c.PersistentFlags().StringP("profile", "p", "", "")
-	return c
-}
