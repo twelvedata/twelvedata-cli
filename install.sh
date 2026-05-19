@@ -64,6 +64,15 @@ tildify() {
 command -v curl >/dev/null 2>&1 || error "curl is required but not found. Install it and try again."
 command -v tar  >/dev/null 2>&1 || error "tar is required but not found. Install it and try again."
 
+# SHA256: Linux ships `sha256sum`; macOS ships `shasum`. Either works.
+if command -v sha256sum >/dev/null 2>&1; then
+  sha256_cmd="sha256sum"
+elif command -v shasum >/dev/null 2>&1; then
+  sha256_cmd="shasum -a 256"
+else
+  error "Neither sha256sum nor shasum is available — cannot verify download integrity."
+fi
+
 # ─── OS / Architecture detection ────────────────────────────────────────────
 
 platform=$(uname -ms)
@@ -122,9 +131,13 @@ if [[ -n $VERSION ]]; then
   Usage:    curl -fsSL <install-url> | bash -s v1.0.0"
   fi
   url="${REPO}/releases/download/v${VERSION}/twelvedata-${target}.tar.gz"
+  checksums_url="${REPO}/releases/download/v${VERSION}/checksums.txt"
 else
   url="${REPO}/releases/latest/download/twelvedata-${target}.tar.gz"
+  checksums_url="${REPO}/releases/latest/download/checksums.txt"
 fi
+
+archive_name="twelvedata-${target}.tar.gz"
 
 # ─── Install directory ──────────────────────────────────────────────────────
 
@@ -157,6 +170,30 @@ curl --fail --location --progress-bar --output "$tmpfile" "$url" ||
     - GitHub is unreachable
 
   URL: ${url}"
+
+# Verify SHA256 against the release's checksums.txt before extracting.
+checksums_file="${tmpdir}/checksums.txt"
+
+curl --fail --location --silent --output "$checksums_file" "$checksums_url" ||
+  error "Failed to download checksums.txt for integrity verification.
+
+  URL: ${checksums_url}"
+
+expected=$(awk -v name="$archive_name" '$2 == name {print $1; exit}' "$checksums_file")
+if [[ -z $expected ]]; then
+  error "checksums.txt has no entry for ${archive_name} — refusing to install unverified binary."
+fi
+
+actual=$($sha256_cmd "$tmpfile" | awk '{print $1}')
+if [[ $actual != "$expected" ]]; then
+  error "SHA256 mismatch — refusing to install.
+
+  File:     ${archive_name}
+  Expected: ${expected}
+  Actual:   ${actual}"
+fi
+
+info "  SHA256 verified"
 
 tar -xzf "$tmpfile" -C "$bin_dir" ||
   error "Failed to extract archive. The download may be corrupted — try again."

@@ -46,6 +46,22 @@ archives:
 checksum:
   name_template: checksums.txt
 
+# Keyless signing of checksums.txt via cosign + Sigstore. Produces
+# checksums.txt.sig and checksums.txt.pem alongside the checksums file.
+# Identity is the GitHub Actions workflow that ran the release — verifiers
+# pin it to .github/workflows/release.yml on a v* tag.
+signs:
+  - cmd: cosign
+    certificate: '${artifact}.pem'
+    args:
+      - sign-blob
+      - '--output-certificate=${certificate}'
+      - '--output-signature=${signature}'
+      - '${artifact}'
+      - '--yes'
+    artifacts: checksum
+    output: true
+
 snapshot:
   version_template: "{{ incpatch .Version }}-next"
 

@@ -46,10 +46,14 @@ if ($Version) {
     Write-Fail "Invalid version format: $Version`n`n  Expected: semantic version like 1.0.0 or 1.2.3-beta.1`n  Usage:    `$env:TWELVEDATA_VERSION = 'v1.0.0'; irm <install-url> | iex"
     throw "Installation failed."
   }
-  $url = "$repo/releases/download/v$Version/twelvedata-$target.zip"
+  $url          = "$repo/releases/download/v$Version/twelvedata-$target.zip"
+  $checksumsUrl = "$repo/releases/download/v$Version/checksums.txt"
 } else {
-  $url = "$repo/releases/latest/download/twelvedata-$target.zip"
+  $url          = "$repo/releases/latest/download/twelvedata-$target.zip"
+  $checksumsUrl = "$repo/releases/latest/download/checksums.txt"
 }
+
+$archiveName = "twelvedata-$target.zip"
 
 # --- Install directory -------------------------------------------------------
 
@@ -84,6 +88,36 @@ try {
     Write-Fail "Download failed.`n`n  Possible causes:`n    - No internet connection`n    - The version does not exist: $ver`n    - GitHub is unreachable`n`n  URL: $url"
     throw "Installation failed."
   }
+
+  # Verify SHA256 against the release's checksums.txt before extracting.
+  $tmpChecksums = Join-Path $tmpDir 'checksums.txt'
+  try {
+    Invoke-WebRequest -Uri $checksumsUrl -OutFile $tmpChecksums -UseBasicParsing
+  } catch {
+    Write-Fail "Failed to download checksums.txt for integrity verification.`n`n  URL: $checksumsUrl"
+    throw "Installation failed."
+  }
+
+  $expected = $null
+  foreach ($line in Get-Content $tmpChecksums) {
+    $parts = $line -split '\s+', 2
+    if ($parts.Length -eq 2 -and $parts[1].Trim() -eq $archiveName) {
+      $expected = $parts[0].Trim().ToLower()
+      break
+    }
+  }
+  if (-not $expected) {
+    Write-Fail "checksums.txt has no entry for $archiveName -- refusing to install unverified binary."
+    throw "Installation failed."
+  }
+
+  $actual = (Get-FileHash -Algorithm SHA256 -Path $tmpZip).Hash.ToLower()
+  if ($actual -ne $expected) {
+    Write-Fail "SHA256 mismatch -- refusing to install.`n`n  File:     $archiveName`n  Expected: $expected`n  Actual:   $actual"
+    throw "Installation failed."
+  }
+
+  Write-Info "SHA256 verified"
 
   try {
     Expand-Archive -Path $tmpZip -DestinationPath $binDir -Force

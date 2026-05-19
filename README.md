@@ -295,6 +295,34 @@ Or skip the build step entirely with `go run`.
 | `7` | Bad request (HTTP 400, 414) |
 | `8` | Internal server error (HTTP 500) |
 
+## Verifying releases
+
+Each GitHub release ships:
+
+- `twelvedata-<os>-<arch>.tar.gz` (or `.zip` on Windows) — the binary archive.
+- `checksums.txt` — SHA256 of every archive.
+- `checksums.txt.sig` and `checksums.txt.pem` — keyless [cosign](https://docs.sigstore.dev/cosign/overview/) signature of `checksums.txt`, produced by this repo's release workflow via Sigstore. The signature is recorded in the public [Rekor](https://docs.sigstore.dev/logging/overview/) transparency log.
+
+The install scripts already verify the archive's SHA256 against `checksums.txt`. To additionally verify that `checksums.txt` was produced by the expected release workflow — a full supply-chain check that catches a compromised GitHub release — use cosign:
+
+```sh
+VERSION=v1.0.0
+BASE=https://github.com/twelvedata/twelvedata-cli/releases/download/$VERSION
+
+curl -fLO $BASE/checksums.txt
+curl -fLO $BASE/checksums.txt.sig
+curl -fLO $BASE/checksums.txt.pem
+
+cosign verify-blob \
+  --certificate checksums.txt.pem \
+  --signature checksums.txt.sig \
+  --certificate-identity-regexp '^https://github\.com/twelvedata/twelvedata-cli/\.github/workflows/release\.yml@refs/tags/v.+$' \
+  --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
+  checksums.txt
+```
+
+A successful run prints `Verified OK`. If the command fails, do not install the release — the archive was not signed by the expected workflow identity.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
