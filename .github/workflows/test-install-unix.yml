@@ -12,7 +12,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os:
+          - ubuntu-latest      # linux-x64
+          - ubuntu-24.04-arm   # linux-arm64
+          - macos-13           # darwin-x64 (Intel)
+          - macos-14           # darwin-arm64 (Apple Silicon)
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -31,5 +35,22 @@ jobs:
 
       - name: Verify binary runs
         run: |
-          "$HOME/.twelvedata/bin/twelvedata" --version
-          "$HOME/.twelvedata/bin/twelvedata" --help
+          exe="$HOME/.twelvedata/bin/twelvedata"
+          "$exe" --version
+          "$exe" --help
+
+      - name: Verify schema dump (no API key required)
+        run: |
+          exe="$HOME/.twelvedata/bin/twelvedata"
+          out=$("$exe" schema)
+          if [ -z "$out" ]; then
+            echo "schema output was empty"
+            exit 1
+          fi
+          # Sanity-check the dump is the expected JSON shape.
+          printf '%s' "$out" | grep -q '"path"' || {
+            echo 'schema JSON missing "path" field'
+            printf '%s\n' "$out" | head -c 400
+            exit 1
+          }
+          echo "schema dump ok ($(printf '%s' "$out" | wc -c) bytes)"

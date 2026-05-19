@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - install.ps1
+      - .goreleaser.yml
       - .github/workflows/test-install-windows.yml
   workflow_dispatch:
 
@@ -41,6 +42,25 @@ jobs:
             exit 1
           }
 
+      - name: Verify schema dump (no API key required)
+        run: |
+          $exe = "$env:USERPROFILE\.twelvedata\bin\twelvedata.exe"
+          $out = & $exe schema
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "twelvedata schema exited with $LASTEXITCODE"
+            exit 1
+          }
+          if ([string]::IsNullOrWhiteSpace($out)) {
+            Write-Error "schema output was empty"
+            exit 1
+          }
+          if ($out -notmatch '"path"') {
+            Write-Error 'schema JSON missing "path" field'
+            Write-Host ($out.Substring(0, [Math]::Min(400, $out.Length)))
+            exit 1
+          }
+          Write-Host "schema dump ok ($($out.Length) chars)"
+
       - name: Verify PATH was updated
         run: |
           $binDir = "$env:USERPROFILE\.twelvedata\bin"
@@ -50,6 +70,74 @@ jobs:
             exit 1
           }
           Write-Host "PATH correctly updated"
+
+  test-native-binary:
+    # Smoke-test the raw goreleaser archive: download the latest
+    # twelvedata-windows-x64.zip from GitHub Releases, extract, and run the .exe
+    # directly. Catches goreleaser-config / binary-build regressions
+    # independently of the install.ps1 path.
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download latest windows-x64 release archive
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $dest = Join-Path $env:RUNNER_TEMP 'release'
+          New-Item -ItemType Directory -Force -Path $dest | Out-Null
+          gh release download `
+            --repo twelvedata/twelvedata-cli `
+            --pattern 'twelvedata-windows-x64.zip' `
+            --dir $dest
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "gh release download failed (no release yet?)"
+            exit 1
+          }
+          Expand-Archive `
+            -Path (Join-Path $dest 'twelvedata-windows-x64.zip') `
+            -DestinationPath (Join-Path $dest 'unpacked') `
+            -Force
+          $exe = Join-Path $dest 'unpacked\twelvedata.exe'
+          if (-not (Test-Path $exe)) {
+            Write-Error "twelvedata.exe not found in archive at $exe"
+            Get-ChildItem -Recurse (Join-Path $dest 'unpacked') | Format-Table FullName
+            exit 1
+          }
+          "TWELVEDATA_EXE=$exe" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+      - name: Run native --version
+        run: |
+          & "$env:TWELVEDATA_EXE" --version
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "twelvedata.exe --version failed"
+            exit 1
+          }
+
+      - name: Run native --help
+        run: |
+          & "$env:TWELVEDATA_EXE" --help
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "twelvedata.exe --help failed"
+            exit 1
+          }
+
+      - name: Run native schema
+        run: |
+          $out = & "$env:TWELVEDATA_EXE" schema
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "twelvedata.exe schema failed"
+            exit 1
+          }
+          if ([string]::IsNullOrWhiteSpace($out)) {
+            Write-Error "schema output was empty"
+            exit 1
+          }
+          if ($out -notmatch '"path"') {
+            Write-Error 'schema JSON missing "path" field'
+            exit 1
+          }
+          Write-Host "native schema dump ok ($($out.Length) chars)"
 
   test-error-path:
     runs-on: windows-latest
