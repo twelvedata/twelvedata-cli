@@ -2,7 +2,10 @@ package commands
 
 import (
 	"context"
+	"os"
+	"os/signal"
 	"strings"
+	"syscall"
 
 	"github.com/spf13/cobra"
 	"github.com/twelvedata/twelvedata-cli/internal/output"
@@ -85,7 +88,13 @@ func init() {
 
 // Execute runs the root command and returns a process exit code suitable for
 // os.Exit. Exit codes are agent-stable; see internal/output/errors.go.
+//
+// The context is wired to SIGINT / SIGTERM via signal.NotifyContext so Ctrl-C
+// cancels the in-flight HTTP request cleanly instead of relying on the OS to
+// kill the process while the request sits in a kernel read.
 func Execute() int {
-	err := rootCmd.ExecuteContext(context.Background())
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
+	err := rootCmd.ExecuteContext(ctx)
 	return output.WriteError(rootCmd, err)
 }

@@ -149,6 +149,7 @@ Override storage with `TWELVEDATA_CREDENTIAL_STORE=file` to force plaintext.
 | `TWELVEDATA_PROFILE` | Profile name override |
 | `TWELVEDATA_CREDENTIAL_STORE` | `secure_storage` (default) or `file` |
 | `TWELVEDATA_CONFIG_DIR` | Override the credentials directory (mostly for tests) |
+| `TWELVEDATA_HTTP_TIMEOUT` | Per-request HTTP timeout. Go duration (`30s`, `2m`, `1m30s`) or a bare integer in seconds. Default `120s`; `0` disables the timeout. |
 
 ## Diagnostics
 
