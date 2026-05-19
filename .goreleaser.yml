@@ -118,26 +118,32 @@ release:
     go install github.com/twelvedata/twelvedata-cli/cmd/twelvedata@{{ .Tag }}
     ```
 
-# Homebrew tap — bumps Formula/twelvedata.rb in twelvedata/homebrew-cli on
+# Homebrew tap — bumps Casks/twelvedata.rb in twelvedata/homebrew-cli on
 # every stable release. Skipped for pre-releases (skip_upload: auto). Requires
 # the HOMEBREW_TAP_GITHUB_TOKEN secret on the twelvedata-cli repo.
-brews:
+#
+# The post-install hook strips the macOS quarantine xattr so the binary is
+# runnable without a Gatekeeper prompt — the goreleaser pipeline does not
+# notarize the darwin builds.
+homebrew_casks:
   - name: twelvedata
+    binaries:
+      - twelvedata
     repository:
       owner: twelvedata
       name: homebrew-cli
       branch: main
       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
-    directory: Formula
     commit_author:
       name: twelvedata-ci
       email: no-reply@twelvedata.com
     commit_msg_template: "Bump twelvedata-cli version to {{ .Tag }}"
     homepage: https://twelvedata.com
     description: Twelve Data CLI — the official command-line client for the Twelve Data API,
-    license: MIT
     skip_upload: auto
-    install: |
-      bin.install "twelvedata"
-    test: |
-      system "#{bin}/twelvedata", "--version"
+    hooks:
+      post:
+        install: |
+          if OS.mac?
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/twelvedata"]
+          end
