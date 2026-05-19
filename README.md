@@ -20,7 +20,7 @@ Every API endpoint is available as a subcommand, with predictable flags and stru
 curl -fsSL https://raw.githubusercontent.com/twelvedata/twelvedata-cli/main/install.sh | bash
 ```
 
-Pin a specific version: append `-s v1.0.1`. Override the install location with `TWELVEDATA_INSTALL=<dir>` (default `~/.twelvedata`).
+Pin a specific version: append `-s v1.0.2`. Override the install location with `TWELVEDATA_INSTALL=<dir>` (default `~/.twelvedata`).
 
 ### Homebrew (macOS / Linux)
 
@@ -36,12 +36,12 @@ Upgrade later with `brew update && brew upgrade twelvedata`. The tap is auto-bum
 irm https://raw.githubusercontent.com/twelvedata/twelvedata-cli/main/install.ps1 | iex
 ```
 
-Pin a specific version: `$env:TWELVEDATA_VERSION = 'v1.0.1'` before piping. Override the install location with `$env:TWELVEDATA_INSTALL`.
+Pin a specific version: `$env:TWELVEDATA_VERSION = 'v1.0.2'` before piping. Override the install location with `$env:TWELVEDATA_INSTALL`.
 
 ### Go
 
 ```sh
-go install github.com/twelvedata/twelvedata-cli/cmd/twelvedata@v1.0.1
+go install github.com/twelvedata/twelvedata-cli/cmd/twelvedata@v1.0.2
 ```
 
 ### Prebuilt binaries
@@ -184,7 +184,7 @@ In machine mode the payload shape is:
 {
   "ok": true,
   "checks": [
-    { "name": "CLI Version",        "status": "pass", "message": "v1.0.1 (latest)" },
+    { "name": "CLI Version",        "status": "pass", "message": "v1.0.2 (latest)" },
     { "name": "API Key",            "status": "pass", "message": "abc...wxyz (source: secure storage, profile: default)" },
     { "name": "Credential Storage", "status": "pass", "message": "Secret Service (libsecret)" },
     { "name": "API Validation",     "status": "pass", "message": "API key accepted" }
@@ -197,7 +197,7 @@ In machine mode the payload shape is:
 After a successful command, `twelvedata` checks GitHub releases at most once every 24 hours and prints a one-line hint to **stderr** when a newer version is available:
 
 ```
-A new version of twelvedata is available: v1.0.1 → v<latest>
+A new version of twelvedata is available: v1.0.2 → v<latest>
   Run: <upgrade command for your install method>
   Disable: TWELVEDATA_NO_UPDATE_NOTIFIER=1
 ```
