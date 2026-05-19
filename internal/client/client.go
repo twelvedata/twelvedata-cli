@@ -7,6 +7,10 @@ import (
 	"github.com/twelvedata/twelvedata-cli/internal/auth"
 )
 
+// apiBaseURL pins the API host so the SDK's TWELVEDATA_API_BASE_URL env-var
+// fallback can't redirect requests (and the persisted key) elsewhere.
+const apiBaseURL = "https://api.twelvedata.com"
+
 // New constructs a Twelve Data API client using the auth resolution chain:
 // --api-key flag → TWELVEDATA_API_KEY env → secure storage / config file for
 // the active profile. The resolved key is passed to NewConfig as-is so the
@@ -19,7 +23,7 @@ func New(cmd *cobra.Command) (*twelvedata.APIClient, error) {
 	if err != nil {
 		return nil, err
 	}
-	cfg, err := twelvedata.NewConfigWithSource("cli", resolved.Key)
+	cfg, err := twelvedata.NewConfigWithSource("cli", resolved.Key, apiBaseURL)
 	if err != nil {
 		return nil, err
 	}
