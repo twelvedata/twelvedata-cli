@@ -188,6 +188,6 @@ type stubBody struct {
 	r *strings.Reader
 }
 
-func newBody(s string) *stubBody                  { return &stubBody{r: strings.NewReader(s)} }
-func (b *stubBody) Read(p []byte) (int, error)    { return b.r.Read(p) }
-func (b *stubBody) Close() error                  { return nil }
+func newBody(s string) *stubBody               { return &stubBody{r: strings.NewReader(s)} }
+func (b *stubBody) Read(p []byte) (int, error) { return b.r.Read(p) }
+func (b *stubBody) Close() error               { return nil }

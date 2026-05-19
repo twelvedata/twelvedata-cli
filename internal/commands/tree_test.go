@@ -147,4 +147,3 @@ func walkTreeNode(t *testing.T, start *cobra.Command, visit func(t *testing.T, p
 	}
 	visitNode(start)
 }
-

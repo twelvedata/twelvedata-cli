@@ -91,10 +91,10 @@ func TestWhoami_NoKeyConfigured(t *testing.T) {
 
 func TestSourceLabel_AllVariants(t *testing.T) {
 	tests := map[auth.Source]string{
-		auth.SourceFlag:   "flag",
-		auth.SourceEnv:    "environment variable",
-		auth.SourceConfig: "config file",
-		auth.SourceSecure: "secure storage",
+		auth.SourceFlag:        "flag",
+		auth.SourceEnv:         "environment variable",
+		auth.SourceConfig:      "config file",
+		auth.SourceSecure:      "secure storage",
 		auth.Source("unknown"): "unknown",
 	}
 	for src, want := range tests {

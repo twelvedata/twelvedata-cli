@@ -15,17 +15,18 @@ import (
 // It returns the temp config dir so callers can assert paths against it.
 //
 // Why we set each one:
-//   TWELVEDATA_CONFIG_DIR           — redirect credentials.json into a temp dir.
-//   TWELVEDATA_CREDENTIAL_STORE=file — never touch the OS keyring.
-//   TWELVEDATA_API_KEY=""           — kill resolver fast-path via env.
-//   TWELVEDATA_PROFILE=""           — same for profile env.
-//   XDG_CONFIG_HOME=""              — defeat XDG fallback inside GetConfigDir.
-//   TERM=dumb                       — force output.IsRaw() to return true,
-//                                     suppressing prompts/spinner/color and
-//                                     short-circuiting the update notifier.
-//   TWELVEDATA_NO_UPDATE_NOTIFIER=1 — belt-and-braces; never hit GitHub.
-//   NO_COLOR=1                      — keep error/banner output ANSI-clean so
-//                                     stdout/stderr buffers are easy to assert.
+//
+//	TWELVEDATA_CONFIG_DIR           — redirect credentials.json into a temp dir.
+//	TWELVEDATA_CREDENTIAL_STORE=file — never touch the OS keyring.
+//	TWELVEDATA_API_KEY=""           — kill resolver fast-path via env.
+//	TWELVEDATA_PROFILE=""           — same for profile env.
+//	XDG_CONFIG_HOME=""              — defeat XDG fallback inside GetConfigDir.
+//	TERM=dumb                       — force output.IsRaw() to return true,
+//	                                  suppressing prompts/spinner/color and
+//	                                  short-circuiting the update notifier.
+//	TWELVEDATA_NO_UPDATE_NOTIFIER=1 — belt-and-braces; never hit GitHub.
+//	NO_COLOR=1                      — keep error/banner output ANSI-clean so
+//	                                  stdout/stderr buffers are easy to assert.
 func setupTestEnv(t *testing.T) string {
 	t.Helper()
 	dir := t.TempDir()

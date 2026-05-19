@@ -22,6 +22,14 @@ curl -fsSL https://raw.githubusercontent.com/twelvedata/twelvedata-cli/main/inst
 
 Pin a specific version: append `-s v1.0.0`. Override the install location with `TWELVEDATA_INSTALL=<dir>` (default `~/.twelvedata`).
 
+### Homebrew (macOS / Linux)
+
+```sh
+brew install twelvedata/cli/twelvedata
+```
+
+Upgrade later with `brew update && brew upgrade twelvedata`. The tap is auto-bumped by the release pipeline for every stable release; pre-releases are skipped.
+
 ### PowerShell (Windows)
 
 ```sh

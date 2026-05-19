@@ -107,10 +107,10 @@ func TestCheckCredentialStorage_SurfacesUnexpectedSecureFallback(t *testing.T) {
 
 func TestDoctorSourceLabel(t *testing.T) {
 	tests := map[auth.Source]string{
-		auth.SourceFlag:        "flag",
-		auth.SourceEnv:         "env",
-		auth.SourceConfig:      "config file",
-		auth.SourceSecure:      "secure storage",
+		auth.SourceFlag:       "flag",
+		auth.SourceEnv:        "env",
+		auth.SourceConfig:     "config file",
+		auth.SourceSecure:     "secure storage",
 		auth.Source("custom"): "custom",
 	}
 	for src, want := range tests {

@@ -195,10 +195,10 @@ func TestAuthRemove_LastProfileDeletesFile(t *testing.T) {
 
 func TestSanitizePlaceholder(t *testing.T) {
 	cases := map[string]string{
-		"good_name-1.2":    "good_name-1.2",
-		"bad name!":        "bad-name-",
-		"with/slash":       "with-slash",
-		"":                 "",
+		"good_name-1.2":   "good_name-1.2",
+		"bad name!":       "bad-name-",
+		"with/slash":      "with-slash",
+		"":                "",
 		"weird ✨ unicode": "weird---unicode",
 	}
 	for in, want := range cases {

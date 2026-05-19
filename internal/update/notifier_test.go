@@ -147,11 +147,11 @@ func TestShouldSkip_DevVersion(t *testing.T) {
 
 func TestUpgradeHint(t *testing.T) {
 	cases := []struct {
-		name    string
-		path    string
-		latest  string
-		hint    string
-		isURL   bool
+		name   string
+		path   string
+		latest string
+		hint   string
+		isURL  bool
 	}{
 		{"install script unix", "/home/u/.twelvedata/bin/twelvedata", "1.0.1", "curl -fsSL https://raw.githubusercontent.com/twelvedata/twelvedata-cli/main/install.sh | bash", false},
 		{"homebrew cellar", "/opt/homebrew/Cellar/twelvedata/1.0.0/bin/twelvedata", "1.0.1", "brew update && brew upgrade twelvedata", false},
