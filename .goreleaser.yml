@@ -118,17 +118,16 @@ release:
     go install github.com/twelvedata/twelvedata-cli/cmd/twelvedata@{{ .Tag }}
     ```
 
-# Homebrew tap — bumps Casks/twelvedata.rb in twelvedata/homebrew-cli on
+# Homebrew tap — bumps Formula/twelvedata.rb in twelvedata/homebrew-cli on
 # every stable release. Skipped for pre-releases (skip_upload: auto). Requires
 # the HOMEBREW_TAP_GITHUB_TOKEN secret on the twelvedata-cli repo.
 #
-# The post-install hook strips the macOS quarantine xattr so the binary is
-# runnable without a Gatekeeper prompt — the goreleaser pipeline does not
-# notarize the darwin builds.
-homebrew_casks:
+# Formula (not Cask) so Homebrew fetches the tarball via curl and never sets
+# the macOS quarantine xattr. The darwin binaries aren't notarized; a
+# quarantined cask binary gets SIGKILL'd by Gatekeeper on Apple Silicon when
+# brew invokes it for completion generation.
+brews:
   - name: twelvedata
-    binaries:
-      - twelvedata
     repository:
       owner: twelvedata
       name: homebrew-cli
@@ -139,26 +138,16 @@ homebrew_casks:
       email: no-reply@twelvedata.com
     commit_msg_template: "Bump twelvedata-cli version to {{ .Tag }}"
     homepage: https://twelvedata.com
-    description: Twelve Data CLI — the official command-line client for the Twelve Data API,
+    description: "Twelve Data CLI — the official command-line client for the Twelve Data API"
+    license: "MIT"
     skip_upload: auto
-    # Generate shell completion scripts at brew-install time and stage them
-    # into brew's standard completion paths. bash users with bash-completion@2
-    # installed pick them up automatically; zsh and fish users get them free.
-    # Avoids the user having to run `twelvedata completion install` separately.
-    generate_completions_from_executable:
-      # Path is relative to the cask's staged_path, which is the root of the
-      # tarball — same level as `binary "twelvedata"`. Adding a `bin/` prefix
-      # produces "command not found: bin/twelvedata" at brew install time.
-      executable: "twelvedata"
-      # No `args:` — `shell_parameter_format: cobra` already invokes
-      # `<binary> completion <shell>`. Adding `completion` to args doubles it
-      # up: `twelvedata completion completion bash`.
-      base_name: "twelvedata"
-      shell_parameter_format: cobra
-      shells: [bash, zsh, fish, pwsh]
-    hooks:
-      post:
-        install: |
-          if OS.mac?
-            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/twelvedata"]
-          end
+    install: |
+      bin.install "twelvedata"
+      generate_completions_from_executable(
+        bin/"twelvedata",
+        "completion",
+        shells: [:bash, :zsh, :fish, :pwsh],
+        shell_parameter_format: :cobra,
+      )
+    test: |
+      assert_match version.to_s, shell_output("#{bin}/twelvedata --version")
