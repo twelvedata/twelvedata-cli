@@ -1,7 +1,6 @@
 package client
 
 import (
-	"net/http"
 	"os"
 	"strings"
 	"time"
@@ -45,7 +44,7 @@ func New(cmd *cobra.Command) (*twelvedata.APIClient, error) {
 	if err != nil {
 		return nil, err
 	}
-	cfg.HTTPClient = &http.Client{Timeout: resolveHTTPTimeout()}
+	cfg.HTTPClient.Timeout = resolveHTTPTimeout()
 	return twelvedata.NewAPIClient(cfg), nil
 }
 
