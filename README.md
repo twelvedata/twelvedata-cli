@@ -1,9 +1,9 @@
 # Twelve Data CLI
 
-[Latest release](https://github.com/twelvedata/twelvedata-cli/releases/latest)
-[Downloads](https://github.com/twelvedata/twelvedata-cli/releases)
-[License](https://github.com/twelvedata/twelvedata-cli/blob/master/LICENSE)
-[Issues](https://github.com/twelvedata/twelvedata-cli/issues)
+[![Latest release](https://img.shields.io/github/v/release/twelvedata/twelvedata-cli?sort=semver)](https://github.com/twelvedata/twelvedata-cli/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/twelvedata/twelvedata-cli/total)](https://github.com/twelvedata/twelvedata-cli/releases)
+[![License](https://img.shields.io/github/license/twelvedata/twelvedata-cli)](https://github.com/twelvedata/twelvedata-cli/blob/master/LICENSE)
+[![Issues](https://img.shields.io/github/issues/twelvedata/twelvedata-cli)](https://github.com/twelvedata/twelvedata-cli/issues)
 
 ```
   _______       __________ _    ________   ____  ___  _________
@@ -14,7 +14,6 @@
 ```
 
 Twelve Data official library. This package supports all main features of the service:
-
 - Real-time and historical market data: time series, quotes, end-of-day prices, exchange rates, and market movers.
 - Fundamentals: financial statements, earnings, dividends, splits, company profiles, and key statistics.
 - 100+ technical indicators: SMA, EMA, RSI, MACD, Bollinger Bands, Ichimoku, and many more.
@@ -26,7 +25,6 @@ Twelve Data official library. This package supports all main features of the ser
 Every Twelve Data API endpoint is exposed as a subcommand with predictable flags and structured output.
 
 ## Documentation
-
 - 📘 [Twelve Data API reference](https://twelvedata.com/docs) — endpoint details and response schemas
 - 🛠 `twelvedata --help` — built-in CLI command reference
 - 🤖 `twelvedata commands` — full command tree as JSON for agents
@@ -88,7 +86,8 @@ twelvedata completion install     # auto-detects $SHELL; pass a shell name to ov
 
 Homebrew installs completion automatically (bash users need `brew install bash-completion@2` once). The install command is idempotent — re-running won't append a second copy.
 
-Manual setup — print the script and source it yourself
+<details>
+<summary>Manual setup — print the script and source it yourself</summary>
 
 ```sh
 source <(twelvedata completion bash)                                        # current shell only
@@ -96,19 +95,16 @@ twelvedata completion zsh > "${fpath[1]}/_twelvedata"                       # zs
 twelvedata completion fish > ~/.config/fish/completions/twelvedata.fish     # fish
 twelvedata completion powershell | Out-String | Invoke-Expression           # PowerShell session
 ```
-
-
+</details>
 
 ## Output & errors
 
 The CLI auto-switches between two output modes:
 
-
-| Mode            | When                                        | Stdout              | Stderr                             |
-| --------------- | ------------------------------------------- | ------------------- | ---------------------------------- |
-| **Interactive** | TTY                                         | Pretty-printed JSON | Spinner, prompts, colorized errors |
-| **Machine**     | `--raw`, piped stdout, `CI`, or `TERM=dumb` | Pretty-printed JSON | JSON error envelope                |
-
+| Mode            | When                                         | Stdout                | Stderr                              |
+| --------------- | -------------------------------------------- | --------------------- | ----------------------------------- |
+| **Interactive** | TTY                                          | Pretty-printed JSON   | Spinner, prompts, colorized errors  |
+| **Machine**     | `--raw`, piped stdout, `CI`, or `TERM=dumb`  | Pretty-printed JSON   | JSON error envelope                 |
 
 Machine mode suppresses the spinner and color and skips every interactive prompt (missing-option, masked-key, profile picker, destructive confirmation) — the same arguments that work in CI work from a `--raw` TTY. Errors render as a stable JSON envelope on **stderr**, so **stdout** stays response-only for scripting:
 
@@ -123,19 +119,17 @@ Machine mode suppresses the spinner and color and skips every interactive prompt
 
 ### Exit codes
 
-
-| Code | Meaning                                                     |
-| ---- | ----------------------------------------------------------- |
-| `0`  | Success                                                     |
-| `1`  | Generic error                                               |
-| `2`  | Usage error (bad flag, unknown command, invalid enum value) |
-| `3`  | Authentication failure (HTTP 401, missing API key)          |
-| `4`  | Forbidden (HTTP 403)                                        |
-| `5`  | Not found (HTTP 404)                                        |
-| `6`  | Rate limited (HTTP 429)                                     |
-| `7`  | Bad request (HTTP 400, 414)                                 |
-| `8`  | Internal server error (HTTP 500)                            |
-
+| Code | Meaning |
+| ---: | --- |
+| `0` | Success |
+| `1` | Generic error |
+| `2` | Usage error (bad flag, unknown command, invalid enum value) |
+| `3` | Authentication failure (HTTP 401, missing API key) |
+| `4` | Forbidden (HTTP 403) |
+| `5` | Not found (HTTP 404) |
+| `6` | Rate limited (HTTP 429) |
+| `7` | Bad request (HTTP 400, 414) |
+| `8` | Internal server error (HTTP 500) |
 
 ## Authentication
 
@@ -189,15 +183,13 @@ Override storage with `TWELVEDATA_CREDENTIAL_STORE=file` to force plaintext.
 
 ### Environment variables
 
-
-| Var                           | Purpose                                                                                                                              |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `TWELVEDATA_API_KEY`          | API key (highest precedence after `--api-key`)                                                                                       |
-| `TWELVEDATA_PROFILE`          | Profile name override                                                                                                                |
-| `TWELVEDATA_CREDENTIAL_STORE` | `secure_storage` (default) or `file`                                                                                                 |
-| `TWELVEDATA_CONFIG_DIR`       | Override the credentials directory (mostly for tests)                                                                                |
-| `TWELVEDATA_HTTP_TIMEOUT`     | Per-request HTTP timeout. Go duration (`30s`, `2m`, `1m30s`) or a bare integer in seconds. Default `120s`; `0` disables the timeout. |
-
+| Var | Purpose |
+| --- | --- |
+| `TWELVEDATA_API_KEY` | API key (highest precedence after `--api-key`) |
+| `TWELVEDATA_PROFILE` | Profile name override |
+| `TWELVEDATA_CREDENTIAL_STORE` | `secure_storage` (default) or `file` |
+| `TWELVEDATA_CONFIG_DIR` | Override the credentials directory (mostly for tests) |
+| `TWELVEDATA_HTTP_TIMEOUT` | Per-request HTTP timeout. Go duration (`30s`, `2m`, `1m30s`) or a bare integer in seconds. Default `120s`; `0` disables the timeout. |
 
 ## Agent & CI/CD usage
 
@@ -223,14 +215,12 @@ Dumps the entire CLI command tree as JSON. When stdout is piped, JSON is used au
 
 `twelvedata doctor` runs four checks against your local setup and the API, and exits non-zero on any failure — useful as a smoke test in CI and as a triage step when commands start misbehaving.
 
-
-| Check              | What it verifies                                           |
-| ------------------ | ---------------------------------------------------------- |
-| CLI Version        | Installed binary matches the latest GitHub release         |
+| Check | What it verifies |
+| --- | --- |
+| CLI Version        | Installed binary matches the latest GitHub release |
 | API Key            | A key is resolvable via flag, env var, or credentials file |
 | Credential Storage | Whether keys live in OS secure storage or a plaintext file |
-| API Validation     | The resolved key is accepted by `/api_usage`               |
-
+| API Validation     | The resolved key is accepted by `/api_usage` |
 
 Each check reports `pass`, `warn`, or `fail`. Exit code is `1` if any check is `fail`; `warn` does not affect the exit code (so a stale CLI build or a transient network hiccup won't break CI).
 
@@ -265,14 +255,18 @@ Use this when you want to change the CLI and run your build locally.
 ### Setup
 
 1. **Clone the repo**
-  ```sh
+
+   ```sh
    git clone https://github.com/twelvedata/twelvedata-cli.git
    cd twelvedata-cli
-  ```
+   ```
+
 2. **Build the binary**
-  ```sh
+
+   ```sh
    go build -o twelvedata ./cmd/twelvedata
-  ```
+   ```
+
    Output: `./twelvedata`
 
 ## Running the CLI locally
@@ -301,21 +295,17 @@ go build -o twelvedata ./cmd/twelvedata
 Or skip the build step entirely with `go run`.
 
 ## Documentation
-
 Delve deeper with our [official documentation](https://twelvedata.com/docs).
 
 ## Support
-
 - 🌐 Visit our [contact page](https://twelvedata.com/contact).
 - 🛠 Or our [support center](https://support.twelvedata.com/).
 
 ## Stay updated
-
 - Follow us on [𝕏](https://twitter.com/TwelveData).
 - Follow us on [Telegram](https://t.me/twelvedata).
 
 ## Contributing
-
 1. Fork and clone: `$ git clone https://github.com/twelvedata/twelvedata-cli .`.
 2. Branch out: `$ git checkout -b my-feature`.
 3. Commit changes and test.
