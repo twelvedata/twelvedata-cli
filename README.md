@@ -1,8 +1,9 @@
 # Twelve Data CLI
 
-`twelvedata-cli` is the official command-line client for the [Twelve Data API](https://twelvedata.com/), built for AI agents and humans alike.
-
-Every API endpoint is available as a subcommand, with predictable flags and structured output.
+[Latest release](https://github.com/twelvedata/twelvedata-cli/releases/latest)
+[Downloads](https://github.com/twelvedata/twelvedata-cli/releases)
+[License](https://github.com/twelvedata/twelvedata-cli/blob/master/LICENSE)
+[Issues](https://github.com/twelvedata/twelvedata-cli/issues)
 
 ```
   _______       __________ _    ________   ____  ___  _________
@@ -12,6 +13,24 @@ Every API endpoint is available as a subcommand, with predictable flags and stru
 /_/    |__/|__/_____/_____/___/_____/  /_____/_/  |_/_/ /_/  |_|
 ```
 
+Twelve Data official library. This package supports all main features of the service:
+
+- Real-time and historical market data: time series, quotes, end-of-day prices, exchange rates, and market movers.
+- Fundamentals: financial statements, earnings, dividends, splits, company profiles, and key statistics.
+- 100+ technical indicators: SMA, EMA, RSI, MACD, Bollinger Bands, Ichimoku, and many more.
+- Analysis & estimates: analyst ratings, price targets, EPS trends, revenue and growth estimates.
+- ETFs and mutual funds: summaries, composition, performance, risk, and ratings.
+
+🔑 **API key** is required. If you don't have it yet, get it by [signing up here](https://twelvedata.com/pricing).
+
+Every Twelve Data API endpoint is exposed as a subcommand with predictable flags and structured output.
+
+## Documentation
+
+- 📘 [Twelve Data API reference](https://twelvedata.com/docs) — endpoint details and response schemas
+- 🛠 `twelvedata --help` — built-in CLI command reference
+- 🤖 `twelvedata commands` — full command tree as JSON for agents
+
 ## Install
 
 ### cURL (macOS / Linux)
@@ -20,7 +39,7 @@ Every API endpoint is available as a subcommand, with predictable flags and stru
 curl -fsSL https://raw.githubusercontent.com/twelvedata/twelvedata-cli/main/install.sh | bash
 ```
 
-Pin a specific version: append `-s v1.0.4`. Override the install location with `TWELVEDATA_INSTALL=<dir>` (default `~/.twelvedata`).
+Pin a specific version: append `-s v1.0.5`. Override the install location with `TWELVEDATA_INSTALL=<dir>` (default `~/.twelvedata`).
 
 ### Homebrew (macOS / Linux)
 
@@ -36,12 +55,12 @@ Upgrade later with `brew update && brew upgrade twelvedata`. The tap is auto-bum
 irm https://raw.githubusercontent.com/twelvedata/twelvedata-cli/main/install.ps1 | iex
 ```
 
-Pin a specific version: `$env:TWELVEDATA_VERSION = 'v1.0.4'` before piping. Override the install location with `$env:TWELVEDATA_INSTALL`.
+Pin a specific version: `$env:TWELVEDATA_VERSION = 'v1.0.5'` before piping. Override the install location with `$env:TWELVEDATA_INSTALL`.
 
 ### Go
 
 ```sh
-go install github.com/twelvedata/twelvedata-cli/cmd/twelvedata@v1.0.4
+go install github.com/twelvedata/twelvedata-cli/cmd/twelvedata@v1.0.5
 ```
 
 ### Prebuilt binaries
@@ -55,74 +74,68 @@ twelvedata login
 twelvedata time-series --symbol AAPL --interval 1day
 ```
 
-For scripts and CI, skip `twelvedata login` and provide the key inline — either set `TWELVEDATA_API_KEY=...` in the environment or pass `--api-key <key>` on each invocation. See [Authentication](#authentication).
+For scripts, CI, and agent subprocesses, see [Agent & CI/CD usage](#agent--cicd-usage).
 
 `twelvedata docs` and `twelvedata dashboard` open URLs in your default browser. In machine mode (`--raw`, piped stdout, CI) they print the URL to stdout instead of launching a browser, so they're safe to call from scripts.
 
 ## Shell completion
 
-`twelvedata` ships completion for bash, zsh, fish, and PowerShell. Each script is generated from the live command tree, so flags and enum values stay in sync with the binary.
-
-> **Homebrew users:** completion is installed automatically by `brew install twelvedata/cli/twelvedata` — no extra step. bash users need `brew install bash-completion@2` once; zsh and fish pick it up out of the box.
-
-For non-Homebrew installs, one-line install (auto-detects `$SHELL`):
+`twelvedata` ships completion for bash, zsh, fish, and PowerShell, generated from the live command tree so flags and enum values stay in sync.
 
 ```sh
-twelvedata completion install
+twelvedata completion install     # auto-detects $SHELL; pass a shell name to override
 ```
 
-Then restart your shell. Pass a shell name to override detection (`twelvedata completion install zsh`).
+Homebrew installs completion automatically (bash users need `brew install bash-completion@2` once). The install command is idempotent — re-running won't append a second copy.
 
-Manual setup — print the script and source it yourself:
+Manual setup — print the script and source it yourself
 
 ```sh
-source <(twelvedata completion bash)                                # current shell only
+source <(twelvedata completion bash)                                        # current shell only
 twelvedata completion zsh > "${fpath[1]}/_twelvedata"                       # zsh, system fpath
 twelvedata completion fish > ~/.config/fish/completions/twelvedata.fish     # fish
-twelvedata completion powershell | Out-String | Invoke-Expression   # PowerShell session
+twelvedata completion powershell | Out-String | Invoke-Expression           # PowerShell session
 ```
 
-`twelvedata completion install` is idempotent — re-running won't append a second copy.
 
-## Output behavior
 
-The CLI has two output modes:
+## Output & errors
 
-| Mode            | When                                         | Stdout                | Stderr                              |
-| --------------- | -------------------------------------------- | --------------------- | ----------------------------------- |
-| **Interactive** | TTY                                          | Pretty-printed JSON   | Spinner, prompts, colorized errors  |
-| **Machine**     | `--raw`, piped stdout, `CI`, or `TERM=dumb`  | Pretty-printed JSON   | JSON error envelope                 |
+The CLI auto-switches between two output modes:
 
-Switching is automatic — pipe stdout and machine mode activates:
 
-```sh
-twelvedata quote --symbol AAPL | jq .price
+| Mode            | When                                        | Stdout              | Stderr                             |
+| --------------- | ------------------------------------------- | ------------------- | ---------------------------------- |
+| **Interactive** | TTY                                         | Pretty-printed JSON | Spinner, prompts, colorized errors |
+| **Machine**     | `--raw`, piped stdout, `CI`, or `TERM=dumb` | Pretty-printed JSON | JSON error envelope                |
+
+
+Machine mode suppresses the spinner and color and skips every interactive prompt (missing-option, masked-key, profile picker, destructive confirmation) — the same arguments that work in CI work from a `--raw` TTY. Errors render as a stable JSON envelope on **stderr**, so **stdout** stays response-only for scripting:
+
+```json
+{ "error": { "code": "unauthorized", "message": "Invalid API key", "status": 401 } }
 ```
-
-Use `--raw` to force machine mode from a TTY (e.g. when an agent captures both streams):
-
-```sh
-twelvedata quote --symbol AAPL --raw
-```
-
-In machine mode the spinner and color are suppressed, errors render as a JSON envelope on stderr, and every interactive helper (missing-option prompt, masked-key prompt, profile picker, destructive confirmation) is skipped — the same arguments that work in CI work from a `--raw` TTY.
 
 `--output` selects the response format (orthogonal to mode):
 
-- `--output json` (default): pretty-printed JSON.
-- `--output csv`: streams the API's CSV response verbatim. Sets `format=csv` upstream.
+- `--output json` (default) — pretty-printed JSON.
+- `--output csv` — streams the API's CSV response verbatim (sets `format=csv` upstream).
 
-### Error output
+### Exit codes
 
-Errors exit with a stable code (see [Exit codes](#exit-codes)). On **stderr** the format depends on the mode:
 
-- **Machine**: a JSON envelope, so **stdout** stays response-only for scripting:
+| Code | Meaning                                                     |
+| ---- | ----------------------------------------------------------- |
+| `0`  | Success                                                     |
+| `1`  | Generic error                                               |
+| `2`  | Usage error (bad flag, unknown command, invalid enum value) |
+| `3`  | Authentication failure (HTTP 401, missing API key)          |
+| `4`  | Forbidden (HTTP 403)                                        |
+| `5`  | Not found (HTTP 404)                                        |
+| `6`  | Rate limited (HTTP 429)                                     |
+| `7`  | Bad request (HTTP 400, 414)                                 |
+| `8`  | Internal server error (HTTP 500)                            |
 
-  ```json
-  { "error": { "code": "unauthorized", "message": "Invalid API key", "status": 401 } }
-  ```
-
-- **Interactive**: a human line with a red mark, the status name, and the word-wrapped body.
 
 ## Authentication
 
@@ -157,7 +170,7 @@ Other auth commands:
 
 The `-p` / `--profile` flag (or `TWELVEDATA_PROFILE` env var) overrides the active profile for one invocation.
 
-Interactive behavior — selectors for missing arguments and confirmations for destructive operations — follows the rules in [Output behavior](#output-behavior).
+Interactive behavior — selectors for missing arguments and confirmations for destructive operations — follows the rules in [Output & errors](#output--errors).
 
 ### Storage
 
@@ -176,24 +189,48 @@ Override storage with `TWELVEDATA_CREDENTIAL_STORE=file` to force plaintext.
 
 ### Environment variables
 
-| Var | Purpose |
-| --- | --- |
-| `TWELVEDATA_API_KEY` | API key (highest precedence after `--api-key`) |
-| `TWELVEDATA_PROFILE` | Profile name override |
-| `TWELVEDATA_CREDENTIAL_STORE` | `secure_storage` (default) or `file` |
-| `TWELVEDATA_CONFIG_DIR` | Override the credentials directory (mostly for tests) |
-| `TWELVEDATA_HTTP_TIMEOUT` | Per-request HTTP timeout. Go duration (`30s`, `2m`, `1m30s`) or a bare integer in seconds. Default `120s`; `0` disables the timeout. |
+
+| Var                           | Purpose                                                                                                                              |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `TWELVEDATA_API_KEY`          | API key (highest precedence after `--api-key`)                                                                                       |
+| `TWELVEDATA_PROFILE`          | Profile name override                                                                                                                |
+| `TWELVEDATA_CREDENTIAL_STORE` | `secure_storage` (default) or `file`                                                                                                 |
+| `TWELVEDATA_CONFIG_DIR`       | Override the credentials directory (mostly for tests)                                                                                |
+| `TWELVEDATA_HTTP_TIMEOUT`     | Per-request HTTP timeout. Go duration (`30s`, `2m`, `1m30s`) or a bare integer in seconds. Default `120s`; `0` disables the timeout. |
+
+
+## Agent & CI/CD usage
+
+### CI/CD
+
+Set `TWELVEDATA_API_KEY` as an environment variable — no `twelvedata login` needed. Machine mode activates automatically in CI (piped stdout, `CI=true`, or `TERM=dumb`), so the spinner is suppressed and errors render as a JSON envelope on stderr. See [Output & errors](#output--errors) for the full contract.
+
+### AI agents
+
+Agents calling the CLI as a subprocess automatically get machine mode (non-TTY detection). The contract:
+
+- **Input** — every required flag must be provided; no interactive prompts in machine mode.
+- **Output** — pretty-printed JSON on **stdout** (or CSV with `--output csv`); JSON error envelope on **stderr**, so `stdout` stays response-only for `jq`.
+- **Exit code** — stable per category: `0` success, `2` usage error, `3` auth, `4` forbidden, `5` not found, `6` rate limited, `7` bad request, `8` server error. See [Exit codes](#exit-codes).
+- **Errors** — always include `code`, `message`, and `status` fields.
+- **Discovery** — `twelvedata commands` (alias: `twelvedata schema`) prints the full command tree as JSON (names, flags, types, enum value sets, descriptions) so agents can introspect without scraping `--help`.
+
+### `twelvedata commands`
+
+Dumps the entire CLI command tree as JSON. When stdout is piped, JSON is used automatically; from a TTY pass `--raw` to force machine output.
 
 ## Diagnostics
 
 `twelvedata doctor` runs four checks against your local setup and the API, and exits non-zero on any failure — useful as a smoke test in CI and as a triage step when commands start misbehaving.
 
-| Check | What it verifies |
-| --- | --- |
-| CLI Version        | Installed binary matches the latest GitHub release |
+
+| Check              | What it verifies                                           |
+| ------------------ | ---------------------------------------------------------- |
+| CLI Version        | Installed binary matches the latest GitHub release         |
 | API Key            | A key is resolvable via flag, env var, or credentials file |
 | Credential Storage | Whether keys live in OS secure storage or a plaintext file |
-| API Validation     | The resolved key is accepted by `/api_usage` |
+| API Validation     | The resolved key is accepted by `/api_usage`               |
+
 
 Each check reports `pass`, `warn`, or `fail`. Exit code is `1` if any check is `fail`; `warn` does not affect the exit code (so a stale CLI build or a transient network hiccup won't break CI).
 
@@ -209,38 +246,13 @@ In machine mode the payload shape is:
 {
   "ok": true,
   "checks": [
-    { "name": "CLI Version",        "status": "pass", "message": "v1.0.4 (latest)" },
+    { "name": "CLI Version",        "status": "pass", "message": "v1.0.5 (latest)" },
     { "name": "API Key",            "status": "pass", "message": "abc...wxyz (source: secure storage, profile: default)" },
     { "name": "Credential Storage", "status": "pass", "message": "Secret Service (libsecret)" },
     { "name": "API Validation",     "status": "pass", "message": "API key accepted" }
   ]
 }
 ```
-
-## Update notifications
-
-After a successful command, `twelvedata` checks GitHub releases at most once every 24 hours and prints a one-line hint to **stderr** when a newer version is available:
-
-```
-A new version of twelvedata is available: v1.0.4 → v<latest>
-  Run: <upgrade command for your install method>
-  Disable: TWELVEDATA_NO_UPDATE_NOTIFIER=1
-```
-
-The upgrade hint is inferred from the running binary's path so it matches how you installed `twelvedata`:
-
-| Detected path | Hint |
-| --- | --- |
-| `~/.twelvedata/bin/twelvedata` (or `.exe`) | `curl … install.sh \| bash` or `irm … install.ps1 \| iex` |
-| `…/Cellar/twelvedata/…` or `…/homebrew/…/twelvedata` | `brew update && brew upgrade twelvedata` |
-| `$GOPATH/bin/twelvedata` or `~/go/bin/twelvedata` | `go install github.com/twelvedata/twelvedata-cli/cmd/twelvedata@v<latest>` |
-| anything else | `https://github.com/twelvedata/twelvedata-cli/releases/latest` (shown as "Visit:") |
-
-The check is skipped automatically in machine mode (`--raw`, piped stdout, `CI`, or `TERM=dumb`), so scripts and agents never see the notice. The result is cached at `$XDG_CACHE_HOME/twelvedata-cli/update-check.json` (or your OS cache dir). Set `TWELVEDATA_NO_UPDATE_NOTIFIER=1` to opt out entirely.
-
-## Agent discovery
-
-`twelvedata commands` dumps the entire command tree as JSON — names, flags, types, enum value sets, descriptions — so an LLM can introspect what commands and arguments are available without scraping `--help` text. `twelvedata schema` is kept as an alias.
 
 ## Local development
 
@@ -253,18 +265,14 @@ Use this when you want to change the CLI and run your build locally.
 ### Setup
 
 1. **Clone the repo**
-
-   ```sh
+  ```sh
    git clone https://github.com/twelvedata/twelvedata-cli.git
    cd twelvedata-cli
-   ```
-
+  ```
 2. **Build the binary**
-
-   ```sh
+  ```sh
    go build -o twelvedata ./cmd/twelvedata
-   ```
-
+  ```
    Output: `./twelvedata`
 
 ## Running the CLI locally
@@ -292,48 +300,29 @@ go build -o twelvedata ./cmd/twelvedata
 
 Or skip the build step entirely with `go run`.
 
-## Exit codes
+## Documentation
 
-| Code | Meaning |
-| ---: | --- |
-| `0` | Success |
-| `1` | Generic error |
-| `2` | Usage error (bad flag, unknown command, invalid enum value) |
-| `3` | Authentication failure (HTTP 401, missing API key) |
-| `4` | Forbidden (HTTP 403) |
-| `5` | Not found (HTTP 404) |
-| `6` | Rate limited (HTTP 429) |
-| `7` | Bad request (HTTP 400, 414) |
-| `8` | Internal server error (HTTP 500) |
+Delve deeper with our [official documentation](https://twelvedata.com/docs).
 
-## Verifying releases
+## Support
 
-Each GitHub release ships:
+- 🌐 Visit our [contact page](https://twelvedata.com/contact).
+- 🛠 Or our [support center](https://support.twelvedata.com/).
 
-- `twelvedata-<os>-<arch>.tar.gz` (or `.zip` on Windows) — the binary archive.
-- `checksums.txt` — SHA256 of every archive.
-- `checksums.txt.sig` and `checksums.txt.pem` — keyless [cosign](https://docs.sigstore.dev/cosign/overview/) signature of `checksums.txt`, produced by this repo's release workflow via Sigstore. The signature is recorded in the public [Rekor](https://docs.sigstore.dev/logging/overview/) transparency log.
+## Stay updated
 
-The install scripts already verify the archive's SHA256 against `checksums.txt`. To additionally verify that `checksums.txt` was produced by the expected release workflow — a full supply-chain check that catches a compromised GitHub release — use cosign:
+- Follow us on [𝕏](https://twitter.com/TwelveData).
+- Follow us on [Telegram](https://t.me/twelvedata).
 
-```sh
-VERSION=v1.0.0
-BASE=https://github.com/twelvedata/twelvedata-cli/releases/download/$VERSION
+## Contributing
 
-curl -fLO $BASE/checksums.txt
-curl -fLO $BASE/checksums.txt.sig
-curl -fLO $BASE/checksums.txt.pem
+1. Fork and clone: `$ git clone https://github.com/twelvedata/twelvedata-cli .`.
+2. Branch out: `$ git checkout -b my-feature`.
+3. Commit changes and test.
+4. Push your branch and open a pull request with a comprehensive description.
 
-cosign verify-blob \
-  --certificate checksums.txt.pem \
-  --signature checksums.txt.sig \
-  --certificate-identity-regexp '^https://github\.com/twelvedata/twelvedata-cli/\.github/workflows/release\.yml@refs/tags/v.+$' \
-  --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
-  checksums.txt
-```
-
-A successful run prints `Verified OK`. If the command fails, do not install the release — the archive was not signed by the expected workflow identity.
+For more guidance on contributing, see the [GitHub Docs](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) on GitHub.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+This project is licensed under the MIT. See the `LICENSE` file in this repository for more details.

@@ -31,7 +31,7 @@ var errorCodesHelp = "\n\n" +
 var rootCmd = &cobra.Command{
 	Use:           "twelvedata",
 	Short:         "Twelve Data CLI",
-	Long:          "Twelve Data CLI — REST client for Twelve Data's market data API. Designed for AI agents and humans alike.\n\nResponses render as pretty-printed JSON by default; --output csv switches to the streaming CSV path for endpoints that support it. On an interactive terminal the CLI shows a spinner and colorized errors; pass --raw (or pipe stdout) to force machine-friendly output.",
+	Long:          "Twelve Data CLI — client for Twelve Data's API. \n\nResponses render as pretty-printed JSON by default; --output csv switches to the streaming CSV path for endpoints that support it. On an interactive terminal the CLI shows a spinner and colorized errors; pass --raw (or pipe stdout) to force machine-friendly output.",
 	Version:       version.Version,
 	SilenceUsage:  true,
 	SilenceErrors: true,
