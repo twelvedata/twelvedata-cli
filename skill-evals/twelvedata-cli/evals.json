@@ -1,0 +1,199 @@
+{
+  "skill_name": "twelvedata-cli",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I have my Twelve Data API key in a secret manager. Write a shell snippet that logs the CLI in non-interactively from a CI job so the key doesn't end up in shell history or process listings. Show the command you used.",
+      "expected_output": "Either exports `TWELVEDATA_API_KEY` and skips login entirely, or pipes the key into `twelvedata login --key-stdin`. Does NOT pass `--key <literal>` or `--api-key <literal>` on the command line.",
+      "files": [],
+      "expectations": [
+        "Uses `TWELVEDATA_API_KEY` env var OR `twelvedata login --key-stdin` (piped from a variable/file)",
+        "Does NOT use `--key <literal-value>` or `--api-key <literal-value>` on the command line",
+        "Mentions or implies the reason: shell history / `ps` / CI log leakage"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have separate keys for production and staging. Show me how to save both and run a single command against staging without changing the active profile. Show the command you used.",
+      "expected_output": "Uses `twelvedata login --profile staging --key-stdin` (or two `login` invocations) to save the profiles, then runs the query with `--profile staging` (or `TWELVEDATA_PROFILE=staging twelvedata ...`) for a single invocation.",
+      "files": [],
+      "expectations": [
+        "Uses `twelvedata login --profile <name>` to save named profiles (not just `twelvedata login`)",
+        "Runs the query with `--profile staging` OR `TWELVEDATA_PROFILE=staging` prefix",
+        "Does NOT use `twelvedata auth switch` (that would change the active profile, which the user explicitly wants to avoid)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write a CI smoke check that verifies the API key works and exits non-zero if anything is wrong, in JSON for parsing. Show the command you used.",
+      "expected_output": "Runs `twelvedata doctor --raw` (or pipes `twelvedata doctor` which auto-detects machine mode). Relies on exit code 1 on any `fail` check.",
+      "files": [],
+      "expectations": [
+        "Uses `twelvedata doctor` (not `whoami`, not `api-usage`)",
+        "Forces JSON output via `--raw` OR notes that piping stdout auto-enables machine mode",
+        "Does NOT add `--json` or `-q` (these are resend-style flags that don't exist on this CLI)",
+        "Relies on the exit code, not on parsing the message text"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Get the last 30 days of daily AAPL closing prices and pipe them into jq to extract just the close values. Show the command you used.",
+      "expected_output": "Runs `twelvedata time-series --symbol AAPL --interval 1day --outputsize 30 | jq '.values[].close'`.",
+      "files": [],
+      "expectations": [
+        "Uses `time-series` subcommand (not `quote`, not `eod`, not `historical`)",
+        "Includes `--symbol AAPL` and `--interval 1day`",
+        "Includes `--outputsize 30` (not `--limit`, not `--count`, not `--days`)",
+        "Pipes stdout directly into jq — relies on the contract that stdout is JSON only (errors go to stderr)"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Save the last 30 daily AAPL bars to aapl.csv for opening in a spreadsheet. Show the command you used.",
+      "expected_output": "Runs `twelvedata time-series --symbol AAPL --interval 1day --outputsize 30 --output csv > aapl.csv`.",
+      "files": [],
+      "expectations": [
+        "Uses `--output csv` (or `-o csv`) — NOT `| jq -r`, NOT a shell post-processor that converts JSON to CSV",
+        "Includes `--symbol AAPL`, `--interval 1day`, `--outputsize 30`",
+        "Redirects stdout to `aapl.csv`",
+        "Does NOT pass `--format csv` (that's the API param name, not the CLI flag)"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Get the current price of BTC/USD. Show the command you used.",
+      "expected_output": "Runs `twelvedata price --symbol BTC/USD`.",
+      "files": [],
+      "expectations": [
+        "Uses `price` subcommand",
+        "Symbol is `BTC/USD` with the slash (Twelve Data crypto-pair format)",
+        "Does NOT use `--symbol BTC --quote USD` or split the pair across two flags"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Get the most recent end-of-day price for AAPL. Show the command you used.",
+      "expected_output": "Runs `twelvedata eod --symbol AAPL`.",
+      "files": [],
+      "expectations": [
+        "Uses `eod` subcommand (not `quote`, not `price`, not `time-series --outputsize 1`)",
+        "Includes `--symbol AAPL`",
+        "Does NOT invent `--date today` or `--latest` — bare `eod --symbol` returns the latest close"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Compute the 14-period RSI for AAPL on a 1-day interval, last 10 values. Show the command you used.",
+      "expected_output": "Runs `twelvedata ti rsi --symbol AAPL --interval 1day --time-period 14 --outputsize 10`.",
+      "files": [],
+      "expectations": [
+        "Uses `ti rsi` — RSI lives under the `ti` namespace, NOT as a top-level `twelvedata rsi`",
+        "Includes `--symbol AAPL`, `--interval 1day`",
+        "Includes `--time-period 14` (with hyphen, not `--period`, not `--length`, not `--timeperiod`)",
+        "Includes `--outputsize 10`"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "Compute the 20-period EMA for AAPL daily, last 10 values. Show the command you used.",
+      "expected_output": "Runs `twelvedata ti ema --symbol AAPL --interval 1day --time-period 20 --outputsize 10`.",
+      "files": [],
+      "expectations": [
+        "Uses `ti ema` — under the `ti` namespace, NOT `twelvedata ema` and NOT `twelvedata ti-ema`",
+        "Includes `--symbol AAPL` and `--interval 1day`",
+        "Includes `--time-period 20`",
+        "Includes `--outputsize 10`"
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "Get the 14-period ATR for AAPL on a 1-hour interval, last 10 values. Show the command you used.",
+      "expected_output": "Runs `twelvedata ti atr --symbol AAPL --interval 1h --time-period 14 --outputsize 10`.",
+      "files": [],
+      "expectations": [
+        "Uses `ti atr` — under the `ti` namespace, NOT a top-level `twelvedata atr`",
+        "Includes `--symbol AAPL`",
+        "Interval is `1h` (Twelve Data short form), NOT `60min`, NOT `1hour`",
+        "Includes `--time-period 14`",
+        "Includes `--outputsize 10`"
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "Compute Bollinger Bands for AAPL daily, default parameters. Show the command you used.",
+      "expected_output": "Runs `twelvedata ti bbands --symbol AAPL --interval 1day`.",
+      "files": [],
+      "expectations": [
+        "Uses `ti bbands` — under the `ti` namespace, NOT `twelvedata bollinger-bands` or `twelvedata bbands`",
+        "Includes `--symbol AAPL` and `--interval 1day`",
+        "Does NOT invent `--sd`, `--stddev`, `--ma-type` flag values when the user said 'default parameters'"
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "Convert 100 USD to EUR using today's exchange rate. Show the command you used.",
+      "expected_output": "Runs `twelvedata currency-conversion --symbol USD/EUR --amount 100`.",
+      "files": [],
+      "expectations": [
+        "Uses `currency-conversion` subcommand (NOT `exchange-rate` — that returns the rate, not the converted amount)",
+        "Symbol is `USD/EUR` (the pair format with `/`), NOT `--from USD --to EUR`",
+        "Includes `--amount 100`"
+      ]
+    },
+    {
+      "id": 14,
+      "prompt": "Just get me the current USD-to-EUR exchange rate, no conversion. Show the command you used.",
+      "expected_output": "Runs `twelvedata exchange-rate --symbol USD/EUR`.",
+      "files": [],
+      "expectations": [
+        "Uses `exchange-rate` subcommand (NOT `currency-conversion` — user asked for the rate only)",
+        "Symbol is `USD/EUR`",
+        "Does NOT include `--amount`"
+      ]
+    },
+    {
+      "id": 15,
+      "prompt": "How far back can I get 1-day historical data for AAPL? Show the command you used.",
+      "expected_output": "Runs `twelvedata earliest-timestamp --symbol AAPL --interval 1day`.",
+      "files": [],
+      "expectations": [
+        "Uses `earliest-timestamp` subcommand",
+        "Includes `--symbol AAPL`",
+        "Includes `--interval 1day` (required flag — must not be omitted)"
+      ]
+    },
+    {
+      "id": 17,
+      "prompt": "I want to write a script that loops over many Twelve Data CLI commands. How do I discover the full set of commands and their flags programmatically, without scraping `--help`? Show the command you used.",
+      "expected_output": "Runs `twelvedata commands` (alias: `twelvedata schema`) and parses the JSON tree.",
+      "files": [],
+      "expectations": [
+        "Uses `twelvedata commands` OR `twelvedata schema`",
+        "Mentions that output is JSON with `name`, `path`, `flags[]`, `subcommands[]` (or similar — it's a stable agent-discovery schema)",
+        "Does NOT suggest scraping `--help`, parsing man pages, or hitting the OpenAPI spec directly"
+      ]
+    },
+    {
+      "id": 18,
+      "prompt": "Run a Twelve Data CLI command from a bash script and capture both the successful response and any error message separately for logging. Show the command you used.",
+      "expected_output": "Captures stdout (JSON response) and stderr (JSON error envelope) into separate variables/files. Uses the exit code to branch.",
+      "files": [],
+      "expectations": [
+        "Redirects stderr separately from stdout (e.g. `2>err.json`, `2>&1` is WRONG since it merges them)",
+        "Mentions or relies on the contract: stdout = response, stderr = `{\"error\":{\"code\":...,\"message\":...,\"status\":...}}`",
+        "Checks the exit code (`$?` or `if cmd; then`) to branch — does not parse output to detect errors"
+      ]
+    },
+    {
+      "id": 19,
+      "prompt": "I'm getting exit code 6 from a `twelvedata time-series` call in CI. What's wrong and what should I do? Show the command you used.",
+      "expected_output": "Identifies exit code 6 as rate-limited (HTTP 429). Suggests backoff/retry or upgrading the plan; does NOT suggest checking the API key (that would be exit 3).",
+      "files": [],
+      "expectations": [
+        "Identifies exit code 6 as 'rate limited' / HTTP 429",
+        "Suggests rate-limit handling: backoff, retry-with-delay, or plan upgrade",
+        "Does NOT confuse with auth failure (3), not-found (5), or bad-request (7)"
+      ]
+    }
+  ]
+}

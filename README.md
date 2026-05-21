@@ -244,6 +244,18 @@ In machine mode the payload shape is:
 }
 ```
 
+## Agent skills
+
+This CLI ships with an [agent skill](skills/twelvedata-cli/SKILL.md) that teaches AI coding agents (Claude Code, Cursor, Windsurf, etc.) how to use the Twelve Data CLI effectively, including the machine-mode contract, auth precedence, and common pitfalls.
+
+Drop it into your agent's skills directory or paste the contents into the agent's project instructions. For Claude Code:
+
+```sh
+mkdir -p ~/.claude/skills/twelvedata-cli
+curl -fsSL https://raw.githubusercontent.com/twelvedata/twelvedata-cli/main/skills/twelvedata-cli/SKILL.md \
+  -o ~/.claude/skills/twelvedata-cli/SKILL.md
+```
+
 ## Local development
 
 Use this when you want to change the CLI and run your build locally.
