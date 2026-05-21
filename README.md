@@ -37,7 +37,7 @@ Every Twelve Data API endpoint is exposed as a subcommand with predictable flags
 curl -fsSL https://raw.githubusercontent.com/twelvedata/twelvedata-cli/main/install.sh | bash
 ```
 
-Pin a specific version: append `-s v1.0.8`. Override the install location with `TWELVEDATA_INSTALL=<dir>` (default `~/.twelvedata`).
+Pin a specific version: append `-s v1.0.9`. Override the install location with `TWELVEDATA_INSTALL=<dir>` (default `~/.twelvedata`).
 
 ### Homebrew (macOS / Linux)
 
@@ -53,12 +53,12 @@ Upgrade later with `brew update && brew upgrade twelvedata`. The tap is auto-bum
 irm https://raw.githubusercontent.com/twelvedata/twelvedata-cli/main/install.ps1 | iex
 ```
 
-Pin a specific version: `$env:TWELVEDATA_VERSION = 'v1.0.8'` before piping. Override the install location with `$env:TWELVEDATA_INSTALL`.
+Pin a specific version: `$env:TWELVEDATA_VERSION = 'v1.0.9'` before piping. Override the install location with `$env:TWELVEDATA_INSTALL`.
 
 ### Go
 
 ```sh
-go install github.com/twelvedata/twelvedata-cli/cmd/twelvedata@v1.0.8
+go install github.com/twelvedata/twelvedata-cli/cmd/twelvedata@v1.0.9
 ```
 
 ### Prebuilt binaries
@@ -236,7 +236,7 @@ In machine mode the payload shape is:
 {
   "ok": true,
   "checks": [
-    { "name": "CLI Version",        "status": "pass", "message": "v1.0.8 (latest)" },
+    { "name": "CLI Version",        "status": "pass", "message": "v1.0.9 (latest)" },
     { "name": "API Key",            "status": "pass", "message": "abc...wxyz (source: secure storage, profile: default)" },
     { "name": "Credential Storage", "status": "pass", "message": "Secret Service (libsecret)" },
     { "name": "API Validation",     "status": "pass", "message": "API key accepted" }
