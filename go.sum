@@ -83,8 +83,8 @@ github.com/stretchr/testify v1.11.1 h1:7s2iGBzp5EwR7/aIZr8ao5+dra3wiQyKjjFuvgVKu
 github.com/stretchr/testify v1.11.1/go.mod h1:wZwfW3scLgRK+23gO65QZefKpKQRnfz6sD981Nm4B6U=
 github.com/tidwall/pretty v1.2.1 h1:qjsOFOWWQl+N3RsoF5/ssm1pHmJJwhjlSbZ51I6wMl4=
 github.com/tidwall/pretty v1.2.1/go.mod h1:ITEVvHYasfjBbM0u2Pg8T2nJnzm8xPwvNhhsoaGGjNU=
-github.com/twelvedata/twelvedata-go v1.0.11 h1:YqWK51koG2joIB4AeYcR2U5FvTKqdptRU6fnS6ZDXlU=
-github.com/twelvedata/twelvedata-go v1.0.11/go.mod h1:HfZu5AU4bQbICW/uEgZrBxUnv1m08pWJWgcLzI5X70M=
+github.com/twelvedata/twelvedata-go v1.0.13 h1:h4n/KKcF5BESV4oLaSpWGXI75UPcbPga3B2QEcPK8hI=
+github.com/twelvedata/twelvedata-go v1.0.13/go.mod h1:HfZu5AU4bQbICW/uEgZrBxUnv1m08pWJWgcLzI5X70M=
 github.com/xo/terminfo v0.0.0-20220910002029-abceb7e1c41e h1:JVG44RsyaB9T2KIHavMF/ppJZNG9ZpyihvCd0w101no=
 github.com/xo/terminfo v0.0.0-20220910002029-abceb7e1c41e/go.mod h1:RbqR21r5mrJuqunuUZ/Dhy/avygyECGrLceyNeo4LiM=
 github.com/zalando/go-keyring v0.2.8 h1:6sD/Ucpl7jNq10rM2pgqTs0sZ9V3qMrqfIIy5YPccHs=
