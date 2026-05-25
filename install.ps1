@@ -151,7 +151,7 @@ Write-Info "Binary:  $exe"
 
 $userPath    = [Environment]::GetEnvironmentVariable('PATH', 'User')
 if (-not $userPath) { $userPath = '' }
-$pathEntries = $userPath -split ';' | Where-Object { $_ -ne '' }
+$pathEntries = @($userPath -split ';' | Where-Object { $_ -ne '' })
 
 if ($pathEntries -contains $binDir) {
   # Already on PATH -- just print the getting-started line
