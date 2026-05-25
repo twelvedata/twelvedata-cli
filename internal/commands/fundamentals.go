@@ -348,10 +348,9 @@ var GetDividendsCmd = &cobra.Command{
 }
 
 var GetDividendsCalendarCmd = &cobra.Command{
-	Use:     "dividends-calendar",
-	Short:   "Dividends calendar",
-	Long:    "The dividends calendar endpoint provides a detailed schedule of upcoming and past dividend events for specified date ranges. By using the `start_date` and `end_date` parameters, users can retrieve a list of companies issuing dividends, including the ex-dividend date and dividend amount. This endpoint is ideal for tracking dividend payouts and planning investment strategies based on dividend schedules.",
-	Example: "twelvedata dividends-calendar --symbol AAPL",
+	Use:   "dividends-calendar",
+	Short: "Dividends calendar",
+	Long:  "The dividends calendar endpoint provides a detailed schedule of upcoming and past dividend events for specified date ranges. By using the `start_date` and `end_date` parameters, users can retrieve a list of companies issuing dividends, including the ex-dividend date and dividend amount. This endpoint is ideal for tracking dividend payouts and planning investment strategies based on dividend schedules.",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -861,7 +860,7 @@ var GetMarketCapCmd = &cobra.Command{
 var GetProfileCmd = &cobra.Command{
 	Use:     "profile",
 	Short:   "Profile",
-	Long:    "The profile endpoint provides detailed company information, including the company's name, industry, sector, CEO, headquarters location, and market capitalization. This data is useful for obtaining a comprehensive overview of a company's business and financial standing.",
+	Long:    "The profile endpoint provides detailed company information, including the company's name, industry, sector, CEO, and headquarters location. This data is useful for obtaining a comprehensive overview of a company's business and financial standing.",
 	Example: "twelvedata profile --symbol AAPL",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
@@ -967,10 +966,9 @@ var GetSplitsCmd = &cobra.Command{
 }
 
 var GetSplitsCalendarCmd = &cobra.Command{
-	Use:     "splits-calendar",
-	Short:   "Splits calendar",
-	Long:    "The splits calendar endpoint provides a detailed calendar of stock split events within a specified date range. By setting the `start_date` and `end_date` parameters, users can retrieve a list of upcoming or past stock splits, including the company name, split ratio, and effective date. This endpoint is useful for tracking changes in stock structure and planning investment strategies around these events.",
-	Example: "twelvedata splits-calendar --symbol AAPL",
+	Use:   "splits-calendar",
+	Short: "Splits calendar",
+	Long:  "The splits calendar endpoint provides a detailed calendar of stock split events within a specified date range. By setting the `start_date` and `end_date` parameters, users can retrieve a list of upcoming or past stock splits, including the company name, split ratio, and effective date. This endpoint is useful for tracking changes in stock structure and planning investment strategies around these events.",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -1298,8 +1296,6 @@ func init() {
 
 	GetDividendsCalendarCmd.Flags().Int64("page", 0, "Page number")
 
-	GetDividendsCalendarCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
-
 	rootCmd.AddCommand(GetDividendsCalendarCmd)
 
 	GetEarningsCmd.Flags().String("symbol", "", "Symbol ticker of instrument. For preferred stocks use dot(.) delimiter. E.g. `BRK.A` or `BRK.B` will be correct")
@@ -1529,8 +1525,6 @@ func init() {
 	GetSplitsCalendarCmd.Flags().Int64("outputsize", 0, "Number of data points to retrieve. Supports values in the range from `1` to `500`. Default `100` when no date parameters are set, otherwise set to maximum")
 
 	GetSplitsCalendarCmd.Flags().String("page", "", "Page number")
-
-	GetSplitsCalendarCmd.MarkFlagsOneRequired("symbol", "figi", "isin", "cusip")
 
 	rootCmd.AddCommand(GetSplitsCalendarCmd)
 
