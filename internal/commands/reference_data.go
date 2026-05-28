@@ -828,7 +828,7 @@ func init() {
 
 	GetEarliestTimestampCmd.Flags().String("mic-code", "", "Market Identifier Code (MIC) under ISO 10383 standard.")
 
-	GetEarliestTimestampCmd.Flags().String("timezone", "", "Timezone at which output datetime will be displayed. Supports: 1. Exchange for local exchange time 2. UTC for datetime at universal UTC standard 3. Timezone name according to the IANA Time Zone Database. E.g. America/New_York, Asia/Singapore. Full list of timezones can be found here. Interval Limitation: The timezone parameter is only applicable for intraday intervals (less than 1 day). For intervals of 1day, 1week, or 1month, the timezone parameter is ignored, and data is strictly returned in the Exchange local time. Take note that the IANA Timezone name is case-sensitive")
+	GetEarliestTimestampCmd.Flags().String("timezone", "", "Timezone at which output datetime will be displayed. Supports:\n1. Exchange for local exchange time\n2. UTC for datetime at universal UTC standard\n3. Timezone name according to the IANA Time Zone Database. E.g. America/New_York, Asia/Singapore. Full list of timezones can be found here.\nInterval Limitation: The timezone parameter is only applicable for intraday intervals (less than 1 day). For intervals of 1day, 1week, or 1month, the timezone parameter is ignored, and data is strictly returned in the Exchange local time.\nTake note that the IANA Timezone name is case-sensitive")
 
 	_ = GetEarliestTimestampCmd.MarkFlagRequired("interval")
 
@@ -868,7 +868,7 @@ func init() {
 
 	GetExchangeScheduleCmd.Flags().String("country", "", "Filter by country name or alpha code, e.g., `United States` or `US`")
 
-	GetExchangeScheduleCmd.Flags().String("date", "", "If a date is provided, the API returns the schedule for the specified date; otherwise, it returns the default (common) schedule. The date can be specified in one of the following formats: An exact date (e.g., 2021-10-27) A human-readable keyword: today or yesterday A full datetime string in UTC (e.g., 2025-04-11T20:00:00) to retrieve the schedule corresponding to the day in the specified time. When using a datetime value, the resulting schedule will correspond to the local calendar day at the specified time. For example, 2025-04-11T20:00:00 UTC corresponds to: 2025-04-11 in the America/New_York timezone 2025-04-12 in the Australia/Sydney timezone")
+	GetExchangeScheduleCmd.Flags().String("date", "", "If a date is provided, the API returns the schedule for the specified date; otherwise, it returns the default (common) schedule.\nThe date can be specified in one of the following formats:\nAn exact date (e.g., 2021-10-27)\nA human-readable keyword: today or yesterday\nA full datetime string in UTC (e.g., 2025-04-11T20:00:00) to retrieve the schedule corresponding to the day in the specified time.\nWhen using a datetime value, the resulting schedule will correspond to the local calendar day at the specified time. For example, 2025-04-11T20:00:00 UTC corresponds to:\n2025-04-11 in the America/New_York timezone\n2025-04-12 in the Australia/Sydney timezone")
 
 	rootCmd.AddCommand(GetExchangeScheduleCmd)
 
@@ -958,7 +958,7 @@ func init() {
 
 	rootCmd.AddCommand(GetStocksCmd)
 
-	GetSymbolSearchCmd.Flags().String("symbol", "", "Symbol to search. Supports: Ticker symbol of instrument. International securities identification number (ISIN). ISIN access is activating in the Data add-ons section The FIGI (Financial Instrument Global Identifier) parameter is available on the Ultra plan (individual) and Enterprise plan (business) and above. Composite FIGI parameter is available on the Ultra plan (individual) and Enterprise plan (business) and above. Share Class FIGI parameter is available on the Ultra plan (individual) and Enterprise plan (business) and above.")
+	GetSymbolSearchCmd.Flags().String("symbol", "", "Symbol to search. Supports:\nTicker symbol of instrument.\nInternational securities identification number (ISIN). ISIN access is activating in the Data add-ons section\nThe FIGI (Financial Instrument Global Identifier) parameter is available on the Ultra plan (individual) and Enterprise plan (business) and above.\nComposite FIGI parameter is available on the Ultra plan (individual) and Enterprise plan (business) and above.\nShare Class FIGI parameter is available on the Ultra plan (individual) and Enterprise plan (business) and above.")
 
 	GetSymbolSearchCmd.Flags().Int64("outputsize", 0, "Number of matches in response. Max 120")
 

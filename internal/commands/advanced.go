@@ -51,7 +51,7 @@ var GetApiUsageCmd = &cobra.Command{
 
 func init() {
 
-	GetApiUsageCmd.Flags().String("timezone", "", "Timezone at which output datetime will be displayed. Supports: 1. UTC for datetime at universal UTC standard 2. Timezone name according to the IANA Time Zone Database. E.g. America/New_York, Asia/Singapore. Full list of timezones can be found here. Take note that the IANA Timezone name is case-sensitive")
+	GetApiUsageCmd.Flags().String("timezone", "", "Timezone at which output datetime will be displayed. Supports:\n1. UTC for datetime at universal UTC standard\n2. Timezone name according to the IANA Time Zone Database. E.g. America/New_York, Asia/Singapore. Full list of timezones can be found here.\nTake note that the IANA Timezone name is case-sensitive")
 
 	rootCmd.AddCommand(GetApiUsageCmd)
 }

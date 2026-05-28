@@ -119,7 +119,7 @@ func init() {
 
 	GetCurrencyConversionCmd.Flags().Int64("dp", 0, "The number of decimal places for the data")
 
-	GetCurrencyConversionCmd.Flags().String("timezone", "", "Timezone at which output datetime will be displayed. Supports: 1. Exchange for local exchange time 2. UTC for datetime at universal UTC standard 3. Timezone name according to the IANA Time Zone Database. E.g. America/New_York, Asia/Singapore. Full list of timezones can be found here. Take note that the IANA Timezone name is case-sensitive")
+	GetCurrencyConversionCmd.Flags().String("timezone", "", "Timezone at which output datetime will be displayed. Supports:\n1. Exchange for local exchange time\n2. UTC for datetime at universal UTC standard\n3. Timezone name according to the IANA Time Zone Database. E.g. America/New_York, Asia/Singapore. Full list of timezones can be found here.\nTake note that the IANA Timezone name is case-sensitive")
 
 	_ = GetCurrencyConversionCmd.MarkFlagRequired("symbol")
 
@@ -133,7 +133,7 @@ func init() {
 
 	GetExchangeRateCmd.Flags().Int64("dp", 0, "The number of decimal places for the data")
 
-	GetExchangeRateCmd.Flags().String("timezone", "", "Timezone at which output datetime will be displayed. Supports: 1. Exchange for local exchange time 2. UTC for datetime at universal UTC standard 3. Timezone name according to the IANA Time Zone Database. E.g. America/New_York, Asia/Singapore. Full list of timezones can be found here. Take note that the IANA Timezone name is case-sensitive")
+	GetExchangeRateCmd.Flags().String("timezone", "", "Timezone at which output datetime will be displayed. Supports:\n1. Exchange for local exchange time\n2. UTC for datetime at universal UTC standard\n3. Timezone name according to the IANA Time Zone Database. E.g. America/New_York, Asia/Singapore. Full list of timezones can be found here.\nTake note that the IANA Timezone name is case-sensitive")
 
 	_ = GetExchangeRateCmd.MarkFlagRequired("symbol")
 
