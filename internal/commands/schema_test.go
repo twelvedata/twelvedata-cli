@@ -31,9 +31,10 @@ func makeTree() *cobra.Command {
 	root.AddCommand(group)
 
 	leaf := &cobra.Command{
-		Use:   "price",
-		Short: "leaf short",
-		RunE:  func(*cobra.Command, []string) error { return nil },
+		Use:     "price",
+		Short:   "leaf short",
+		Example: "tv market-data price --symbol AAPL",
+		RunE:    func(*cobra.Command, []string) error { return nil },
 	}
 	leaf.Flags().StringP("symbol", "s", "", "ticker")
 	_ = leaf.MarkFlagRequired("symbol")
@@ -79,6 +80,14 @@ func TestBuildSchema_PathsNested(t *testing.T) {
 	leaf := group.Subcommands[0]
 	if leaf.Path != "tv market-data price" {
 		t.Errorf("leaf path = %q, want \"tv market-data price\"", leaf.Path)
+	}
+}
+
+func TestBuildSchema_Example(t *testing.T) {
+	root := buildSchema(makeTree(), "")
+	leaf := root.Subcommands[0].Subcommands[0]
+	if leaf.Example != "tv market-data price --symbol AAPL" {
+		t.Errorf("leaf example = %q, want it to mirror cobra.Command.Example", leaf.Example)
 	}
 }
 

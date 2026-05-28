@@ -16,6 +16,7 @@ type schemaNode struct {
 	Path        string       `json:"path"`
 	Short       string       `json:"short,omitempty"`
 	Long        string       `json:"long,omitempty"`
+	Example     string       `json:"examples,omitempty"`
 	Aliases     []string     `json:"aliases,omitempty"`
 	Flags       []schemaFlag `json:"flags,omitempty"`
 	Subcommands []schemaNode `json:"subcommands,omitempty"`
@@ -54,6 +55,7 @@ func buildSchema(c *cobra.Command, parentPath string) schemaNode {
 		Path:    path,
 		Short:   c.Short,
 		Long:    c.Long,
+		Example: c.Example,
 		Aliases: c.Aliases,
 	}
 
