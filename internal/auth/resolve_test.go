@@ -121,8 +121,84 @@ func TestResolveAPIKey_UnknownProfile(t *testing.T) {
 		t.Fatal(err)
 	}
 	_, err := ResolveAPIKey("", "nonexistent")
-	if !errors.Is(err, ErrNoAPIKey) {
-		t.Errorf("expected ErrNoAPIKey for unknown profile, got %v", err)
+	var pne *ProfileNotFoundError
+	if !errors.As(err, &pne) {
+		t.Fatalf("expected ProfileNotFoundError for unknown --profile, got %v", err)
+	}
+	if pne.Name != "nonexistent" {
+		t.Errorf("ProfileNotFoundError.Name = %q, want nonexistent", pne.Name)
+	}
+}
+
+func TestResolveAPIKey_ProfileFlagBeatsEnv(t *testing.T) {
+	setupTestDir(t)
+	if _, err := WriteCredentials(&CredentialsFile{
+		ActiveProfile: "default",
+		Profiles: map[string]Profile{
+			"default": {APIKey: "k-default"},
+			"basic":   {APIKey: "k-basic"},
+		},
+	}); err != nil {
+		t.Fatal(err)
+	}
+	t.Setenv("TWELVEDATA_API_KEY", "from-env")
+	r, err := ResolveAPIKey("", "basic")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r.Key != "k-basic" || r.Source != SourceConfig || r.Profile != "basic" {
+		t.Errorf("got %+v, want key=k-basic source=config profile=basic", r)
+	}
+}
+
+func TestResolveAPIKey_ProfileFlagUnknown_WithEnvSet_ReturnsProfileNotFound(t *testing.T) {
+	setupTestDir(t)
+	if _, err := WriteCredentials(&CredentialsFile{
+		ActiveProfile: "default",
+		Profiles:      map[string]Profile{"default": {APIKey: "k"}},
+	}); err != nil {
+		t.Fatal(err)
+	}
+	t.Setenv("TWELVEDATA_API_KEY", "from-env")
+	_, err := ResolveAPIKey("", "nonexistent")
+	var pne *ProfileNotFoundError
+	if !errors.As(err, &pne) {
+		t.Fatalf("expected ProfileNotFoundError, got %v", err)
+	}
+}
+
+func TestResolveAPIKey_ProfileFlagWithNoCredentialsFile_ReturnsProfileNotFound(t *testing.T) {
+	setupTestDir(t)
+	t.Setenv("TWELVEDATA_API_KEY", "from-env")
+	_, err := ResolveAPIKey("", "basic")
+	var pne *ProfileNotFoundError
+	if !errors.As(err, &pne) {
+		t.Fatalf("expected ProfileNotFoundError when no creds file exists, got %v", err)
+	}
+}
+
+func TestResolveAPIKey_ProfileEnvDoesNotOverrideAPIKeyEnv(t *testing.T) {
+	// Two env vars at the same precedence level: TWELVEDATA_API_KEY wins
+	// because it's the more specific signal. Only an explicit --profile flag
+	// flips the precedence (covered by TestResolveAPIKey_ProfileFlagBeatsEnv).
+	setupTestDir(t)
+	if _, err := WriteCredentials(&CredentialsFile{
+		ActiveProfile: "default",
+		Profiles: map[string]Profile{
+			"default": {APIKey: "k-default"},
+			"basic":   {APIKey: "k-basic"},
+		},
+	}); err != nil {
+		t.Fatal(err)
+	}
+	t.Setenv("TWELVEDATA_API_KEY", "from-env")
+	t.Setenv("TWELVEDATA_PROFILE", "basic")
+	r, err := ResolveAPIKey("", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r.Key != "from-env" || r.Source != SourceEnv {
+		t.Errorf("got %+v, want key=from-env source=env", r)
 	}
 }
 

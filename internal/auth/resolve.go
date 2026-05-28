@@ -46,14 +46,23 @@ func ResolveProfileName(flagValue string) string {
 	return defaultProfile
 }
 
-// ResolveAPIKey applies the full resolution chain: flag → env → active profile
-// (secure storage or file). The returned ResolvedKey records which step won.
+// ResolveAPIKey applies the full resolution chain: --api-key flag → --profile
+// flag → TWELVEDATA_API_KEY env → active profile (secure storage or file). The
+// returned ResolvedKey records which step won.
+//
+// An explicit --profile flag is treated as a deliberate override (peer of
+// --api-key) and beats TWELVEDATA_API_KEY; without it env still wins over the
+// active profile recorded in credentials.json. When --profile names a missing
+// profile we surface ProfileNotFoundError rather than silently falling back —
+// otherwise a typo would resolve to a totally different key from env.
 func ResolveAPIKey(flagValue, profileFlag string) (*ResolvedKey, error) {
 	if flagValue != "" {
 		return &ResolvedKey{Key: flagValue, Source: SourceFlag}, nil
 	}
-	if v := os.Getenv(envAPIKey); v != "" {
-		return &ResolvedKey{Key: v, Source: SourceEnv}, nil
+	if profileFlag == "" {
+		if v := os.Getenv(envAPIKey); v != "" {
+			return &ResolvedKey{Key: v, Source: SourceEnv}, nil
+		}
 	}
 	creds, err := ReadCredentials()
 	if err != nil {
@@ -61,10 +70,16 @@ func ResolveAPIKey(flagValue, profileFlag string) (*ResolvedKey, error) {
 	}
 	profile := ResolveProfileName(profileFlag)
 	if creds == nil {
+		if profileFlag != "" {
+			return nil, &ProfileNotFoundError{Name: profileFlag}
+		}
 		return nil, ErrNoAPIKey
 	}
 	entry, ok := creds.Profiles[profile]
 	if !ok {
+		if profileFlag != "" {
+			return nil, errProfileNotFound(profileFlag, creds)
+		}
 		return nil, ErrNoAPIKey
 	}
 	if creds.Storage == StorageSecure {
