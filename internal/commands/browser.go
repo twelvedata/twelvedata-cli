@@ -16,18 +16,20 @@ const (
 )
 
 var docsCmd = &cobra.Command{
-	Use:   "docs",
-	Short: "Open the Twelve Data documentation in your browser",
-	Long:  "Open the Twelve Data API documentation in your default browser.\n\nIn machine mode (--raw, piped stdout, CI, TERM=dumb) the URL is printed to stdout instead — no browser launch.",
+	Use:     "docs",
+	Short:   "Open the Twelve Data documentation in your browser",
+	Long:    "Open the Twelve Data API documentation in your default browser.\n\nIn machine mode (--raw, piped stdout, CI, TERM=dumb) the URL is printed to stdout instead — no browser launch.",
+	Example: "  twelvedata docs",
 	RunE: func(cmd *cobra.Command, _ []string) error {
 		return openOrPrintURL(cmd, docsURL)
 	},
 }
 
 var dashboardCmd = &cobra.Command{
-	Use:   "dashboard",
-	Short: "Open your Twelve Data account dashboard in your browser",
-	Long:  "Open your Twelve Data account dashboard in your default browser — manage your API key, plan, and usage.\n\nIn machine mode (--raw, piped stdout, CI, TERM=dumb) the URL is printed to stdout instead — no browser launch.",
+	Use:     "dashboard",
+	Short:   "Open your Twelve Data account dashboard in your browser",
+	Long:    "Open your Twelve Data account dashboard in your default browser — manage your API key, plan, and usage.\n\nIn machine mode (--raw, piped stdout, CI, TERM=dumb) the URL is printed to stdout instead — no browser launch.",
+	Example: "  twelvedata dashboard",
 	RunE: func(cmd *cobra.Command, _ []string) error {
 		return openOrPrintURL(cmd, dashboardURL)
 	},

@@ -23,9 +23,10 @@ var (
 )
 
 var GetMutualFundsFamilyCmd = &cobra.Command{
-	Use:   "mutual-funds-family",
-	Short: "MFs families",
-	Long:  "The mutual funds family endpoint provides a comprehensive list of MF families, which are groups of mutual funds managed by the same investment company. This data is useful for users looking to explore or compare different fund families, understand the range of investment options offered by each, and identify potential investment opportunities within specific fund families.",
+	Use:     "mutual-funds-family",
+	Short:   "MFs families",
+	Long:    "The mutual funds family endpoint provides a comprehensive list of MF families, which are groups of mutual funds managed by the same investment company. This data is useful for users looking to explore or compare different fund families, understand the range of investment options offered by each, and identify potential investment opportunities within specific fund families.",
+	Example: "twelvedata mutual-funds-family",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -50,9 +51,10 @@ var GetMutualFundsFamilyCmd = &cobra.Command{
 }
 
 var GetMutualFundsListCmd = &cobra.Command{
-	Use:   "mutual-funds-list",
-	Short: "MFs directory",
-	Long:  "The mutual funds directory endpoint provides a daily updated list of mutual funds, sorted in descending order by their total assets value. This endpoint is useful for retrieving an organized overview of available mutual funds.",
+	Use:     "mutual-funds-list",
+	Short:   "MFs directory",
+	Long:    "The mutual funds directory endpoint provides a daily updated list of mutual funds, sorted in descending order by their total assets value. This endpoint is useful for retrieving an organized overview of available mutual funds.",
+	Example: "twelvedata mutual-funds-list",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -130,9 +132,10 @@ var GetMutualFundsListCmd = &cobra.Command{
 }
 
 var GetMutualFundsTypeCmd = &cobra.Command{
-	Use:   "mutual-funds-type",
-	Short: "MFs types",
-	Long:  "This endpoint provides detailed information on various types of mutual funds, such as equity, bond, and balanced funds, allowing users to understand the different investment options available.",
+	Use:     "mutual-funds-type",
+	Short:   "MFs types",
+	Long:    "This endpoint provides detailed information on various types of mutual funds, such as equity, bond, and balanced funds, allowing users to understand the different investment options available.",
+	Example: "twelvedata mutual-funds-type",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {

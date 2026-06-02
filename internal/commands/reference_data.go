@@ -23,9 +23,10 @@ var (
 )
 
 var GetBondsCmd = &cobra.Command{
-	Use:   "bonds",
-	Short: "Fixed income",
-	Long:  "The fixed income endpoint provides a daily updated list of available bonds. It returns an array containing detailed information about each bond, including identifiers, names, and other relevant attributes.",
+	Use:     "bonds",
+	Short:   "Fixed income",
+	Long:    "The fixed income endpoint provides a daily updated list of available bonds. It returns an array containing detailed information about each bond, including identifiers, names, and other relevant attributes.",
+	Example: "twelvedata bonds",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -73,9 +74,10 @@ var GetBondsCmd = &cobra.Command{
 }
 
 var GetCommoditiesCmd = &cobra.Command{
-	Use:   "commodities",
-	Short: "Commodities",
-	Long:  "The commodities endpoint provides a daily updated list of available commodity pairs, across precious metals, livestock, softs, grains, etc.",
+	Use:     "commodities",
+	Short:   "Commodities",
+	Long:    "The commodities endpoint provides a daily updated list of available commodity pairs, across precious metals, livestock, softs, grains, etc.",
+	Example: "twelvedata commodities",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -114,9 +116,10 @@ var GetCommoditiesCmd = &cobra.Command{
 }
 
 var GetCountriesCmd = &cobra.Command{
-	Use:   "countries",
-	Short: "Countries",
-	Long:  "The countries endpoint provides a comprehensive list of countries, including their ISO codes, official names, capitals, and currencies. This data is essential for applications requiring accurate country information for tasks such as localization, currency conversion, or geographic analysis.",
+	Use:     "countries",
+	Short:   "Countries",
+	Long:    "The countries endpoint provides a comprehensive list of countries, including their ISO codes, official names, capitals, and currencies. This data is essential for applications requiring accurate country information for tasks such as localization, currency conversion, or geographic analysis.",
+	Example: "twelvedata countries",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -169,9 +172,10 @@ var GetCrossListingsCmd = &cobra.Command{
 }
 
 var GetCryptocurrenciesCmd = &cobra.Command{
-	Use:   "cryptocurrencies",
-	Short: "Cryptocurrency pairs",
-	Long:  "The cryptocurrencies endpoint provides a daily updated list of all available cryptos. It returns an array containing detailed information about each cryptocurrency, including its symbol, name, and other relevant identifiers. This endpoint is useful for retrieving a comprehensive catalog of cryptocurrencies for applications that require up-to-date market listings or need to display available crypto assets to users.",
+	Use:     "cryptocurrencies",
+	Short:   "Cryptocurrency pairs",
+	Long:    "The cryptocurrencies endpoint provides a daily updated list of all available cryptos. It returns an array containing detailed information about each cryptocurrency, including its symbol, name, and other relevant identifiers. This endpoint is useful for retrieving a comprehensive catalog of cryptocurrencies for applications that require up-to-date market listings or need to display available crypto assets to users.",
+	Example: "twelvedata cryptocurrencies",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -218,9 +222,10 @@ var GetCryptocurrenciesCmd = &cobra.Command{
 }
 
 var GetCryptocurrencyExchangesCmd = &cobra.Command{
-	Use:   "cryptocurrency-exchanges",
-	Short: "Cryptocurrency exchanges",
-	Long:  "The cryptocurrency exchanges endpoint provides a daily updated list of available cryptocurrency exchanges. It returns an array containing details about each exchange, such as exchange names and identifiers.",
+	Use:     "cryptocurrency-exchanges",
+	Short:   "Cryptocurrency exchanges",
+	Long:    "The cryptocurrency exchanges endpoint provides a daily updated list of available cryptocurrency exchanges. It returns an array containing details about each exchange, such as exchange names and identifiers.",
+	Example: "twelvedata cryptocurrency-exchanges",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -293,9 +298,10 @@ var GetEarliestTimestampCmd = &cobra.Command{
 }
 
 var GetEtfCmd = &cobra.Command{
-	Use:   "etfs",
-	Short: "ETFs",
-	Long:  "The ETFs endpoint provides a daily updated list of all available Exchange-Traded Funds. It returns an array containing detailed information about each ETF, including its symbol, name, and other relevant identifiers. This endpoint is useful for retrieving a comprehensive catalog of ETFs for portfolio management, investment tracking, or financial analysis.",
+	Use:     "etfs",
+	Short:   "ETFs",
+	Long:    "The ETFs endpoint provides a daily updated list of all available Exchange-Traded Funds. It returns an array containing detailed information about each ETF, including its symbol, name, and other relevant identifiers. This endpoint is useful for retrieving a comprehensive catalog of ETFs for portfolio management, investment tracking, or financial analysis.",
+	Example: "twelvedata etfs",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -368,9 +374,10 @@ var GetEtfCmd = &cobra.Command{
 }
 
 var GetExchangeScheduleCmd = &cobra.Command{
-	Use:   "exchange-schedule",
-	Short: "Exchanges schedule",
-	Long:  "The exchanges schedule endpoint provides detailed information about various stock exchanges, including their trading hours and operational days. This data is essential for users who need to know when specific exchanges are open for trading, allowing them to plan their activities around the availability of these markets.",
+	Use:     "exchange-schedule",
+	Short:   "Exchanges schedule",
+	Long:    "The exchanges schedule endpoint provides detailed information about various stock exchanges, including their trading hours and operational days. This data is essential for users who need to know when specific exchanges are open for trading, allowing them to plan their activities around the availability of these markets.",
+	Example: "twelvedata exchange-schedule",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -403,9 +410,10 @@ var GetExchangeScheduleCmd = &cobra.Command{
 }
 
 var GetExchangesCmd = &cobra.Command{
-	Use:   "exchanges",
-	Short: "Exchanges",
-	Long:  "The exchanges endpoint provides a comprehensive list of all available equity exchanges. It returns an array containing detailed information about each exchange, such as exchange code, name, country, and timezone. This data is updated daily.",
+	Use:     "exchanges",
+	Short:   "Exchanges",
+	Long:    "The exchanges endpoint provides a comprehensive list of all available equity exchanges. It returns an array containing detailed information about each exchange, such as exchange code, name, country, and timezone. This data is updated daily.",
+	Example: "twelvedata exchanges",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -447,9 +455,10 @@ var GetExchangesCmd = &cobra.Command{
 }
 
 var GetForexPairsCmd = &cobra.Command{
-	Use:   "forex-pairs",
-	Short: "Forex pairs",
-	Long:  "The forex pairs endpoint provides a comprehensive list of all available foreign exchange currency pairs. It returns an array of forex pairs, which is updated daily.",
+	Use:     "forex-pairs",
+	Short:   "Forex pairs",
+	Long:    "The forex pairs endpoint provides a comprehensive list of all available foreign exchange currency pairs. It returns an array of forex pairs, which is updated daily.",
+	Example: "twelvedata forex-pairs",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -492,9 +501,10 @@ var GetForexPairsCmd = &cobra.Command{
 }
 
 var GetFundsCmd = &cobra.Command{
-	Use:   "funds",
-	Short: "Funds",
-	Long:  "The funds endpoint provides a daily updated list of available investment funds. It returns an array containing detailed information about each fund, including identifiers, names, and other relevant attributes.",
+	Use:     "funds",
+	Short:   "Funds",
+	Long:    "The funds endpoint provides a daily updated list of available investment funds. It returns an array containing detailed information about each fund, including identifiers, names, and other relevant attributes.",
+	Example: "twelvedata funds",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -558,9 +568,10 @@ var GetFundsCmd = &cobra.Command{
 }
 
 var GetInstrumentTypeCmd = &cobra.Command{
-	Use:   "instrument-type",
-	Short: "Instrument type",
-	Long:  "The instrument type endpoint lists all available financial instrument types, such as stocks, ETFs, and cryptos. This information is essential for users to identify and categorize different financial instruments when accessing or analyzing market data.",
+	Use:     "instrument-type",
+	Short:   "Instrument type",
+	Long:    "The instrument type endpoint lists all available financial instrument types, such as stocks, ETFs, and cryptos. This information is essential for users to identify and categorize different financial instruments when accessing or analyzing market data.",
+	Example: "twelvedata instrument-type",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -577,9 +588,10 @@ var GetInstrumentTypeCmd = &cobra.Command{
 }
 
 var GetIntervalsCmd = &cobra.Command{
-	Use:   "intervals",
-	Short: "Intervals List",
-	Long:  "The intervals endpoint provides a list of supported time intervals that can be used for querying financial data.",
+	Use:     "intervals",
+	Short:   "Intervals List",
+	Long:    "The intervals endpoint provides a list of supported time intervals that can be used for querying financial data.",
+	Example: "twelvedata intervals",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -596,9 +608,10 @@ var GetIntervalsCmd = &cobra.Command{
 }
 
 var GetMarketStateCmd = &cobra.Command{
-	Use:   "market-state",
-	Short: "Market state",
-	Long:  "The market state endpoint provides real-time information on the operational status of all available stock exchanges. It returns data on whether each exchange is currently open or closed, along with the time remaining until the next opening or closing. This endpoint is useful for users who need to monitor exchange hours and plan their trading activities accordingly.",
+	Use:     "market-state",
+	Short:   "Market state",
+	Long:    "The market state endpoint provides real-time information on the operational status of all available stock exchanges. It returns data on whether each exchange is currently open or closed, along with the time remaining until the next opening or closing. This endpoint is useful for users who need to monitor exchange hours and plan their trading activities accordingly.",
+	Example: "twelvedata market-state",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -627,9 +640,10 @@ var GetMarketStateCmd = &cobra.Command{
 }
 
 var GetStocksCmd = &cobra.Command{
-	Use:   "stocks",
-	Short: "Stocks",
-	Long:  "The stocks endpoint provides a daily updated list of all available stock symbols. It returns an array containing the symbols, which can be used to identify and access specific stock data across various services. This endpoint is essential for users needing to retrieve the latest stock symbol information for further data requests or integration into financial applications.",
+	Use:     "stocks",
+	Short:   "Stocks",
+	Long:    "The stocks endpoint provides a daily updated list of all available stock symbols. It returns an array containing the symbols, which can be used to identify and access specific stock data across various services. This endpoint is essential for users needing to retrieve the latest stock symbol information for further data requests or integration into financial applications.",
+	Example: "twelvedata stocks",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -740,9 +754,10 @@ var GetSymbolSearchCmd = &cobra.Command{
 }
 
 var GetTechnicalIndicatorsCmd = &cobra.Command{
-	Use:   "technical-indicators",
-	Short: "Technical indicators",
-	Long:  "The technical indicators endpoint provides a comprehensive list of available technical indicators, each represented as an object. This endpoint is useful for developers looking to integrate a variety of technical analysis tools into their applications, allowing for streamlined access to indicator data without needing to manually configure each one.",
+	Use:     "technical-indicators",
+	Short:   "Technical indicators",
+	Long:    "The technical indicators endpoint provides a comprehensive list of available technical indicators, each represented as an object. This endpoint is useful for developers looking to integrate a variety of technical analysis tools into their applications, allowing for streamlined access to indicator data without needing to manually configure each one.",
+	Example: "twelvedata technical-indicators",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {

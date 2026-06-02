@@ -23,9 +23,10 @@ var (
 )
 
 var GetApiUsageCmd = &cobra.Command{
-	Use:   "api-usage",
-	Short: "API usage",
-	Long:  "The API Usage endpoint provides detailed information on your current API usage statistics. It returns data such as the number of requests made, remaining requests, and the reset time for your usage limits. This endpoint is essential for monitoring and managing your API consumption to ensure you stay within your allocated limits.",
+	Use:     "api-usage",
+	Short:   "API usage",
+	Long:    "The API Usage endpoint provides detailed information on your current API usage statistics. It returns data such as the number of requests made, remaining requests, and the reset time for your usage limits. This endpoint is essential for monitoring and managing your API consumption to ensure you stay within your allocated limits.",
+	Example: "twelvedata api-usage",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {

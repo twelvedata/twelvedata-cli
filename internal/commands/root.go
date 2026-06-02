@@ -29,9 +29,13 @@ var errorCodesHelp = "\n\n" +
 	"  " + joinChunks(output.ErrorCodes, 4, " | ", "\n  ")
 
 var rootCmd = &cobra.Command{
-	Use:           "twelvedata",
-	Short:         "Twelve Data CLI",
-	Long:          "Twelve Data CLI — client for Twelve Data's API. \n\nResponses render as pretty-printed JSON by default; --output csv switches to the streaming CSV path for endpoints that support it. On an interactive terminal the CLI shows a spinner and colorized errors; pass --raw (or pipe stdout) to force machine-friendly output.",
+	Use:   "twelvedata",
+	Short: "Twelve Data CLI",
+	Long:  "Twelve Data CLI — client for Twelve Data's API. \n\nResponses render as pretty-printed JSON by default; --output csv switches to the streaming CSV path for endpoints that support it. On an interactive terminal the CLI shows a spinner and colorized errors; pass --raw (or pipe stdout) to force machine-friendly output.",
+	Example: strings.TrimSpace(`
+  twelvedata login                                          # store an API key
+  twelvedata price --symbol AAPL
+  twelvedata time-series --symbol AAPL --interval 1day`),
 	Version:       version.Version,
 	SilenceUsage:  true,
 	SilenceErrors: true,

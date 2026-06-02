@@ -45,6 +45,7 @@ var completionBashCmd = &cobra.Command{
 	Use:                   "bash",
 	Short:                 "Generate the bash completion script",
 	DisableFlagsInUseLine: true,
+	Example:               "  source <(twelvedata completion bash)",
 	Long: `Generate the bash completion script.
 
 Source it for the current shell:
@@ -69,6 +70,7 @@ var completionZshCmd = &cobra.Command{
 	Use:                   "zsh",
 	Short:                 "Generate the zsh completion script",
 	DisableFlagsInUseLine: true,
+	Example:               "  source <(twelvedata completion zsh)",
 	Long: `Generate the zsh completion script.
 
 Source it for the current shell:
@@ -92,6 +94,7 @@ var completionFishCmd = &cobra.Command{
 	Use:                   "fish",
 	Short:                 "Generate the fish completion script",
 	DisableFlagsInUseLine: true,
+	Example:               "  twelvedata completion fish | source",
 	Long: `Generate the fish completion script.
 
 Source it for the current shell:
@@ -110,6 +113,7 @@ var completionPowerShellCmd = &cobra.Command{
 	Use:                   "powershell",
 	Short:                 "Generate the PowerShell completion script",
 	DisableFlagsInUseLine: true,
+	Example:               "  twelvedata completion powershell | Out-String | Invoke-Expression",
 	Long: `Generate the PowerShell completion script.
 
 Load it for the current session:
@@ -130,6 +134,9 @@ Or persist it in your PowerShell profile:
 var completionInstallCmd = &cobra.Command{
 	Use:   "install [bash|zsh|fish|powershell]",
 	Short: "Install completion into your shell profile",
+	Example: strings.TrimSpace(`
+  twelvedata completion install               # auto-detect $SHELL
+  twelvedata completion install bash          # explicit`),
 	Long: `Write the completion script and wire it into the shell's profile.
 
 If no shell is given, twelvedata auto-detects from $SHELL; on an interactive

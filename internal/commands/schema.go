@@ -37,6 +37,7 @@ var commandsCmd = &cobra.Command{
 	Use:     "commands",
 	Aliases: []string{"schema"},
 	Short:   "Dump the full command tree as JSON for agent discovery",
+	Example: "  twelvedata commands",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		root := buildSchema(rootCmd, "")
 		enc := json.NewEncoder(cmd.OutOrStdout())

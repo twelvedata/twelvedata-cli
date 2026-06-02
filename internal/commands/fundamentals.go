@@ -348,9 +348,10 @@ var GetDividendsCmd = &cobra.Command{
 }
 
 var GetDividendsCalendarCmd = &cobra.Command{
-	Use:   "dividends-calendar",
-	Short: "Dividends calendar",
-	Long:  "The dividends calendar endpoint provides a detailed schedule of upcoming and past dividend events for specified date ranges. By using the `start_date` and `end_date` parameters, users can retrieve a list of companies issuing dividends, including the ex-dividend date and dividend amount. This endpoint is ideal for tracking dividend payouts and planning investment strategies based on dividend schedules.",
+	Use:     "dividends-calendar",
+	Short:   "Dividends calendar",
+	Long:    "The dividends calendar endpoint provides a detailed schedule of upcoming and past dividend events for specified date ranges. By using the `start_date` and `end_date` parameters, users can retrieve a list of companies issuing dividends, including the ex-dividend date and dividend amount. This endpoint is ideal for tracking dividend payouts and planning investment strategies based on dividend schedules.",
+	Example: "twelvedata dividends-calendar",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -491,9 +492,10 @@ var GetEarningsCmd = &cobra.Command{
 }
 
 var GetEarningsCalendarCmd = &cobra.Command{
-	Use:   "earnings-calendar",
-	Short: "Earnings calendar",
-	Long:  "The earnings calendar endpoint provides a schedule of company earnings announcements for a specified date range. By default, it returns earnings data for the current day. Users can customize the date range using the `start_date` and `end_date` parameters to retrieve earnings information for specific periods. This endpoint is useful for tracking upcoming earnings reports and planning around key financial announcements.",
+	Use:     "earnings-calendar",
+	Short:   "Earnings calendar",
+	Long:    "The earnings calendar endpoint provides a schedule of company earnings announcements for a specified date range. By default, it returns earnings data for the current day. Users can customize the date range using the `start_date` and `end_date` parameters to retrieve earnings information for specific periods. This endpoint is useful for tracking upcoming earnings reports and planning around key financial announcements.",
+	Example: "twelvedata earnings-calendar",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -669,9 +671,10 @@ var GetIncomeStatementConsolidatedCmd = &cobra.Command{
 }
 
 var GetIpoCalendarCmd = &cobra.Command{
-	Use:   "ipo-calendar",
-	Short: "IPO calendar",
-	Long:  "The IPO Calendar endpoint provides detailed information on initial public offerings (IPOs), including those that have occurred in the past, are happening today, or are scheduled for the future. Users can access data such as company names, IPO dates, and offering details, allowing them to track and monitor IPO activity efficiently.",
+	Use:     "ipo-calendar",
+	Short:   "IPO calendar",
+	Long:    "The IPO Calendar endpoint provides detailed information on initial public offerings (IPOs), including those that have occurred in the past, are happening today, or are scheduled for the future. Users can access data such as company names, IPO dates, and offering details, allowing them to track and monitor IPO activity efficiently.",
+	Example: "twelvedata ipo-calendar",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -966,9 +969,10 @@ var GetSplitsCmd = &cobra.Command{
 }
 
 var GetSplitsCalendarCmd = &cobra.Command{
-	Use:   "splits-calendar",
-	Short: "Splits calendar",
-	Long:  "The splits calendar endpoint provides a detailed calendar of stock split events within a specified date range. By setting the `start_date` and `end_date` parameters, users can retrieve a list of upcoming or past stock splits, including the company name, split ratio, and effective date. This endpoint is useful for tracking changes in stock structure and planning investment strategies around these events.",
+	Use:     "splits-calendar",
+	Short:   "Splits calendar",
+	Long:    "The splits calendar endpoint provides a detailed calendar of stock split events within a specified date range. By setting the `start_date` and `end_date` parameters, users can retrieve a list of upcoming or past stock splits, including the company name, split ratio, and effective date. This endpoint is useful for tracking changes in stock structure and planning investment strategies around these events.",
+	Example: "twelvedata splits-calendar",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {

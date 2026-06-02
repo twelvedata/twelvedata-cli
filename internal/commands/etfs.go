@@ -23,9 +23,10 @@ var (
 )
 
 var GetETFsFamilyCmd = &cobra.Command{
-	Use:   "etfs-family",
-	Short: "ETFs families",
-	Long:  "Retrieve a comprehensive list of exchange-traded fund (ETF) families, providing users with detailed information on various ETF groups available in the market. This endpoint is ideal for users looking to explore different ETF categories, compare offerings, or integrate ETF family data into their financial applications.",
+	Use:     "etfs-family",
+	Short:   "ETFs families",
+	Long:    "Retrieve a comprehensive list of exchange-traded fund (ETF) families, providing users with detailed information on various ETF groups available in the market. This endpoint is ideal for users looking to explore different ETF categories, compare offerings, or integrate ETF family data into their financial applications.",
+	Example: "twelvedata etfs-family",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -50,9 +51,10 @@ var GetETFsFamilyCmd = &cobra.Command{
 }
 
 var GetETFsListCmd = &cobra.Command{
-	Use:   "etfs-list",
-	Short: "ETFs directory",
-	Long:  "The ETFs directory endpoint provides a daily updated list of exchange-traded funds, sorted by total assets in descending order. This endpoint is useful for retrieving comprehensive ETF data, including fund names and asset values, to assist users in quickly identifying the ETFs available.",
+	Use:     "etfs-list",
+	Short:   "ETFs directory",
+	Long:    "The ETFs directory endpoint provides a daily updated list of exchange-traded funds, sorted by total assets in descending order. This endpoint is useful for retrieving comprehensive ETF data, including fund names and asset values, to assist users in quickly identifying the ETFs available.",
+	Example: "twelvedata etfs-list",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {
@@ -120,9 +122,10 @@ var GetETFsListCmd = &cobra.Command{
 }
 
 var GetETFsTypeCmd = &cobra.Command{
-	Use:   "etfs-type",
-	Short: "ETFs types",
-	Long:  "The ETFs Types endpoint provides a concise list of ETF categories by market (e.g., Singapore, United States), including types like 'Equity Precious Metals' and 'Large Blend.' It supports targeted investment research and portfolio diversification.",
+	Use:     "etfs-type",
+	Short:   "ETFs types",
+	Long:    "The ETFs Types endpoint provides a concise list of ETF categories by market (e.g., Singapore, United States), including types like 'Equity Precious Metals' and 'Large Blend.' It supports targeted investment research and portfolio diversification.",
+	Example: "twelvedata etfs-type",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		api, err := client.New(cmd)
 		if err != nil {

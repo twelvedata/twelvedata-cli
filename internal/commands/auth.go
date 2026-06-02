@@ -32,8 +32,9 @@ Environment variables:
 }
 
 var authListCmd = &cobra.Command{
-	Use:   "list",
-	Short: "List profiles",
+	Use:     "list",
+	Short:   "List profiles",
+	Example: "  twelvedata auth list",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		profiles, err := auth.ListProfiles()
 		if err != nil {
